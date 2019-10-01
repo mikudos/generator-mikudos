@@ -1,0 +1,30 @@
+{
+  "name": "generator-mikudos",
+  "version": "1.0.0",
+  "description": "yo generator for mikudos service frame-work",
+  "main": "index.js",
+  "scripts": {
+    "test": "mikudos test"
+  },
+  "files": [
+      "generators"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikudos/generator-mikudos.git"
+  },
+  "keywords": [
+    "yeoman-generator",
+    "generator-mikudos",
+    "mikudos"
+  ],
+  "dependencies": {
+    "yeoman-generator": "^4.1.0"
+  },
+  "author": "yue",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mikudos/generator-mikudos/issues"
+  },
+  "homepage": "https://github.com/mikudos/generator-mikudos#readme"
+}
