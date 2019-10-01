@@ -7,7 +7,7 @@
     "test": "mikudos test"
   },
   "files": [
-      "generators"
+    "generators"
   ],
   "repository": {
     "type": "git",
