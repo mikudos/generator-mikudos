@@ -1,6 +1,7 @@
 # generator-mikudos
 
 > A Yeoman generator for a aggregation of mikudos micro service application
+Generate micro service code based on the GRPC Proto file.
 
 ## Installation
 
@@ -28,4 +29,16 @@ Generate your service app and follow the prompts.
 
 ```bash
 yo mikudos
+```
+
+Generate your protos project for centralised proto file management as services description.
+
+```bash
+yo mikudos:protos
+```
+
+Generate your deployment project for helm deployment with centralised deployment file management.
+
+```bash
+yo mikudos:deployment
 ```
