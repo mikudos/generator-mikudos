@@ -9,9 +9,6 @@ module.exports = class extends Generator {
 
         // Next, add your custom code
         this.option('babel'); // This method adds support for a `--babel` flag
-
-        this.option("name", { type: String, required: true });
-        this.log("option", this.options.name);
     }
     method1() {
         this.log('method 1 just ran');
@@ -25,29 +22,9 @@ module.exports = class extends Generator {
     async prompting() {
         this.answers = await this.prompt([
             {
-                type: "list",
-                name: "lang",
-                message: "Your project name",
-                choices: [
-                    {
-                        name: "Node.js",
-                        value: 1
-                    },
-                    {
-                        name: "Golang",
-                        value: 2
-                    },
-                    {
-                        name: "Python3.7",
-                        value: 3,
-                        short: "python"
-                    }
-                ]
-            },
-            {
                 type: "input",
                 name: "name",
-                message: "Your project name",
+                message: "Your Python project name",
                 default: this.appname // Default to current folder name
             },
             {
