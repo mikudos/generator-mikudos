@@ -50,13 +50,13 @@ module.exports = class extends Generator {
         ]);
         switch (this.answers["lang"]) {
             case 1:
-                genName = "node"
+                genName += "node"
                 break;
             case 2:
-                genName = "golang"
+                genName += "golang"
                 break;
             case 3:
-                genName = "python"
+                genName += "python"
                 break;
         }
         return genName;
@@ -64,12 +64,12 @@ module.exports = class extends Generator {
 
     async initializing() { }
     async prompting() {
-        let genName
+        let genName = "mikudos:"
         if (SpecialParams.includes(this.options.name)) {
-            this.composeWith(require.resolve(`../../generators/${this.options.name}`), { preprocessor: 'sass' });
+            this.composeWith(`${genName}${this.options.name}`, { preprocessor: 'sass' });
         } else {
             genName = await this._genNormal(genName)
-            this.composeWith(require.resolve(`../../generators/${genName}_${this.options.name}`), { preprocessor: 'sass' });
+            this.composeWith(`${genName}_${this.options.name}`, { preprocessor: 'sass' });
         }
     }
     async configuring() { }
@@ -77,8 +77,6 @@ module.exports = class extends Generator {
     async writing() {
         if (SpecialParams.includes(this.options.name)) return
         this.log("language type", this.answers.lang);
-        this.log("app name", this.answers.name);
-        this.log("cool feature", this.answers.cool);
     }
     async conflicts() { }
     async install() { }
