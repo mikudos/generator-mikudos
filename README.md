@@ -25,14 +25,20 @@ Create a directory for your new micro service.
 mkdir my-new-service; cd my-new-service/
 ```
 
+Generate your service app and follow the prompts.
+
+```bash
+yo mikudos
+```
+
 Generate your protos project for centralised proto file management as services description.
 
 ```bash
 yo mikudos:protos
 ```
 
-Generate your service app and follow the prompts.
+Generate your deployment project for helm deployment with centralised deployment file management.
 
 ```bash
-yo mikudos
+yo mikudos:deployment
 ```
