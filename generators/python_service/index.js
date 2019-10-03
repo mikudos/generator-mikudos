@@ -37,7 +37,6 @@ module.exports = class extends Generator {
     async configuring() { }
     async default() { }
     async writing() {
-        this.log("language type", this.answers.lang);
         this.log("app name", this.answers.name);
         this.log("cool feature", this.answers.cool);
     }
