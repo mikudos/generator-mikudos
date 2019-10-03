@@ -23,8 +23,8 @@ module.exports = class extends Generator {
         this.answers = await this.prompt([
             {
                 type: "input",
-                name: "name",
-                message: "Your Golang service name",
+                name: "methodName",
+                message: "Your Golang service method name",
                 default: this.appname // Default to current folder name
             },
             {

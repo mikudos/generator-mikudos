@@ -1,5 +1,6 @@
 var Generator = require('yeoman-generator');
 var inquirer = require('inquirer');
+const yosay = require('yosay');
 const _ = require('lodash');
 
 const SpecialParams = ["protos", "deployment", "schedule", "message"]
@@ -64,11 +65,7 @@ module.exports = class extends Generator {
 
     async initializing() { }
     async prompting() {
-        this.log('\n' +
-            '+---------------------------------------------------+\n' +
-            '| M I K U D O S | p r o j e c t | g e n e r a t o r |\n' +
-            '+---------------------------------------------------+\n' +
-            '\n');
+        this.log(yosay('Welcome to the MIKUDOS Project Generator!'));
         let genName = "mikudos:"
         if (SpecialParams.includes(this.options.name)) {
             this.composeWith(`${genName}${this.options.name}`, { preprocessor: 'sass' });
