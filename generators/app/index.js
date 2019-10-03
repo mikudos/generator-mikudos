@@ -23,6 +23,11 @@ module.exports = class extends Generator {
 
     async initializing() { }
     async prompting() {
+        this.log('\n' +
+            '+---------------------------------------------------+\n' +
+            '| M I K U D O S | p r o j e c t | g e n e r a t o r |\n' +
+            '+---------------------------------------------------+\n' +
+            '\n');
         this.answers = await this.prompt([
             {
                 type: "list",
