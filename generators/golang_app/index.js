@@ -1,5 +1,7 @@
 var Generator = require('yeoman-generator');
 var inquirer = require('inquirer');
+const fs = require('fs');
+const path = require('path');
 const mkdir = require('mkdirp');
 
 module.exports = class extends Generator {
@@ -59,21 +61,48 @@ module.exports = class extends Generator {
         this.log("app repoUrl", this.answers.repoUrl);
         this.log("cool feature", this.answers.cool);
         let dirs = {}
-        dirs.configsDir = this.destinationPath('configs');
-        dirs.brokerDir = this.destinationPath('broker');
-        dirs.clientsDir = this.destinationPath('clients');
-        dirs.deploymentDir = this.destinationPath('deployment');
-        dirs.servicesDir = this.destinationPath('handler');
-        dirs.dbDir = this.destinationPath('db');
-        dirs.modelsDir = this.destinationPath('models');
+        dirs.configsDir = 'config';
+        dirs.brokerDir = 'broker';
+        dirs.clientsDir = 'clients';
+        dirs.deploymentDir = 'deployment';
+        dirs.servicesDir = 'handler';
+        dirs.dbDir = 'db';
+        dirs.modelsDir = 'models';
+        var configObj = {
+            appName: this.answers.projectName,
+            serviceName: this.answers.serviceName,
+            repoUrl: this.answers.repoUrl
+        }
         for (const key in dirs) {
             if (dirs.hasOwnProperty(key)) {
                 const element = dirs[key];
-                mkdir.sync(element);
+                mkdir.sync(this.destinationPath(element));
+                let files = fs.readdirSync(this.templatePath(element))
+                this.log("element:", this.templatePath(element))
+                this.log("files:", files)
             }
         }
+        var rootFiles = ['.gitignore', '.dockerignore', 'Dockerfile', 'crons.yaml', 'LICENSE', 'update_proto.sh']
+        var rootTemplate = ['Makefile', 'README.md', '_main.go', '_go.mod']
+        // rootFiles.map(fname => {
+        //     this.fs.copy(
+        //         this.templatePath(fname),
+        //         path.join("./", fname)
+        //     )
+        // })
+        // rootTemplate.map(fname => {
+        //     let fName = fname.replace(/^_/, "")
+        //     this.fs.copyTpl(
+        //         this.templatePath(fname),
+        //         path.join("./", fName),
+        //         configObj
+        //     )
+        // })
     }
     async conflicts() { }
     async install() { }
-    async end() { }
+    async end() {
+        // add exicute right to the bash file
+        fs.chmodSync(path.join("./", 'update_proto.sh'), 755)
+    }
 };

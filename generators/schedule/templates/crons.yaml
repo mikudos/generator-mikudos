@@ -1,0 +1,7 @@
+CronJobs:
+  2:
+    schedule: '{"period":"@every 5s","scheduleName":"测试 ai.SayHello 任务(GRPC)(GRPC)","ScheduleComment":"每隔5秒钟调用一次ai.SayHello","Id":2}'
+    grpc: '{"ClientName":"ai","MethodName":"SayHello","PayloadStr":"{\"name\":\"Yue
+      Guanyu\",\"age\":12}"}'
+    brokerevent: ""
+OneTimeJobs: {}
