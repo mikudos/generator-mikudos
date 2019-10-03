@@ -3,7 +3,7 @@ var inquirer = require('inquirer');
 const yosay = require('yosay');
 const _ = require('lodash');
 
-const SpecialParams = ["protos", "deployment", "schedule", "message"]
+const SpecialParams = ["project", "protos", "deployment", "schedule", "message"]
 const ParamEnum = ["app", "service"]
 
 module.exports = class extends Generator {

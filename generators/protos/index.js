@@ -1,15 +1,20 @@
 var Generator = require('yeoman-generator');
 var inquirer = require('inquirer');
 const _ = require('lodash');
+const path = require('path');
+const mkdir = require('mkdirp');
 
 module.exports = class extends Generator {
     // The name `constructor` is important here
     constructor(args, opts) {
         // Calling the super constructor is important so our generator is correctly set up
         super(args, opts);
+
+        this.option("folder", { type: String, required: false })
+        this.option("name", { type: String, required: false })
     }
     method1() {
-        this.log('method 1 just ran');
+        this.log(this.options, this.destinationPath(this.options["name"] + "/proto/" + "users"));
     }
 
     method2() {
@@ -37,9 +42,22 @@ module.exports = class extends Generator {
                 message: `Do you want to generate all proto file for micro_service within ${JSON.stringify(protos)}`
             }
         ])
+        var configObj = {
+            appName: this.answers.projectName,
+            serviceName: this.answers.serviceName,
+            repoUrl: this.answers.repoUrl
+        }
         if (this.answers.confirm) {
             this.answers.protos = protos
             this.log("confirm:", JSON.stringify(protos))
+            for (const proto of this.answers.protos) {
+                mkdir.sync(this.destinationPath(`${this.options["name"]}/proto/${proto}`));
+                this.fs.copyTpl(
+                    this.templatePath("_proto.proto"),
+                    path.join(`${this.options["name"]}/proto/${proto}/${proto}.proto`),
+                    configObj
+                )
+            }
         }
     }
     async configuring() { }
