@@ -1,15 +1,5 @@
 package main
 
-import(
-"fmt"
-"<%=repoUrl%>/broker"
-)
-
-func main() {
-	fmt.Println(hello.BuildHello())
-}
-package main
-
 import (
 	"fmt"
 	"log"
