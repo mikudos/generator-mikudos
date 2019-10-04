@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: event
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-svc
+  namespace: event
+  labels:
+    app: mysql
+spec:
+  ports:
+    - port: 3306
+      name: server
+    - port: 50051
+      name: operator
+  clusterIP: None
+  selector:
+    app: mysql
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: event-mysql-8.0
+  namespace: event
+  labels:
+    app: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      name: mysql-8.0
+      labels:
+        app: mysql
+        version: v8.0
+    spec:
+      containers:
+        - image: mysql:8.0
+          name: mysql
+          resources:
+            requests:
+              cpu: "20m"
+              memory: "55M"
+          args: ["--default-authentication-plugin=mysql_native_password"]
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "EventMysqlServerPassword"
+          ports:
+            - containerPort: 3306

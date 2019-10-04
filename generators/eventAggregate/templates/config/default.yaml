@@ -1,0 +1,11 @@
+---
+port: 50051
+mongosslAuth: false
+mongodb: "yue:qiushanyu666@127.0.0.1:27017/yue"
+mongoSSL: ""
+mysql:
+  service: "127.0.0.1"
+  port: 3306
+  username: "root"
+  password: "EventMysqlServerPassword"
+  dbName: "events"
