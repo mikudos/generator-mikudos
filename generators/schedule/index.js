@@ -12,6 +12,10 @@ module.exports = class extends Generator {
 
         // Next, add your custom code
         this.option('babel'); // This method adds support for a `--babel` flag
+
+        this.option("projectName", { type: String, required: false })
+        this.option("name", { type: String, required: false })
+        this.option("folder", { type: String, required: false })
     }
     method1() {
         this.log('method 1 just ran');
@@ -27,19 +31,19 @@ module.exports = class extends Generator {
             {
                 type: "input",
                 name: "projectName",
-                message: "Your Project name",
-                default: path.basename(path.resolve("../")) // Default to parent folder name
+                message: "(schedule)Your Project name",
+                default: this.options["projectName"] || path.basename(path.resolve("../")) // Default to parent folder name
             },
             {
                 type: "input",
                 name: "serviceName",
-                message: "Your micro Schedule service name",
-                default: this.appname // Default to current folder name
+                message: "(schedule)Your micro Schedule service name",
+                default: this.options["name"] || this.appname // Default to current folder name
             },
             {
                 type: "input",
                 name: "version",
-                message: "Your micro Schedule service version",
+                message: "(schedule)Your micro Schedule service version",
                 default: "0.0.1"
             },
             {
@@ -81,8 +85,9 @@ module.exports = class extends Generator {
         }
         for (const key in dirs) {
             if (dirs.hasOwnProperty(key)) {
-                const element = dirs[key];
-                mkdir.sync(this.destinationPath(element));
+                let element = dirs[key], eleWithName;
+                if (this.options["name"]) eleWithName = this.options["name"] + "/" + element;
+                mkdir.sync(this.destinationPath(eleWithName || element));
                 let files = fs.readdirSync(this.templatePath(element))
                 this.log("files:", files)
                 files.map(f => {
@@ -91,7 +96,7 @@ module.exports = class extends Generator {
                         let fName = f.replace(/^_/, "")
                         this.fs.copyTpl(
                             this.templatePath(`${element}/${f}`),
-                            path.join("./", `${element}/${fName}`),
+                            path.join("./", `${eleWithName || element}/${fName}`),
                             configObj
                         )
                     }
@@ -101,15 +106,18 @@ module.exports = class extends Generator {
         var rootFiles = ['.gitignore', '.dockerignore', 'Dockerfile', 'crons.yaml', 'LICENSE', 'update_proto.sh']
         var rootTemplate = ['Makefile', 'README.md', '_main.go', '_go.mod']
         for (let index = 0; index < rootFiles.length; index++) {
-            const fname = rootFiles[index];
+            let fname = rootFiles[index];
             this.fs.copy(
                 this.templatePath(fname),
-                path.join("./", fname)
+                path.join("./", this.options["name"] ? this.options["name"] + "/" + fname : fname)
             )
         }
         for (let index = 0; index < rootTemplate.length; index++) {
-            const fname = rootTemplate[index];
+            let fname = rootTemplate[index];
             let fName = fname.replace(/^_/, "")
+            if (this.options["name"]) {
+                fName = this.options["name"] + "/" + fName;
+            }
             this.fs.copyTpl(
                 this.templatePath(fname),
                 path.join("./", fName),
@@ -121,6 +129,6 @@ module.exports = class extends Generator {
     async install() { }
     async end() {
         // add exicute right to the bash file
-        fs.chmodSync(path.join("./", 'update_proto.sh'), 755)
+        fs.chmodSync(path.join("./", this.options["name"] ? this.options["name"] + "/" + 'update_proto.sh' : 'update_proto.sh'), 755)
     }
 };

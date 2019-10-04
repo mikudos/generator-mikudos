@@ -9,7 +9,7 @@ module.exports = class extends Generator {
     constructor(args, opts) {
         // Calling the super constructor is important so our generator is correctly set up
         super(args, opts);
-
+        this.option("projectName", { type: String, required: false })
         this.option("folder", { type: String, required: false })
         this.option("name", { type: String, required: false })
     }
@@ -21,8 +21,19 @@ module.exports = class extends Generator {
         this.log('method 2 just ran');
     }
 
-    async initializing() { }
+    async initializing() {
+    }
     async prompting() {
+        if (!this.options["name"]) {
+            let conf = await this.prompt([
+                {
+                    type: "input",
+                    name: "name",
+                    message: "Add proto for micro_service with name:",
+                    default: this.appname // Default to current folder name
+                }
+            ])
+        }
         let protos = [], proto;
         do {
             proto = await this.prompt([

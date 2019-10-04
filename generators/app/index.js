@@ -5,6 +5,7 @@ const _ = require('lodash');
 
 const SpecialParams = ["project", "protos", "deployment", "schedule", "message"]
 const ParamEnum = ["app", "service"]
+const genName = "mikudos:"
 
 module.exports = class extends Generator {
     // The name `constructor` is important here
@@ -67,15 +68,35 @@ module.exports = class extends Generator {
     async initializing() { }
     async prompting() {
         this.log(yosay('Welcome to the MIKUDOS Project Generator!'));
-        let genName = "mikudos:"
         if (SpecialParams.includes(this.options.name)) {
-            this.composeWith(`${genName}${this.options.name}`, { preprocessor: 'sass' });
+            this.composeWith(`${genName}${this.options.name}`, { projectName: this.appname, name: `${this.appname}_${this.options.name}`, folder: `${this.appname}/${this.appname}_${this.options.name}` });
         } else {
             genName = await this._genNormal(genName)
-            this.composeWith(`${genName}_${this.options.name}`, { preprocessor: 'sass' });
+            this.composeWith(`${genName}_${this.options.name}`, { projectName: this.appname, name: `${this.appname}_${this.options.name}`, folder: `${this.appname}/${this.appname}_${this.options.name}` });
         }
     }
-    async configuring() { }
+    async configuring() {
+        if (this.options.name == "project") {
+            let confirm = await this.prompt([
+                {
+                    type: "confirm",
+                    name: "schedule",
+                    message: `Do you want to generate a schedule service within your project?`
+                },
+                {
+                    type: "confirm",
+                    name: "eventAggregate",
+                    message: `Do you want to generate a event aggregate service within your project?`
+                }
+            ])
+            if (confirm['schedule']) {
+                this.composeWith(`${genName}schedule`, { projectName: this.appname, name: this.appname + "_schedule", folder: `${this.appname}/${this.appname}_schedule` });
+            }
+            if (confirm['eventAggregate']) {
+                this.composeWith(`${genName}eventAggregate`, { projectName: this.appname, name: this.appname + "_event_aggregate", folder: `${this.appname}/${this.appname}_event_aggregate` });
+            }
+        }
+    }
     async default() { }
     async writing() {
         if (SpecialParams.includes(this.options.name)) return
