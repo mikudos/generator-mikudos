@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/Shopify/sarama"
-	"github.com/yueguanyu/language_master_schedule/config"
+	"<%=repoUrl%>/config"
 )
 
 // BrokerInstance faaa

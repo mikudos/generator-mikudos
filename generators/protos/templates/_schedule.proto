@@ -1,0 +1,58 @@
+syntax = "proto3";
+// import "proto/include/google/protobuf/any.proto";
+package schedule;
+
+service ScheduleService {
+    rpc ListSchedule (ListScheduleRequest) returns (stream Schedule) {}
+    rpc CreateOneTimeGrpcSchedule (CreateGrpcScheduleRequest) returns (Schedule) {}
+    rpc CreateGrpcSchedule (CreateGrpcScheduleRequest) returns (Schedule) {}
+    rpc UpdateGrpcSchedule (UpdateGrpcScheduleRequest) returns (Schedule) {}
+    rpc CreateOneTimeBrokerSchedule (CreateBrokerScheduleRequest) returns (Schedule) {}
+    rpc CreateBrokerSchedule (CreateBrokerScheduleRequest) returns (Schedule) {}
+    rpc UpdateBrokerSchedule (UpdateBrokerScheduleRequest) returns (Schedule) {}
+    rpc CancelSchedule (Schedule) returns (Schedule);
+}
+
+message ListScheduleRequest {
+    int32 type = 1; // 0: All; 1: Cron; 2: Onetime
+}
+
+message CreateGrpcScheduleRequest {
+    Schedule schedule = 2;
+    GrpcCall grpcCall = 3;
+}
+
+message UpdateGrpcScheduleRequest {
+    Schedule schedule = 2;
+    GrpcCall grpcCall = 3;
+}
+
+message CreateBrokerScheduleRequest {
+    Schedule schedule = 2;
+    BrokerEvent brokerEvent = 3;
+}
+
+message UpdateBrokerScheduleRequest {
+    Schedule schedule = 2;
+    BrokerEvent brokerEvent = 3;
+}
+
+message Schedule {
+    string period = 1;
+    string scheduleName = 2;
+    string ScheduleComment = 3;
+    int32   Id = 4;
+    // google.protobuf.Any any = 7;
+}
+
+message GrpcCall {
+    string ClientName = 1;
+	string MethodName = 2;
+	string PayloadStr = 3;
+}
+
+message BrokerEvent {
+    string Topic = 1;
+    string Key = 2;
+    string Message = 3;
+}

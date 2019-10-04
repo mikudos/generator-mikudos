@@ -81,7 +81,7 @@ module.exports = class extends Generator {
         this.answers.projectName = this.answers["projectName"].replace(/[A-Z]/, word => `_${word.toLowerCase()}`).replace(/\s+/g, '_').toLowerCase();
         mkdir.sync(this.destinationPath(this.answers.projectName + "_protos"));
         let genName = "mikudos:";
-        await this.composeWith(`${genName}protos`, { name: this.answers.projectName + "_protos", folder: this.answers.projectName + "/" + this.answers.projectName + "_protos" });
+        await this.composeWith(`${genName}protos`, { name: this.answers.projectName + "_protos", folder: this.answers.projectName + "/" + this.answers.projectName + "_protos", withSchedule: this.confirm["schedule"], withEvAgg: this.confirm["eventAggregate"], withMessage: this.confirm["message"] });
     }
 
     async _configureProtos() {

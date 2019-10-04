@@ -12,13 +12,21 @@ module.exports = class extends Generator {
         this.option("projectName", { type: String, required: false })
         this.option("folder", { type: String, required: false })
         this.option("name", { type: String, required: false })
+        this.option("withSchedule", { type: Boolean })
+        this.option("withEvAgg", { type: Boolean })
+        this.option("withMessage", { type: Boolean })
     }
     method1() {
         this.log(this.options, this.destinationPath(this.options["name"] + "/proto/" + "users"));
     }
 
-    method2() {
-        this.log('method 2 just ran');
+    async _srvProto(srvName) {
+        mkdir.sync(this.destinationPath(`${this.options["name"]}/proto/${srvName}`));
+        this.fs.copyTpl(
+            this.templatePath(`_${srvName}.proto`),
+            path.join(`${this.options["name"]}/proto/${srvName}/${srvName}.proto`),
+            this.configObj
+        )
     }
 
     async initializing() {
@@ -57,7 +65,7 @@ module.exports = class extends Generator {
             this.answers.protos = protos
             this.log("confirm:", JSON.stringify(protos))
             for (const proto of this.answers.protos) {
-                var configObj = {
+                this.configObj = {
                     appName: this.answers.projectName,
                     proto: proto,
                     protoCapitalized: proto.replace(/( |^)[a-z]/g, (L) => L.toUpperCase()),
@@ -67,9 +75,18 @@ module.exports = class extends Generator {
                 this.fs.copyTpl(
                     this.templatePath("_proto.proto"),
                     path.join(`${this.options["name"]}/proto/${proto}/${proto}.proto`),
-                    configObj
+                    this.configObj
                 )
             }
+        }
+        if (this.options["withSchedule"]) {
+            await this._srvProto("schedule")
+        }
+        if (this.options["withEvAgg"]) {
+            await this._srvProto("event_aggregate")
+        }
+        if (this.options["withMessage"]) {
+            await this._srvProto("messages")
         }
     }
     async configuring() { }

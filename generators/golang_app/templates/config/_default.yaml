@@ -1,6 +1,4 @@
 port: 50051
-persistentWritePeriod: "@every 10m"
-persistentFile: "crons.yaml"
 brokers:
   endPoints: "127.0.0.1:9092"
   version: ""
@@ -10,3 +8,13 @@ grpcClients:
   ai: "localhost:50052"
   learn: "learn:50051"
   users: "users:50051"
+mongoDB:
+  url: "yue:qiushanyu666@127.0.0.1:27017/yue"
+  sslUrl: ""
+  sslAuth: false
+mysql:
+  service: "127.0.0.1"
+  port: 3306
+  username: "root"
+  password: "EventMysqlServerPassword"
+  dbName: "events"

@@ -1,4 +1,4 @@
-module github.com/yueguanyu/language_master_schedule
+module <%=repoUrl%>
 
 go 1.12
 

@@ -1,6 +1,6 @@
 FROM alpine
 RUN apk add --update ca-certificates && \
     rm -rf /var/cache/apk/* /tmp/*
-ADD language_master_schedule-srv /language_master_schedule-srv
+ADD <%=serviceName%>-srv /<%=serviceName%>-srv
 WORKDIR /
-ENTRYPOINT [ "/language_master_schedule-srv" ]
+ENTRYPOINT [ "/<%=serviceName%>-srv" ]

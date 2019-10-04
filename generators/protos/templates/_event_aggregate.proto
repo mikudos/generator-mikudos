@@ -1,0 +1,26 @@
+syntax = "proto3";
+package event_aggregate;
+
+service EventAggregateService {
+    rpc createAggregate (CreateAggregateRequest) returns (CreateAggregateResponse);
+    rpc createEvent (CreateEventRequest) returns (CreateEventResponse);
+}
+
+message CreateAggregateRequest {
+    string aggregate_type = 1;
+    string data = 2;
+}
+
+message CreateAggregateResponse {
+    int64 id = 1;
+}
+
+message CreateEventRequest {
+    int64 aggregate_id = 1;
+    string event_type = 2;
+    string data = 3;
+}
+
+message CreateEventResponse {
+    int64 event_id = 1;
+}

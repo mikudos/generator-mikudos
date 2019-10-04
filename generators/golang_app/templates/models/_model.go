@@ -1,7 +1,7 @@
 package models
 
-type Aggregate struct {
-	ID            int64
-	AggregateType string
-	Data          string
+type Model struct {
+	ID	int64
+	Name	string
+	Data	string
 }
