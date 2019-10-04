@@ -1,6 +1,10 @@
 #!/bin/bash
 PROTOPATH=$PWD/proto
-pushd ../language_master_protos
+# create path if not exist
+if [!-d $PROTOPATH]; then
+    mkdir -p $PROTOPATH
+fi
+pushd ../<%=appName%>_protos
 echo "update proto files in: $(pwd)"
 git pull
 sleep 1

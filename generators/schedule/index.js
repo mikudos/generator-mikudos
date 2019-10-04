@@ -86,7 +86,6 @@ module.exports = class extends Generator {
                 let files = fs.readdirSync(this.templatePath(element))
                 this.log("files:", files)
                 files.map(f => {
-                    this.log("element:", fs.statSync(this.templatePath(`${element}/${f}`)).isFile())
                     let fPath = this.templatePath(`${element}/${f}`)
                     if (fs.statSync(fPath).isFile()) {
                         let fName = f.replace(/^_/, "")

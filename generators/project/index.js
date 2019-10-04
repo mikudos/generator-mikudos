@@ -36,7 +36,15 @@ module.exports = class extends Generator {
         let genName = "mikudos:";
         await this.composeWith(`${genName}protos`, { name: this.answers.projectName + "_protos", folder: this.answers.projectName + "/" + this.answers.projectName + "_protos" });
     }
-    async configuring() { }
+    async configuring() {
+        // get all the protos project list
+        let directories = fs.readdirSync(this.destinationPath(this.answers.projectName + "_protos/proto"))
+        // create subproject folder
+        for (const proto of directories) {
+            if (fs.statSync(this.destinationPath(this.answers.projectName + "_protos/proto/" + proto)).isFile()) continue;
+            mkdir.sync(this.destinationPath(`${this.answers.projectName}_${proto}`));
+        }
+    }
     async default() { }
     async writing() {
 
