@@ -1,0 +1,30 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: language_master_learn_service_gateway
+spec:
+  selector:
+    istio: ingressgateway # 使用 istio 默认 ingress gateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: language_master_learn
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - language_master_learn_service_gateway
+  http:
+    - route:
+        - destination:
+            port:
+              number: 50051
+            host: language_master_learn

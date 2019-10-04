@@ -1,0 +1,7 @@
+---
+app: "language_master_learn_service"
+consumer_group: "language_master_learn_service"
+brokers:
+    - "127.0.0.1:9092"
+mongodb: "mongodb+srv://qiushanyu666:qiushanyu666@cluster0-exxbz.mongodb.net/yue?retryWrites=true"
+port: 50051
