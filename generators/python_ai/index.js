@@ -57,7 +57,7 @@ module.exports = class extends Generator {
         this.log("app repoUrl", this.answers.repoUrl);
         this.log("cool feature", this.answers.cool);
         let dirs = {}
-        dirs.configsDir = 'config';
+        dirs.configsDir = 'configs';
         dirs.brokerDir = 'broker';
         dirs.clientsDir = 'clients';
         dirs.deploymentDir = 'deployment';
