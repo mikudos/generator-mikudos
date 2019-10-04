@@ -42,15 +42,16 @@ module.exports = class extends Generator {
                 message: `Do you want to generate all proto file for micro_service within ${JSON.stringify(protos)}`
             }
         ])
-        var configObj = {
-            appName: this.answers.projectName,
-            serviceName: this.answers.serviceName,
-            repoUrl: this.answers.repoUrl
-        }
         if (this.answers.confirm) {
             this.answers.protos = protos
             this.log("confirm:", JSON.stringify(protos))
             for (const proto of this.answers.protos) {
+                var configObj = {
+                    appName: this.answers.projectName,
+                    proto: proto,
+                    protoCapitalized: proto.replace(/( |^)[a-z]/g, (L) => L.toUpperCase()),
+                    protoCapitalizedSingle: proto.replace(/( |$)s/, "").replace(/( |^)[a-z]/g, (L) => L.toUpperCase())
+                }
                 mkdir.sync(this.destinationPath(`${this.options["name"]}/proto/${proto}`));
                 this.fs.copyTpl(
                     this.templatePath("_proto.proto"),

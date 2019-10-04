@@ -1,17 +1,51 @@
 syntax = "proto3";
 // import "proto/include/google/protobuf/any.proto";
-package ai;
+package <%=proto%>;
 
-service AiService {
-    rpc SayHello (HelloRequest) returns (HelloReply) {}
-    rpc SayHi (HelloRequest) returns (HelloReply) {}
+service <%=protoCapitalized%>Service {
+    // your model Requests
+    rpc Find<%=protoCapitalizedSingle%>List (FindRequest) returns (stream <%=protoCapitalizedSingle%>) {}
+    rpc Get<%=protoCapitalizedSingle%>ById (GetRequest) returns (<%=protoCapitalizedSingle%>) {}
+    rpc Create<%=protoCapitalizedSingle%> (Create<%=protoCapitalizedSingle%>Request) returns (<%=protoCapitalizedSingle%>) {}
+    rpc Update<%=protoCapitalizedSingle%> (Update<%=protoCapitalizedSingle%>Request) returns (<%=protoCapitalizedSingle%>) {}
+    rpc Update<%=protoCapitalizedSingle%>ById (Update<%=protoCapitalizedSingle%>ByIdRequest) returns (<%=protoCapitalizedSingle%>) {}
+    rpc Update<%=protoCapitalizedSingle%>Password (Update<%=protoCapitalizedSingle%>PasswordRequest) returns (<%=protoCapitalizedSingle%>) {}
+    rpc Delete<%=protoCapitalizedSingle%> (FindRequest) returns (DeleteResult) {}
+    rpc Delete<%=protoCapitalizedSingle%>ById (GetRequest) returns (DeleteResult) {}
 }
 
-message HelloRequest {
+message FindRequest {
+    string query = 1;
+}
+
+message GetRequest {
+    string id = 1;
+    string query = 2;
+}
+
+message Create<%=protoCapitalizedSingle%>Request {
     string name = 1;
 }
 
-message HelloReply {
-    string message = 1;
-    // google.protobuf.Any any = 7;
+message Update<%=protoCapitalizedSingle%>Request {
+    string query = 1;
+    Create<%=protoCapitalizedSingle%>Request obj = 2;
+}
+
+message Update<%=protoCapitalizedSingle%>ByIdRequest {
+    string id = 1;
+    Create<%=protoCapitalizedSingle%>Request obj = 2;
+}
+
+message DeleteResult {
+    bool state = 1;
+    int32 num = 2;
+}
+
+message <%=protoCapitalizedSingle%> {
+    string id = 1;
+    string name = 2;
+    string createdAt = 13;
+    string updatedAt = 14;
+    string deletedAt = 15;
 }

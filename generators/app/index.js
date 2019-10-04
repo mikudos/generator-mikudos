@@ -17,10 +17,11 @@ module.exports = class extends Generator {
 
         this.argument("name", { type: String, required: false })
         let all = _.concat(SpecialParams, ParamEnum)
+        this.log(`params surport value in ${all} as params`)
+        this.options.name = this.options.name || "app"
         if (all.indexOf(this.options.name) == -1) {
             this.log(`params Error, only surport value in ${all} as params`)
         }
-        this.options.name = this.options.name || "app"
     }
     method1() {
         this.log('method 1 just ran');
