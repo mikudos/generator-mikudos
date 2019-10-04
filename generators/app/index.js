@@ -2,6 +2,10 @@ var Generator = require('yeoman-generator');
 var inquirer = require('inquirer');
 const yosay = require('yosay');
 const _ = require('lodash');
+const fs = require('fs');
+const path = require('path');
+const mkdir = require('mkdirp');
+const cp = require('child_process');
 
 const SpecialParams = ["project", "protos", "deployment", "schedule", "message"]
 const ParamEnum = ["app", "service"]
@@ -65,35 +69,83 @@ module.exports = class extends Generator {
         return genName;
     }
 
-    async initializing() { }
-    async prompting() {
+    async _createProjectProtos() {
+        this.answers = await this.prompt([
+            {
+                type: "input",
+                name: "projectName",
+                message: "Your Project name",
+                default: this.appname // Default to current folder name
+            }
+        ]);
+        this.answers.projectName = this.answers["projectName"].replace(/[A-Z]/, word => `_${word.toLowerCase()}`).replace(/\s+/g, '_').toLowerCase();
+        mkdir.sync(this.destinationPath(this.answers.projectName + "_protos"));
+        let genName = "mikudos:";
+        await this.composeWith(`${genName}protos`, { name: this.answers.projectName + "_protos", folder: this.answers.projectName + "/" + this.answers.projectName + "_protos" });
+    }
+
+    async _configureProtos() {
+        // get all the protos project list
+        let directories = fs.readdirSync(this.destinationPath(this.answers.projectName + "_protos/proto"))
+        // create subproject folder
+        for (const proto of directories) {
+            if (fs.statSync(this.destinationPath(this.answers.projectName + "_protos/proto/" + proto)).isFile()) continue;
+            mkdir.sync(this.destinationPath(`${this.answers.projectName}_${proto}_service/proto`));
+        }
+    }
+
+    async _syncProtoFiles() {
+        // get all the protos project list
+        let directories = fs.readdirSync(this.destinationPath(this.answers.projectName + "_protos/proto"))
+        // create subproject folder
+        for (const proto of directories) {
+            this.spawnCommand("tree", [this.destinationPath(this.answers.projectName + "_protos")])
+            cp.exec(`cp -r ${this.destinationPath(this.answers.projectName + "_protos")}/proto/* ${this.destinationPath(`${this.answers.projectName}_${proto}_service`)}/proto`)
+        }
+    }
+
+    async initializing() {
         this.log(yosay('Welcome to the MIKUDOS Project Generator!'));
-        if (SpecialParams.includes(this.options.name)) {
+        this.confirm = await this.prompt([
+            {
+                type: "confirm",
+                name: "schedule",
+                message: `Do you want to generate a schedule service within your project?`
+            },
+            {
+                type: "confirm",
+                name: "eventAggregate",
+                message: `Do you want to generate a event aggregate service within your project?`
+            },
+            {
+                type: "confirm",
+                name: "message",
+                message: `Do you want to generate a message service with socketIO connection within your project?`
+            }
+        ])
+    }
+    async prompting() {
+        if (this.options.name = 'project') {
+            await this._createProjectProtos()
+        } else if (SpecialParams.includes(this.options.name)) {
             this.composeWith(`${genName}${this.options.name}`, { projectName: this.appname, name: `${this.appname}_${this.options.name}`, folder: `${this.appname}/${this.appname}_${this.options.name}` });
         } else {
             genName = await this._genNormal(genName)
             this.composeWith(`${genName}_${this.options.name}`, { projectName: this.appname, name: `${this.appname}_${this.options.name}`, folder: `${this.appname}/${this.appname}_${this.options.name}` });
         }
+
     }
     async configuring() {
         if (this.options.name == "project") {
-            let confirm = await this.prompt([
-                {
-                    type: "confirm",
-                    name: "schedule",
-                    message: `Do you want to generate a schedule service within your project?`
-                },
-                {
-                    type: "confirm",
-                    name: "eventAggregate",
-                    message: `Do you want to generate a event aggregate service within your project?`
-                }
-            ])
-            if (confirm['schedule']) {
+            await this._configureProtos()
+            if (this.confirm['schedule']) {
                 this.composeWith(`${genName}schedule`, { projectName: this.appname, name: this.appname + "_schedule", folder: `${this.appname}/${this.appname}_schedule` });
             }
-            if (confirm['eventAggregate']) {
+            if (this.confirm['eventAggregate']) {
                 this.composeWith(`${genName}eventAggregate`, { projectName: this.appname, name: this.appname + "_event_aggregate", folder: `${this.appname}/${this.appname}_event_aggregate` });
+            }
+            if (this.confirm['message']) {
+                this.composeWith(`${genName}message`, { projectName: this.appname, name: this.appname + "_message", folder: `${this.appname}/${this.appname}_message` });
             }
         }
     }
@@ -103,6 +155,10 @@ module.exports = class extends Generator {
         this.log("language type", this.answers.lang);
     }
     async conflicts() { }
-    async install() { }
+    async install() {
+        if (this.options.name == "project") {
+            await this._syncProtoFiles() // copy all proto files to all services
+        }
+    }
     async end() { }
 };
