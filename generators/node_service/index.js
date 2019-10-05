@@ -18,7 +18,9 @@ module.exports = class extends Generator {
         this.log('method 2 just ran');
     }
 
-    async initializing() { }
+    async initializing() {
+        // gather all the protos, and select one for generate service
+    }
     async prompting() {
         this.answers = await this.prompt([
             {

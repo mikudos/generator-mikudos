@@ -17,7 +17,9 @@ module.exports = class extends Generator {
         this.log('method 1 just ran');
     }
 
-    async initializing() { }
+    async initializing() {
+        // gather all the protos, and select one for generate service
+    }
     async prompting() {
         this.answers = await this.prompt([
             {
@@ -31,11 +33,6 @@ module.exports = class extends Generator {
                 name: "serviceName",
                 message: "Your Golang micro service name",
                 default: this.appname // Default to current folder name
-            },
-            {
-                type: "confirm",
-                name: "cool",
-                message: "Would you like to enable the Cool feature?"
             }
         ]);
         this.answers.projectName = this.answers["projectName"].replace(/[A-Z]/, word => `_${word.toLowerCase()}`).replace(/\s+/g, '_').toLowerCase();
@@ -62,8 +59,7 @@ module.exports = class extends Generator {
         dirs.clientsDir = 'clients';
         dirs.deploymentDir = 'deployment';
         dirs.servicesDir = 'handler';
-        dirs.dbDir = 'db';
-        dirs.modelsDir = 'models';
+        dirs.modelsDir = 'model';
         var configObj = {
             appName: this.answers.projectName,
             serviceName: this.answers.serviceName,
