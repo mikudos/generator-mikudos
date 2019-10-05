@@ -1,5 +1,5 @@
 IP:=$(shell /sbin/ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:")
-NAME := language_master_user_srv
+NAME := <%=serviceName%>_srv
 SERVICE_VERSION := 0.0.1
 PORT := 50051
 

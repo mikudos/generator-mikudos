@@ -1,5 +1,5 @@
-const sayHello = require('./sayHello')
+const method = require('./Method')
 
 module.exports = function (app) {
-    app.configure(sayHello)
+    app.configure(method)
 };

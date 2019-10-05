@@ -1,3 +1,3 @@
-# language_master_user_service
+# <%=serviceName%>
 
-language_master_user_service
+<%=serviceName%>
