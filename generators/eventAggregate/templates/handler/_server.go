@@ -3,8 +3,8 @@ package handler
 import (
 	"context"
 	"fmt"
-	"operator/db"
-	pb "operator/proto/event_aggregate"
+	"<%=repoUrl%>/db"
+	pb "<%=repoUrl%>/proto/event_aggregate"
 )
 
 // Server 事件驱动服务间流程控制方法，提供基本的数据库操作方法

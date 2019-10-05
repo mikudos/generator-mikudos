@@ -1,5 +1,5 @@
 GOPATH:=$(shell go env GOPATH)
-NAME := language_master_event_aggregate-srv
+NAME := <%=serviceName%>-srv
 SERVICE_VERSION := 0.0.1
 PORT := 50051
 

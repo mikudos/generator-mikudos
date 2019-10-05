@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"log"
 	"net"
-	"operator/config"
-	"operator/handler"
-	pb "operator/proto/event_aggregate"
+	"<%=repoUrl%>/config"
+	"<%=repoUrl%>/handler"
+	pb "<%=repoUrl%>/proto/event_aggregate"
 	"os"
 	"strconv"
 

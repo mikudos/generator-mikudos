@@ -1,4 +1,4 @@
-module operator
+module <%=repoUrl%>
 
 go 1.12
 
