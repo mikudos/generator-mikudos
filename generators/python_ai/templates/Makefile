@@ -1,6 +1,7 @@
 ENV_NAME := language-ai
-NAME := language_master_ai_service
+NAME := <%=serviceName%>_service
 SERVICE_VERSION := 0.0.1
+ENV_FILE := environment.yml
 
 .PHONY: update-proto
 update-proto:
@@ -17,7 +18,7 @@ proto-py: update-proto
 .PHONY: init-env
 init-env: clean-env
 	echo "create conda env $(ENV_NAME)"
-	conda env create -f environment.yml -n $(ENV_NAME)
+	conda env create -f $(ENV_FILE) -n $(ENV_NAME)
 	conda env list
 
 .PHONY: env
@@ -26,7 +27,7 @@ env:
 
 .PHONY: env-update
 env-update:
-	conda env update -n $(ENV_NAME) --file environment.yml  --prune
+	conda env update -n $(ENV_NAME) --file $(ENV_FILE) --prune
 
 .PHONY: clean-env
 clean-env:

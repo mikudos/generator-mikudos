@@ -1,4 +1,4 @@
-name: language-ai
+name: <%=serviceName%>
 channels:
   - https://conda.anaconda.org/menpo
   - conda-forge
