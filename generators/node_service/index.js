@@ -54,7 +54,7 @@ module.exports = class extends Generator {
             {
                 type: "input",
                 name: "name",
-                message: "Your Node service name",
+                message: "Your GRPC method service name",
                 default: this.appname // Default to current folder name
             },
             {
