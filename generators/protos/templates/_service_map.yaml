@@ -1,0 +1,2 @@
+# This file describes the Service mash, from a proto file to a service name.
+# that helps you use your proto folder to find all your services, and then provide a full service map service, from grpc to a Restful API.

@@ -72,7 +72,8 @@ module.exports = class extends Generator {
         dirs.brokerDir = 'broker';
         dirs.clientsDir = 'clients';
         dirs.deploymentDir = 'deployment';
-        dirs.modelsDir = 'model';
+        dirs.servicesDir = 'services';
+        dirs.modelsDir = 'models';
         var configObj = {
             appName: this.answers.projectName,
             serviceName: this.answers.serviceName,
