@@ -9,18 +9,8 @@ update-proto:
 
 .PHONY: proto
 proto:
-	protoc --proto_path=${GOPATH}/src:. --go_out=plugins=grpc:. proto/schedule/*.proto
-	protoc --proto_path=${GOPATH}/src:. --go_out=plugins=grpc:. proto/ai/*.proto
-	protoc --proto_path=${GOPATH}/src:. --go_out=plugins=grpc:. proto/learn/*.proto
-	protoc --proto_path=${GOPATH}/src:. --go_out=plugins=grpc:. proto/messages/*.proto
-	protoc --proto_path=${GOPATH}/src:. --go_out=plugins=grpc:. proto/users/*.proto
-
-.PHONY: proto-js
-proto-js:
-	protoc --js_out=./proto/schedule proto/schedule/schedule.proto
-.PHONY: proto-py
-proto-py:
-	protoc --python_out=. proto/schedule/schedule.proto
+	<% protos.forEach(function(item){ %>protoc --proto_path=${GOPATH}/src:. --go_out=plugins=grpc:. proto/<%=item%>/*.proto
+	<% }); %>
 
 .PHONY: build
 build: proto

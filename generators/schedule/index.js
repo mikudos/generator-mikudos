@@ -25,7 +25,10 @@ module.exports = class extends Generator {
         this.log('method 2 just ran');
     }
 
-    async initializing() { }
+    async initializing() {
+        // gather all the protos, and select one for generate service
+        this.protos = fs.readdirSync(this.destinationPath("./proto"))
+    }
     async prompting() {
         this.answers = await this.prompt([
             {
@@ -39,6 +42,12 @@ module.exports = class extends Generator {
                 name: "serviceName",
                 message: "(schedule)Your micro Schedule service name",
                 default: this.options["name"] || this.appname // Default to current folder name
+            },
+            {
+                type: "list",
+                name: "proto",
+                message: "Select for your service definition a proto file",
+                choices: this.protos.map(proto => { return { name: `${proto}.proto`, value: proto } })
             },
             {
                 type: "input",
@@ -81,7 +90,9 @@ module.exports = class extends Generator {
             appName: this.answers.projectName,
             serviceName: this.answers.serviceName,
             repoUrl: this.answers.repoUrl,
-            version: this.answers.version
+            version: this.answers.version,
+            protos: this.protos,
+            proto: this.answers.proto
         }
         for (const key in dirs) {
             if (dirs.hasOwnProperty(key)) {

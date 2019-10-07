@@ -1,4 +1,4 @@
-ENV_NAME := language-ai
+ENV_NAME := <%=serviceName%>
 NAME := <%=serviceName%>_service
 SERVICE_VERSION := 0.0.1
 ENV_FILE := environment.yml
@@ -13,7 +13,9 @@ update-proto:
 
 .PHONY: proto-py
 proto-py: update-proto
-	python -m grpc_tools.protoc -I. --python_out=. --python_grpc_out=. ./proto/ai/*.proto
+	<% protos.forEach(function(item){ %>
+	python -m grpc_tools.protoc -I. --python_out=. --python_grpc_out=. ./proto/<%=item%>/*.proto
+	<% }); %>
 
 .PHONY: init-env
 init-env: clean-env

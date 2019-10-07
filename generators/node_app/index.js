@@ -17,25 +17,65 @@ module.exports = class extends Generator {
         this.log('method 1 just ran');
     }
 
-    async initializing() { }
+    async copyEveryFile(parentPath, dirs) {
+        for (const key in dirs) {
+            if (dirs.hasOwnProperty(key)) {
+                const element = dirs[key];
+                mkdir.sync(this.destinationPath(parentPath + element));
+                let files = fs.readdirSync(this.templatePath(parentPath + element))
+                this.log("element:", this.templatePath(element))
+                this.log("files:", files)
+            }
+        }
+    }
+
+    async copyRootFile(rootFiles, rootTemplate, configObj) {
+        rootFiles.map(fname => {
+            this.fs.copy(
+                this.templatePath(fname),
+                path.join("./", fname)
+            )
+        })
+        rootTemplate.map(fname => {
+            let fName = fname.replace(/^_/, "")
+            this.fs.copyTpl(
+                this.templatePath(fname),
+                path.join("./", fName),
+                configObj
+            )
+        })
+    }
+
+    async initializing() {
+        // gather all the protos, and select one for generate service
+        this.protos = fs.readdirSync(this.destinationPath("./proto"))
+        console.log("protos:", this.protos);
+    }
     async prompting() {
         this.answers = await this.prompt([
             {
                 type: "input",
                 name: "projectName",
-                message: "Your Golang project name",
-                default: this.appname // Default to current folder name
+                message: `(${this.options["name"] || this.appname})Your Nodejs project name`,
+                default: this.options["projectName"] || path.basename(path.resolve("../")) // Default to current folder name
             },
             {
                 type: "input",
                 name: "serviceName",
-                message: "Your Golang micro service name",
-                default: this.appname // Default to current folder name
+                message: `(${this.options["name"] || this.appname})Your Nodejs micro service name`,
+                default: this.options["name"] || this.appname // Default to current folder name
             },
             {
-                type: "confirm",
-                name: "cool",
-                message: "Would you like to enable the Cool feature?"
+                type: "list",
+                name: "proto",
+                message: "Select for your service definition a proto file",
+                choices: this.protos.map(proto => { return { name: `${proto}.proto`, value: proto } })
+            },
+            {
+                type: "input",
+                name: "version",
+                message: `(${this.options["name"] || this.appname})Your service version`,
+                default: "0.0.1"
             }
         ]);
         this.answers.projectName = this.answers["projectName"].replace(/[A-Z]/, word => `_${word.toLowerCase()}`).replace(/\s+/g, '_').toLowerCase();
@@ -63,36 +103,16 @@ module.exports = class extends Generator {
         dirs.deploymentDir = 'deployment';
         dirs.servicesDir = 'services';
         dirs.modelsDir = 'models';
+        var rootFiles = ['.gitignore', '.dockerignore', 'Dockerfile', 'crons.yaml', 'LICENSE', 'update_proto.sh']
+        var rootTemplate = ['Makefile', 'README.md', '_main.go', '_go.mod']
         var configObj = {
             appName: this.answers.projectName,
             serviceName: this.answers.serviceName,
-            repoUrl: this.answers.repoUrl
+            repoUrl: this.answers.repoUrl,
+            proto: this.answers.proto
         }
-        for (const key in dirs) {
-            if (dirs.hasOwnProperty(key)) {
-                const element = dirs[key];
-                mkdir.sync(this.destinationPath(element));
-                let files = fs.readdirSync(this.templatePath(element))
-                this.log("element:", this.templatePath(element))
-                this.log("files:", files)
-            }
-        }
-        var rootFiles = ['.gitignore', '.dockerignore', 'Dockerfile', 'crons.yaml', 'LICENSE', 'update_proto.sh']
-        var rootTemplate = ['Makefile', 'README.md', '_main.go', '_go.mod']
-        // rootFiles.map(fname => {
-        //     this.fs.copy(
-        //         this.templatePath(fname),
-        //         path.join("./", fname)
-        //     )
-        // })
-        // rootTemplate.map(fname => {
-        //     let fName = fname.replace(/^_/, "")
-        //     this.fs.copyTpl(
-        //         this.templatePath(fname),
-        //         path.join("./", fName),
-        //         configObj
-        //     )
-        // })
+        copyEveryFile("./", dirs, configObj)
+        copyRootFile(rootFiles, rootTemplate, configObj)
     }
     async conflicts() { }
     async install() { }

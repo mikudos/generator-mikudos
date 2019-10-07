@@ -13,7 +13,9 @@ update-proto:
 
 .PHONY: proto-py
 proto-py: update-proto
-	python -m grpc_tools.protoc -I. --python_out=. --python_grpc_out=. ./proto/ai/*.proto
+	<% protos.forEach(function(item){ %>
+	python -m grpc_tools.protoc -I. --python_out=. --python_grpc_out=. ./proto/<%=item%>/*.proto
+	<% }); %>
 
 .PHONY: init-env
 init-env: clean-env

@@ -17,6 +17,9 @@ module.exports = class extends Generator {
         this.log('method 1 just ran');
     }
 
+    async _decodeProtoFile() {
+    }
+
     async initializing() {
         // gather all the protos, and select one for generate service
         this.protos = fs.readdirSync(this.destinationPath("./proto"))
@@ -61,7 +64,9 @@ module.exports = class extends Generator {
         ])
         this.answers.repoUrl = repoUrl["repoUrl"].replace(/^https:\/\//, '').toLowerCase();
     }
-    async configuring() { }
+    async configuring() {
+        await this._decodeProtoFile()
+    }
     async default() { }
     async writing() {
         this.log("app serviceName", this.answers.serviceName);
@@ -78,7 +83,8 @@ module.exports = class extends Generator {
         var configObj = {
             appName: this.answers.projectName,
             serviceName: this.answers.serviceName,
-            repoUrl: this.answers.repoUrl
+            repoUrl: this.answers.repoUrl,
+            proto: this.answers.proto
         }
         for (const key in dirs) {
             if (dirs.hasOwnProperty(key)) {

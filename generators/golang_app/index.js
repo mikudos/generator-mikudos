@@ -17,20 +17,35 @@ module.exports = class extends Generator {
         this.log('method 1 just ran');
     }
 
-    async initializing() { }
+    async initializing() {
+        // gather all the protos, and select one for generate service
+        this.protos = fs.readdirSync(this.destinationPath("./proto"))
+    }
     async prompting() {
         this.answers = await this.prompt([
             {
                 type: "input",
                 name: "projectName",
-                message: "Your Golang project name",
-                default: this.appname // Default to current folder name
+                message: "(Go)Your Project name",
+                default: this.options["projectName"] || path.basename(path.resolve("../")) // Default to parent folder name
             },
             {
                 type: "input",
                 name: "serviceName",
-                message: "Your Golang micro service name",
-                default: this.appname // Default to current folder name
+                message: "(Go)Your micro Golang service name",
+                default: this.options["name"] || this.appname // Default to current folder name
+            },
+            {
+                type: "list",
+                name: "proto",
+                message: "Select for your service definition a proto file",
+                choices: this.protos.map(proto => { return { name: `${proto}.proto`, value: proto } })
+            },
+            {
+                type: "input",
+                name: "version",
+                message: "(Go)Your micro Golang service version",
+                default: "0.0.1"
             },
             {
                 type: "confirm",
@@ -67,7 +82,10 @@ module.exports = class extends Generator {
         var configObj = {
             appName: this.answers.projectName,
             serviceName: this.answers.serviceName,
-            repoUrl: this.answers.repoUrl
+            repoUrl: this.answers.repoUrl,
+            version: this.answers.version,
+            protos: this.protos,
+            proto: this.answers.proto
         }
         for (const key in dirs) {
             if (dirs.hasOwnProperty(key)) {
