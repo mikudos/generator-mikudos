@@ -19,8 +19,10 @@
     "mikudos"
   ],
   "dependencies": {
+    "jscodeshift": "^0.6.4",
     "lodash": "^4.17.15",
     "mkdirp": "^0.5.1",
+    "semver": "^6.3.0",
     "yeoman-generator": "^4.1.0",
     "yosay": "^2.0.2"
   },

@@ -1,6 +1,7 @@
 const Generator = require('yeoman-generator');
+const fs = require('fs');
 const inquirer = require('inquirer');
-const transform = require('./transform');
+const transform = require('../../transform');
 
 module.exports = class extends Generator {
     // The name `constructor` is important here
@@ -15,8 +16,11 @@ module.exports = class extends Generator {
         this.log('method 1 just ran');
     }
 
-    method2() {
-        this.log('method 2 just ran');
+    async _decodeProtoFile() {
+        const servicejs = this.destinationPath('./', 'index.js');
+        let code = this.fs.read(servicejs).toString()
+        const ast = await transform(code).findIdentifiers().logNames().toSource({ quote: 'single' });
+        this.log("ast:", servicejs, ast);
     }
 
     _transformCode(code) {
@@ -48,6 +52,7 @@ module.exports = class extends Generator {
 
     async initializing() {
         // gather all the protos, and select one for generate service
+        this.protos = fs.readdirSync(this.destinationPath("./proto"))
     }
     async prompting() {
         this.answers = await this.prompt([
@@ -63,8 +68,11 @@ module.exports = class extends Generator {
                 message: "Would you like to enable the Cool feature?"
             }
         ]);
+        this.answers.name = this.answers["name"].replace(/[A-Z]/, word => `_${word.toLowerCase()}`).replace(/\s+/g, '_').toLowerCase();
     }
-    async configuring() { }
+    async configuring() {
+        await this._decodeProtoFile()
+    }
     async default() { }
     async writing() {
         this.log("app name", this.answers.name);
