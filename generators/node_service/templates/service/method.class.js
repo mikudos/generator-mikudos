@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-exports.SayHello = class SayHello {
+exports.<%=className%> = class <%=className%> {
     constructor(options) {
         this.options = options || {};
     }

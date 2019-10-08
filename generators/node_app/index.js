@@ -111,8 +111,8 @@ module.exports = class extends Generator {
             repoUrl: this.answers.repoUrl,
             proto: this.answers.proto
         }
-        copyEveryFile("./", dirs, configObj)
-        copyRootFile(rootFiles, rootTemplate, configObj)
+        await this.copyEveryFile("./", dirs, configObj)
+        await this.copyRootFile(rootFiles, rootTemplate, configObj)
     }
     async conflicts() { }
     async install() { }
