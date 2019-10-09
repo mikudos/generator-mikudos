@@ -41,7 +41,7 @@ module.exports = class extends Generator {
                 type: "input",
                 name: "serviceName",
                 message: "(schedule)Your micro Schedule service name",
-                default: this.options["name"] + "_service" || this.appname // Default to current folder name
+                default: (this.options["name"] || this.appname) + "_service" // Default to current folder name
             },
             {
                 type: "list",

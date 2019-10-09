@@ -63,7 +63,7 @@ module.exports = class extends Generator {
                 type: "input",
                 name: "serviceName",
                 message: `(${this.options["name"] || this.appname})Your Nodejs micro service name`,
-                default: this.options["name"] || this.appname // Default to current folder name
+                default: (this.options["name"] || this.appname) + "_service" // Default to current folder name
             },
             {
                 type: "list",
