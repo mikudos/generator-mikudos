@@ -114,8 +114,8 @@ module.exports = class extends Generator {
                 })
             }
         }
-        var rootFiles = ['.gitignore', '.dockerignore', 'Dockerfile', 'crons.yaml', 'LICENSE', 'update_proto.sh']
-        var rootTemplate = ['Makefile', 'README.md', '_main.go', '_go.mod']
+        var rootFiles = ['.gitignore', '.dockerignore', 'Dockerfile', 'crons.yaml', 'LICENSE']
+        var rootTemplate = ['Makefile', 'README.md', '_main.go', '_go.mod', 'update_proto.sh']
         for (let index = 0; index < rootFiles.length; index++) {
             let fname = rootFiles[index];
             this.fs.copy(
@@ -140,6 +140,6 @@ module.exports = class extends Generator {
     async install() { }
     async end() {
         // add exicute right to the bash file
-        fs.chmodSync(path.join("./", this.options["name"] ? this.answers.serviceName + "/" + 'update_proto.sh' : 'update_proto.sh'), 755)
+        fs.chmodSync(path.join("./", this.options["name"] ? this.answers.serviceName + "/" + 'update_proto.sh' : 'update_proto.sh'), 744)
     }
 };

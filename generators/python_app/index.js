@@ -93,8 +93,8 @@ module.exports = class extends Generator {
                 this.log("files:", files)
             }
         }
-        var rootFiles = ['.gitignore', '.dockerignore', 'Dockerfile', 'LICENSE', 'update_proto.sh']
-        var rootTemplate = ['Makefile', 'README.md', '_server.py', '_environment.yml']
+        var rootFiles = ['.gitignore', '.dockerignore', 'Dockerfile', 'LICENSE']
+        var rootTemplate = ['Makefile', 'README.md', '_server.py', '_environment.yml', 'update_proto.sh']
         rootFiles.map(fname => {
             this.fs.copy(
                 this.templatePath(fname),
