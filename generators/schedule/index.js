@@ -41,7 +41,7 @@ module.exports = class extends Generator {
                 type: "input",
                 name: "serviceName",
                 message: "(schedule)Your micro Schedule service name",
-                default: (this.options["name"] || this.appname) + "_service" // Default to current folder name
+                default: (this.options["name"] ? (this.options["name"] + "_service") : null) || this.appname // Default to current folder name
             },
             {
                 type: "list",
@@ -68,7 +68,7 @@ module.exports = class extends Generator {
                 type: 'input',
                 name: 'repoUrl',
                 message: 'What is your repository URL?',
-                default: `github.com / ${this.answers["projectName"]} / ${this.answers["serviceName"]}`
+                default: `github.com/${this.answers["projectName"]}/${this.answers["serviceName"]}`
             }
         ])
         this.answers.repoUrl = repoUrl["repoUrl"].replace(/^https:\/\//, '').toLowerCase();
@@ -102,11 +102,11 @@ module.exports = class extends Generator {
                 let files = fs.readdirSync(this.templatePath(element))
                 this.log("files:", files)
                 files.map(f => {
-                    let fPath = this.templatePath(`${element} / ${f}`)
+                    let fPath = this.templatePath(`${element}/${f}`)
                     if (fs.statSync(fPath).isFile()) {
                         let fName = f.replace(/^_/, "")
                         this.fs.copyTpl(
-                            this.templatePath(`${element} / ${f}`),
+                            this.templatePath(`${element}/${f}`),
                             path.join("./", `${eleWithName || element}/${fName}`),
                             configObj
                         )
