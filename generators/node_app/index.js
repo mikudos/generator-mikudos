@@ -18,7 +18,7 @@ module.exports = class extends Generator {
         this.log('method 1 just ran');
     }
 
-    async copyEveryFile(parentPath, dirs) {
+    async _copyEveryFile(parentPath, dirs) {
         for (const key in dirs) {
             if (dirs.hasOwnProperty(key)) {
                 const element = dirs[key];
@@ -30,21 +30,26 @@ module.exports = class extends Generator {
         }
     }
 
-    async copyRootFile(rootFiles, rootTemplate, configObj) {
-        rootFiles.map(fname => {
+    async _copyRootFile(rootFiles, rootTemplate, configObj) {
+        for (let index = 0; index < rootFiles.length; index++) {
+            let fname = rootFiles[index];
             this.fs.copy(
                 this.templatePath(fname),
-                path.join("./", fname)
+                path.join("./", this.options["name"] ? this.answers.serviceName + "/" + fname : fname)
             )
-        })
-        rootTemplate.map(fname => {
+        }
+        for (let index = 0; index < rootTemplate.length; index++) {
+            let fname = rootTemplate[index];
             let fName = fname.replace(/^_/, "")
+            if (this.options["name"]) {
+                fName = this.answers.serviceName + "/" + fName;
+            }
             this.fs.copyTpl(
                 this.templatePath(fname),
                 path.join("./", fName),
                 configObj
             )
-        })
+        }
     }
 
     async initializing() {
@@ -99,8 +104,7 @@ module.exports = class extends Generator {
         this.log("cool feature", this.answers.cool);
         let dirs = {}
         dirs.configsDir = 'config';
-        dirs.brokerDir = 'broker';
-        dirs.clientsDir = 'clients';
+        // dirs.clientsDir = 'clients';
         dirs.deploymentDir = 'deployment';
         dirs.servicesDir = 'services';
         dirs.modelsDir = 'models';
@@ -112,8 +116,8 @@ module.exports = class extends Generator {
             repoUrl: this.answers.repoUrl,
             proto: this.answers.proto
         }
-        await this.copyEveryFile("./", dirs, configObj)
-        await this.copyRootFile(rootFiles, rootTemplate, configObj)
+        await this._copyEveryFile("./", dirs, configObj)
+        await this._copyRootFile(rootFiles, rootTemplate, configObj)
     }
     async conflicts() { }
     async install() { }
