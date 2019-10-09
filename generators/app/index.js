@@ -101,7 +101,7 @@ module.exports = class extends Generator {
             directories.push('schedule')
         }
         // create subproject folder
-        for (const proto of directories) {
+        for await (const proto of directories) {
             this.spawnCommand("tree", [this.destinationPath(this.answers.projectName + "_protos")])
             cp.exec(`cp -r ${this.destinationPath(this.answers.projectName + "_protos")}/proto/* ${this.destinationPath(`${this.answers.projectName}_${proto}_service`)}/proto`)
         }
@@ -151,6 +151,8 @@ module.exports = class extends Generator {
         if (this.options.name == "project") {
             await this._syncProtoFiles() // copy all proto files to all services
         }
+    }
+    async end() {
         if (this.options.name == "project") {
             await this._configureProtos()
             if (this.confirm['schedule']) {
@@ -164,5 +166,4 @@ module.exports = class extends Generator {
             }
         }
     }
-    async end() { }
 };
