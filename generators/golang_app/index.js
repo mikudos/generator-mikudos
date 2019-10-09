@@ -98,20 +98,25 @@ module.exports = class extends Generator {
         }
         var rootFiles = ['.gitignore', '.dockerignore', 'Dockerfile', 'crons.yaml', 'LICENSE', 'update_proto.sh']
         var rootTemplate = ['Makefile', 'README.md', '_main.go', '_go.mod']
-        // rootFiles.map(fname => {
-        //     this.fs.copy(
-        //         this.templatePath(fname),
-        //         path.join("./", fname)
-        //     )
-        // })
-        // rootTemplate.map(fname => {
-        //     let fName = fname.replace(/^_/, "")
-        //     this.fs.copyTpl(
-        //         this.templatePath(fname),
-        //         path.join("./", fName),
-        //         configObj
-        //     )
-        // })
+        for (let index = 0; index < rootFiles.length; index++) {
+            let fname = rootFiles[index];
+            this.fs.copy(
+                this.templatePath(fname),
+                path.join("./", this.options["name"] ? this.answers.serviceName + "/" + fname : fname)
+            )
+        }
+        for (let index = 0; index < rootTemplate.length; index++) {
+            let fname = rootTemplate[index];
+            let fName = fname.replace(/^_/, "")
+            if (this.options["name"]) {
+                fName = this.answers.serviceName + "/" + fName;
+            }
+            this.fs.copyTpl(
+                this.templatePath(fname),
+                path.join("./", fName),
+                configObj
+            )
+        }
     }
     async conflicts() { }
     async install() { }

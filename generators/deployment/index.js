@@ -7,17 +7,12 @@ module.exports = class extends Generator {
         // Calling the super constructor is important so our generator is correctly set up
         super(args, opts);
     }
-    method1() {
-        this.log('method 1 just ran');
-    }
 
-    method2() {
-        this.log('method 2 just ran');
+    async initializing() {
+        return this.log("Generate Deployment is currently not suported!")
     }
-
-    async initializing() { }
     async prompting() {
-        this.answers = await this.prompt([]);
+        // this.answers = await this.prompt([]);
     }
     async configuring() { }
     async default() { }
