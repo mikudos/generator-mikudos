@@ -96,8 +96,8 @@ module.exports = class extends Generator {
                 this.log("files:", files)
             }
         }
-        var rootFiles = ['.gitignore', '.dockerignore', 'Dockerfile', 'LICENSE', 'update_proto.sh']
-        var rootTemplate = ['Makefile', 'README.md', '_main.go', '_go.mod']
+        var rootFiles = ['.gitignore', '.dockerignore', 'Dockerfile', 'LICENSE']
+        var rootTemplate = ['Makefile', 'README.md', '_main.go', '_go.mod', 'update_proto.sh']
         for (let index = 0; index < rootFiles.length; index++) {
             let fname = rootFiles[index];
             this.fs.copy(
