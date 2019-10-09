@@ -1,7 +1,7 @@
 # generator-mikudos
 
 > A Yeoman generator for a aggregation of mikudos micro service application
-Generate micro service code based on the GRPC Proto file.
+> Generate micro service code based on the GRPC Proto file.
 
 ## Installation
 
@@ -41,4 +41,64 @@ Generate your deployment project for helm deployment with centralised deployment
 
 ```bash
 yo mikudos:deployment
+```
+
+Generate your Golang micro service based on one proto file.
+
+```bash
+yo mikudos:golang_app
+```
+
+Generate your Golang method in micro service based on your proto file.
+
+```bash
+yo mikudos:golang_service
+```
+
+Generate your Nodejs micro service based on one proto file.
+
+```bash
+yo mikudos:node_app
+```
+
+Generate your Nodejs method in micro service based on your proto file.
+
+```bash
+yo mikudos:node_service
+```
+
+Generate your Python micro service based on one proto file.
+
+```bash
+yo mikudos:python_app
+```
+
+Generate your Python ML micro service based on one proto file.
+
+```bash
+yo mikudos:python_ai
+```
+
+Generate your Python method in micro service based on your proto file.
+
+```bash
+yo mikudos:python_service
+```
+
+Generate your golang Schedule micro service based on one proto file.
+
+```bash
+yo mikudos:schedule
+```
+
+Generate your golang EventAggregate micro service based on one proto file.
+
+```bash
+yo mikudos:eventAggregate
+```
+
+Generate your golang Message micro service based on one proto file.
+
+```bash
+yo mikudos:message
 ```
