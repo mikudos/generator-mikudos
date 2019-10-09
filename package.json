@@ -19,6 +19,8 @@
     "mikudos"
   ],
   "dependencies": {
+    "@grpc/grpc-js": "^0.6.7",
+    "@grpc/proto-loader": "^0.5.2",
     "jscodeshift": "^0.6.4",
     "lodash": "^4.17.15",
     "mkdirp": "^0.5.1",

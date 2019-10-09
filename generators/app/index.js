@@ -97,6 +97,9 @@ module.exports = class extends Generator {
     async _syncProtoFiles() {
         // get all the protos project list
         let directories = fs.readdirSync(this.destinationPath(this.answers.projectName + "_protos/proto"))
+        if (this.confirm['schedule']) {
+            directories.push('schedule')
+        }
         // create subproject folder
         for (const proto of directories) {
             this.spawnCommand("tree", [this.destinationPath(this.answers.projectName + "_protos")])
@@ -136,6 +139,18 @@ module.exports = class extends Generator {
 
     }
     async configuring() {
+
+    }
+    async default() { }
+    async writing() {
+        if (SpecialParams.includes(this.options.name)) return
+        this.log("language type", this.answers.lang);
+    }
+    async conflicts() { }
+    async install() {
+        if (this.options.name == "project") {
+            await this._syncProtoFiles() // copy all proto files to all services
+        }
         if (this.options.name == "project") {
             await this._configureProtos()
             if (this.confirm['schedule']) {
@@ -147,17 +162,6 @@ module.exports = class extends Generator {
             if (this.confirm['message']) {
                 this.composeWith(`${genName}message`, { projectName: this.appname, name: this.appname + "_message", folder: `${this.appname}/${this.appname}_message` });
             }
-        }
-    }
-    async default() { }
-    async writing() {
-        if (SpecialParams.includes(this.options.name)) return
-        this.log("language type", this.answers.lang);
-    }
-    async conflicts() { }
-    async install() {
-        if (this.options.name == "project") {
-            await this._syncProtoFiles() // copy all proto files to all services
         }
     }
     async end() { }

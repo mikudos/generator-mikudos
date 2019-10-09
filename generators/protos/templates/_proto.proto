@@ -9,7 +9,6 @@ service <%=protoCapitalized%>Service {
     rpc Create<%=protoCapitalizedSingle%> (Create<%=protoCapitalizedSingle%>Request) returns (<%=protoCapitalizedSingle%>) {}
     rpc Update<%=protoCapitalizedSingle%> (Update<%=protoCapitalizedSingle%>Request) returns (<%=protoCapitalizedSingle%>) {}
     rpc Update<%=protoCapitalizedSingle%>ById (Update<%=protoCapitalizedSingle%>ByIdRequest) returns (<%=protoCapitalizedSingle%>) {}
-    rpc Update<%=protoCapitalizedSingle%>Password (Update<%=protoCapitalizedSingle%>PasswordRequest) returns (<%=protoCapitalizedSingle%>) {}
     rpc Delete<%=protoCapitalizedSingle%> (FindRequest) returns (DeleteResult) {}
     rpc Delete<%=protoCapitalizedSingle%>ById (GetRequest) returns (DeleteResult) {}
 }

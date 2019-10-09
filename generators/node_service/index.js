@@ -4,6 +4,7 @@ const inquirer = require('inquirer');
 const path = require('path');
 const mkdir = require('mkdirp');
 const transform = require('../../transform');
+const proto = require('../../transform/proto');
 
 module.exports = class extends Generator {
     // The name `constructor` is important here
@@ -48,6 +49,7 @@ module.exports = class extends Generator {
         // gather all the protos, and select one for generate service
         this.protos = fs.readdirSync(this.destinationPath("./proto"))
         this.log("this.protos:", this.protos)
+        // proto
     }
     async prompting() {
         this.answers = await this.prompt([

@@ -27,7 +27,7 @@ module.exports = class extends Generator {
 
     async initializing() {
         // gather all the protos, and select one for generate service
-        this.protos = fs.readdirSync(this.destinationPath("./proto"))
+        this.protos = fs.readdirSync(this.destinationPath(`./${this.options["name"] ? this.options["name"] + "_service/" : ""}proto`))
     }
     async prompting() {
         this.answers = await this.prompt([
@@ -41,7 +41,7 @@ module.exports = class extends Generator {
                 type: "input",
                 name: "serviceName",
                 message: "(schedule)Your micro Schedule service name",
-                default: this.options["name"] || this.appname // Default to current folder name
+                default: this.options["name"] + "_service" || this.appname // Default to current folder name
             },
             {
                 type: "list",
@@ -68,7 +68,7 @@ module.exports = class extends Generator {
                 type: 'input',
                 name: 'repoUrl',
                 message: 'What is your repository URL?',
-                default: `github.com/${this.answers["projectName"]}/${this.answers["serviceName"]}`
+                default: `github.com / ${this.answers["projectName"]} / ${this.answers["serviceName"]}`
             }
         ])
         this.answers.repoUrl = repoUrl["repoUrl"].replace(/^https:\/\//, '').toLowerCase();
@@ -97,17 +97,17 @@ module.exports = class extends Generator {
         for (const key in dirs) {
             if (dirs.hasOwnProperty(key)) {
                 let element = dirs[key], eleWithName;
-                if (this.options["name"]) eleWithName = this.options["name"] + "/" + element;
+                if (this.options["name"]) eleWithName = this.answers.serviceName + "/" + element;
                 mkdir.sync(this.destinationPath(eleWithName || element));
                 let files = fs.readdirSync(this.templatePath(element))
                 this.log("files:", files)
                 files.map(f => {
-                    let fPath = this.templatePath(`${element}/${f}`)
+                    let fPath = this.templatePath(`${element} / ${f}`)
                     if (fs.statSync(fPath).isFile()) {
                         let fName = f.replace(/^_/, "")
                         this.fs.copyTpl(
-                            this.templatePath(`${element}/${f}`),
-                            path.join("./", `${eleWithName || element}/${fName}`),
+                            this.templatePath(`${element} / ${f}`),
+                            path.join("./", `${eleWithName || element}/ ${fName} `),
                             configObj
                         )
                     }
@@ -120,14 +120,14 @@ module.exports = class extends Generator {
             let fname = rootFiles[index];
             this.fs.copy(
                 this.templatePath(fname),
-                path.join("./", this.options["name"] ? this.options["name"] + "/" + fname : fname)
+                path.join("./", this.options["name"] ? this.answers.serviceName + "/" + fname : fname)
             )
         }
         for (let index = 0; index < rootTemplate.length; index++) {
             let fname = rootTemplate[index];
             let fName = fname.replace(/^_/, "")
             if (this.options["name"]) {
-                fName = this.options["name"] + "/" + fName;
+                fName = this.answers.serviceName + "/" + fName;
             }
             this.fs.copyTpl(
                 this.templatePath(fname),
@@ -140,6 +140,6 @@ module.exports = class extends Generator {
     async install() { }
     async end() {
         // add exicute right to the bash file
-        fs.chmodSync(path.join("./", this.options["name"] ? this.options["name"] + "/" + 'update_proto.sh' : 'update_proto.sh'), 755)
+        fs.chmodSync(path.join("./", this.options["name"] ? this.answers.serviceName + "/" + 'update_proto.sh' : 'update_proto.sh'), 755)
     }
 };
