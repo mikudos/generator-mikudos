@@ -37,7 +37,7 @@ module.exports = class extends Generator {
                 type: "input",
                 name: "serviceName",
                 message: `(${this.options["name"] || this.appname})Your Python micro service name`,
-                default: (this.options["name"] || this.appname) + "_service" // Default to current folder name
+                default: (this.options["name"] ? (this.options["name"] + "_service") : null) || this.appname // Default to current folder name
             },
             {
                 type: "list",
