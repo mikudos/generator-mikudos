@@ -1,6 +1,7 @@
 var Generator = require('yeoman-generator');
 var inquirer = require('inquirer');
 const fs = require('fs');
+const cp = require('child_process');
 const path = require('path');
 const mkdir = require('mkdirp');
 
