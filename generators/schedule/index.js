@@ -107,7 +107,7 @@ module.exports = class extends Generator {
                         let fName = f.replace(/^_/, "")
                         this.fs.copyTpl(
                             this.templatePath(`${element} / ${f}`),
-                            path.join("./", `${eleWithName || element}/ ${fName} `),
+                            path.join("./", `${eleWithName || element}/${fName}`),
                             configObj
                         )
                     }
