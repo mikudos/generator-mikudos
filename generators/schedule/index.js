@@ -1,6 +1,7 @@
 var Generator = require('yeoman-generator');
 var inquirer = require('inquirer');
 const fs = require('fs');
+const cp = require('child_process');
 const path = require('path');
 const mkdir = require('mkdirp');
 
@@ -140,6 +141,6 @@ module.exports = class extends Generator {
     async install() { }
     async end() {
         // add exicute right to the bash file
-        fs.chmodSync(path.join("./", this.options["name"] ? this.answers.serviceName + "/" + 'update_proto.sh' : 'update_proto.sh'), 744)
+        cp.exec(`chmod 755 ${path.join("./", this.options["name"] ? this.answers.serviceName + "/" + 'update_proto.sh' : 'update_proto.sh')}`)
     }
 };
