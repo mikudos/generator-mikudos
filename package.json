@@ -28,7 +28,7 @@
     "yeoman-generator": "^4.1.0",
     "yosay": "^2.0.2"
   },
-  "author": "yue",
+  "author": "yue guanyu",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mikudos/generator-mikudos/issues"
