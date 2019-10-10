@@ -103,7 +103,7 @@ module.exports = class extends Generator {
         // copy proto files
         let command = ""
         for (const proto of directories) {
-            command += `cp -r ${this.destinationPath(this.answers.projectName + "_protos")}/proto/* ${this.destinationPath(`${this.answers.projectName}_${proto}_service`)}/proto | `
+            command += `cp -r ${this.destinationPath(this.answers.projectName + "_protos")}/proto/* ${this.destinationPath(`${this.answers.projectName}_${proto}_service`)}/proto; `
         }
         command = command.replace(/ \| $/, "")
         cp.exec(command)
