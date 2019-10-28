@@ -20,11 +20,12 @@ module.exports = class extends Generator {
         this.log(this.options, this.destinationPath(this.options["name"] + "/proto/" + "users"));
     }
 
-    async _srvProto(srvName) {
-        mkdir.sync(this.destinationPath(`${this.options["name"]}/proto/${srvName}`));
+    async _srvProto(srvName, protoName = "proto") {
+        let serviceProtoPath = this.options["name"] ? `${this.options["name"]}/proto/${srvName}` : `proto/${srvName}`;
+        mkdir.sync(this.destinationPath(serviceProtoPath));
         this.fs.copyTpl(
-            this.templatePath(`_${srvName}.proto`),
-            path.join(`${this.options["name"]}/proto/${srvName}/${srvName}.proto`),
+            this.templatePath(`_${protoName}.proto`),
+            path.join(`${serviceProtoPath}/${srvName}.proto`),
             this.configObj
         )
     }
@@ -37,7 +38,7 @@ module.exports = class extends Generator {
                 {
                     type: "input",
                     name: "name",
-                    message: "Add proto for micro_service with name:",
+                    message: "Your protos project name:",
                     default: this.appname // Default to current folder name
                 }
             ])
@@ -71,22 +72,17 @@ module.exports = class extends Generator {
                     protoCapitalized: proto.replace(/( |^)[a-z]/g, (L) => L.toUpperCase()),
                     protoCapitalizedSingle: proto.replace(/( |$)s/, "").replace(/( |^)[a-z]/g, (L) => L.toUpperCase())
                 }
-                mkdir.sync(this.destinationPath(`${this.options["name"]}/proto/${proto}`));
-                this.fs.copyTpl(
-                    this.templatePath("_proto.proto"),
-                    path.join(`${this.options["name"]}/proto/${proto}/${proto}.proto`),
-                    this.configObj
-                )
+                await this._srvProto(proto)
             }
         }
         if (this.options["withSchedule"]) {
-            await this._srvProto("schedule")
+            await this._srvProto("schedule", "schedule")
         }
         if (this.options["withEvAgg"]) {
-            await this._srvProto("event_aggregate")
+            await this._srvProto("event_aggregate", "event_aggregate")
         }
         if (this.options["withMessage"]) {
-            await this._srvProto("messages")
+            await this._srvProto("messages", "messages")
         }
     }
     async configuring() { }
