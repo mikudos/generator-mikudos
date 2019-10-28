@@ -18,14 +18,26 @@ module.exports = class extends Generator {
         this.log('method 1 just ran');
     }
 
-    async _copyEveryFile(parentPath, dirs) {
+    async _copyEveryFile(parentPath, dirs, configObj) {
         for (const key in dirs) {
             if (dirs.hasOwnProperty(key)) {
-                const element = dirs[key];
-                mkdir.sync(this.destinationPath(parentPath + element));
-                let files = fs.readdirSync(this.templatePath(parentPath + element))
-                this.log("element:", this.templatePath(element))
+                let element = dirs[key];
+                let eleWithName;
+                if (this.options["name"]) eleWithName = this.answers.serviceName + "/" + element;
+                mkdir.sync(this.destinationPath(eleWithName || element));
+                let files = fs.readdirSync(this.templatePath(element))
                 this.log("files:", files)
+                files.map(f => {
+                    let fPath = this.templatePath(`${element}/${f}`)
+                    if (fs.statSync(fPath).isFile()) {
+                        let fName = f.replace(/^_/, "")
+                        this.fs.copyTpl(
+                            this.templatePath(`${element}/${f}`),
+                            path.join("./", `${eleWithName || element}/${fName}`),
+                            configObj
+                        )
+                    }
+                })
             }
         }
     }
@@ -108,6 +120,7 @@ module.exports = class extends Generator {
         dirs.deploymentDir = 'deployment';
         dirs.servicesDir = 'services';
         dirs.modelsDir = 'models';
+        dirs.middlewareDir = 'middleware';
         var rootFiles = ['.gitignore', '.dockerignore', 'Dockerfile', 'LICENSE']
         var rootTemplate = ['Makefile', 'README.md', '_index.js', '_broker.js', '_mongoose.js', 'package.json', 'update_proto.sh']
         var configObj = {
