@@ -81,37 +81,16 @@ module.exports = class extends Generator {
         dirs.servicesDir = 'services';
         // dirs.modelsDir = 'models';
         dirs.learnModelDir = 'model';
+        var rootFiles = ['.gitignore', '.dockerignore', 'Dockerfile', 'LICENSE']
+        var rootTemplate = ['Makefile', 'README.md', '_server.py', '_environment.yml', 'update_proto.sh']
         var configObj = {
             appName: this.answers.projectName,
             serviceName: this.answers.serviceName,
             repoUrl: this.answers.repoUrl,
             proto: this.answers.proto
         }
-        for (const key in dirs) {
-            if (dirs.hasOwnProperty(key)) {
-                const element = dirs[key];
-                mkdir.sync(this.destinationPath(element));
-                let files = fs.readdirSync(this.templatePath(element))
-                this.log("element:", this.templatePath(element))
-                this.log("files:", files)
-            }
-        }
-        var rootFiles = ['.gitignore', '.dockerignore', 'Dockerfile', 'LICENSE']
-        var rootTemplate = ['Makefile', 'README.md', '_server.py', '_environment.yml', 'update_proto.sh']
-        rootFiles.map(fname => {
-            this.fs.copy(
-                this.templatePath(fname),
-                path.join("./", fname)
-            )
-        })
-        rootTemplate.map(fname => {
-            let fName = fname.replace(/^_/, "")
-            this.fs.copyTpl(
-                this.templatePath(fname),
-                path.join("./", fName),
-                configObj
-            )
-        })
+        await this._copyEveryFile("./", dirs, configObj)
+        await this._copyRootFile(rootFiles, rootTemplate, configObj)
     }
     async conflicts() { }
     async install() { }

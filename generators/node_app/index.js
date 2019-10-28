@@ -1,9 +1,8 @@
-var Generator = require('yeoman-generator');
+var Generator = require('../../copy_generator');
 var inquirer = require('inquirer');
 const fs = require('fs');
 const cp = require('child_process');
 const path = require('path');
-const mkdir = require('mkdirp');
 
 module.exports = class extends Generator {
     // The name `constructor` is important here
@@ -16,52 +15,6 @@ module.exports = class extends Generator {
     }
     method1() {
         this.log('method 1 just ran');
-    }
-
-    async _copyEveryFile(parentPath, dirs, configObj) {
-        for (const key in dirs) {
-            if (dirs.hasOwnProperty(key)) {
-                let element = dirs[key];
-                let eleWithName;
-                if (this.options["name"]) eleWithName = this.answers.serviceName + "/" + element;
-                mkdir.sync(this.destinationPath(eleWithName || element));
-                let files = fs.readdirSync(this.templatePath(element))
-                this.log("files:", files)
-                files.map(f => {
-                    let fPath = this.templatePath(`${element}/${f}`)
-                    if (fs.statSync(fPath).isFile()) {
-                        let fName = f.replace(/^_/, "")
-                        this.fs.copyTpl(
-                            this.templatePath(`${element}/${f}`),
-                            path.join("./", `${eleWithName || element}/${fName}`),
-                            configObj
-                        )
-                    }
-                })
-            }
-        }
-    }
-
-    async _copyRootFile(rootFiles, rootTemplate, configObj) {
-        for (let index = 0; index < rootFiles.length; index++) {
-            let fname = rootFiles[index];
-            this.fs.copy(
-                this.templatePath(fname),
-                path.join("./", this.options["name"] ? this.answers.serviceName + "/" + fname : fname)
-            )
-        }
-        for (let index = 0; index < rootTemplate.length; index++) {
-            let fname = rootTemplate[index];
-            let fName = fname.replace(/^_/, "")
-            if (this.options["name"]) {
-                fName = this.answers.serviceName + "/" + fName;
-            }
-            this.fs.copyTpl(
-                this.templatePath(fname),
-                path.join("./", fName),
-                configObj
-            )
-        }
     }
 
     async initializing() {

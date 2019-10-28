@@ -1,9 +1,8 @@
-var Generator = require('yeoman-generator');
+var Generator = require('../../copy_generator');
 var inquirer = require('inquirer');
 const fs = require('fs');
 const cp = require('child_process');
 const path = require('path');
-const mkdir = require('mkdirp');
 
 module.exports = class extends Generator {
     // The name `constructor` is important here
@@ -13,9 +12,6 @@ module.exports = class extends Generator {
 
         // Next, add your custom code
         this.option('babel'); // This method adds support for a `--babel` flag
-    }
-    method1() {
-        this.log('method 1 just ran');
     }
 
     async initializing() {
@@ -80,6 +76,9 @@ module.exports = class extends Generator {
         dirs.servicesDir = 'handler';
         dirs.dbDir = 'db';
         dirs.modelsDir = 'models';
+
+        var rootFiles = ['.gitignore', '.dockerignore', 'Dockerfile', 'LICENSE']
+        var rootTemplate = ['Makefile', 'README.md', '_main.go', '_go.mod', 'update_proto.sh']
         var configObj = {
             appName: this.answers.projectName,
             serviceName: this.answers.serviceName,
@@ -88,36 +87,8 @@ module.exports = class extends Generator {
             protos: this.protos,
             proto: this.answers.proto
         }
-        for (const key in dirs) {
-            if (dirs.hasOwnProperty(key)) {
-                const element = dirs[key];
-                mkdir.sync(this.destinationPath(element));
-                let files = fs.readdirSync(this.templatePath(element))
-                this.log("element:", this.templatePath(element))
-                this.log("files:", files)
-            }
-        }
-        var rootFiles = ['.gitignore', '.dockerignore', 'Dockerfile', 'LICENSE']
-        var rootTemplate = ['Makefile', 'README.md', '_main.go', '_go.mod', 'update_proto.sh']
-        for (let index = 0; index < rootFiles.length; index++) {
-            let fname = rootFiles[index];
-            this.fs.copy(
-                this.templatePath(fname),
-                path.join("./", this.options["name"] ? this.answers.serviceName + "/" + fname : fname)
-            )
-        }
-        for (let index = 0; index < rootTemplate.length; index++) {
-            let fname = rootTemplate[index];
-            let fName = fname.replace(/^_/, "")
-            if (this.options["name"]) {
-                fName = this.answers.serviceName + "/" + fName;
-            }
-            this.fs.copyTpl(
-                this.templatePath(fname),
-                path.join("./", fName),
-                configObj
-            )
-        }
+        await this._copyEveryFile("./", dirs, configObj)
+        await this._copyRootFile(rootFiles, rootTemplate, configObj)
     }
     async conflicts() { }
     async install() { }
