@@ -17,6 +17,7 @@
     "@grpc/proto-loader": "^0.5.1",
     "config": "^3.2.2",
     "grpc": "^1.23.3",
+    "grpc-caller": "^0.13.0",
     "js-yaml": "^3.13.1",
     "kafkajs": "^1.10.0",
     "mali": "^0.18.0",
