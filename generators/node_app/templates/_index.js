@@ -8,6 +8,7 @@ const middleware = require('./middleware')
 const mongoose = require('./mongoose');
 const models = require('./models');
 const broker = require('./broker');
+const grpc_clients = require('./grpc_clients');
 const services = require('./services')
 
 function main() {
@@ -19,6 +20,7 @@ function main() {
     app.configure(mongoose)
     app.configure(models)
     app.configure(broker)
+    app.configure(grpc_clients)
     app.configure(middleware)
     app.configure(services)
     app.start(`0.0.0.0:${config.get('port')}`)
