@@ -73,6 +73,7 @@ module.exports = class extends Generator {
         dirs.deploymentDir = 'deployment';
         dirs.servicesDir = 'services';
         dirs.modelsDir = 'models';
+        dirs.grpc_clients = 'grpc_clients';
         dirs.middlewareDir = 'middleware';
         var rootFiles = ['.gitignore', '.dockerignore', 'Dockerfile', 'LICENSE']
         var rootTemplate = ['Makefile', 'README.md', '_index.js', '_broker.js', '_mongoose.js', 'package.json', 'update_proto.sh']
