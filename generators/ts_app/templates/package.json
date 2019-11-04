@@ -1,0 +1,53 @@
+{
+    "name": "<%=serviceName%>-service",
+    "version": "<%=version%>",
+    "description": "<%=serviceName%>-grpc-service",
+    "homepage": "",
+    "main": "src",
+    "keywords": [
+        "mikudos"
+    ],
+    "author": {
+        "name": "guanyu",
+        "email": "yue.guanyu@hotmail.com"
+    },
+    "contributors": [],
+    "bugs": {},
+    "directories": {
+        "lib": "src",
+        "test": "test/",
+        "config": "config/"
+    },
+    "engines": {
+        "node": "^12.0.0",
+        "yarn": ">= 0.18.0"
+    },
+    "scripts": {
+        "test": "yarn run compile && yarn run mocha",
+        "dev": "ts-node-dev --no-notify src/",
+        "start": "yarn run compile && node lib/",
+        "prod": "node lib/",
+        "mocha": "ts-mocha \"test/**/*.ts\" --recursive --exit",
+        "compile": "shx rm -rf lib/ && tsc"
+    },
+    "dependencies": {
+        "grpc": "^1.23.3",
+        "grpc-caller": "^0.13.0",
+        "kafkajs": "^1.10.0",
+        "mali": "^0.18.0",
+        "mikudos-node-app": "^1.0.7",
+        "mongoose": "^5.6.11"
+    },
+    "devDependencies": {
+        "@types/config": "0.0.35",
+        "@types/mongoose": "^5.5.28",
+        "axios": "^0.19.0",
+        "mocha": "^6.2.0",
+        "nodemon": "^1.19.1",
+        "shx": "^0.3.2",
+        "ts-mocha": "^6.0.0",
+        "ts-node-dev": "^1.0.0-pre.42",
+        "tslint": "^5.18.0",
+        "typescript": "^3.5.3"
+    }
+}

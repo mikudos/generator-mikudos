@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "target": "es2018",
+        "experimentalDecorators": true,
+        "module": "commonjs",
+        "outDir": "./lib",
+        "rootDir": "./src",
+        "strict": true,
+        "esModuleInterop": true
+    },
+    "exclude": [
+        "test"
+    ]
+}
