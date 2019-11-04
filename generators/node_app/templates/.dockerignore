@@ -2,5 +2,5 @@
 .DS_Store
 node_modules
 *.log
-src
 test
+package-lock.json

@@ -5,5 +5,6 @@ COPY . .
 
 # RUN apk add --no-cache make gcc g++ python
 RUN npm install --prod
-EXPOSE 3030
+ENV NODE_ENV production
+EXPOSE 50051
 CMD ["npm", "run", "prod"]

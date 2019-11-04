@@ -4,7 +4,6 @@ WORKDIR /app
 COPY . .
 
 # RUN apk add --no-cache make gcc g++ python
-RUN npm install
-RUN npm rebuild
+RUN npm install --prod
 EXPOSE 50051
 CMD ["npm", "start"]
