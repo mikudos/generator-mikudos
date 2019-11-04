@@ -44,13 +44,33 @@ module.exports = class extends Generator {
                         value: 1
                     },
                     {
-                        name: "Golang",
+                        name: "Node.js with Typescript",
                         value: 2
                     },
                     {
+                        name: "Golang",
+                        value: 3
+                    },
+                    {
                         name: "Python3.7",
-                        value: 3,
+                        value: 4,
                         short: "python"
+                    },
+                    {
+                        name: "Ruby",
+                        value: 5
+                    },
+                    {
+                        name: "Java",
+                        value: 6
+                    },
+                    {
+                        name: "c++",
+                        value: 7
+                    },
+                    {
+                        name: "c#",
+                        value: 8
                     }
                 ]
             }
@@ -60,10 +80,25 @@ module.exports = class extends Generator {
                 genName += "node"
                 break;
             case 2:
-                genName += "golang"
+                genName += "ts"
                 break;
             case 3:
+                genName += "golang"
+                break;
+            case 4:
                 genName += "python"
+                break;
+            case 5:
+                genName += "ruby"
+                break;
+            case 6:
+                genName += "java"
+                break;
+            case 7:
+                genName += "cpp"
+                break;
+            case 8:
+                genName += "cs"
                 break;
         }
         return genName;
@@ -111,26 +146,28 @@ module.exports = class extends Generator {
 
     async initializing() {
         this.log(yosay('Welcome to the MIKUDOS Project Generator!'));
-        this.confirm = await this.prompt([
-            {
-                type: "confirm",
-                name: "schedule",
-                message: `Do you want to generate a schedule service within your project?`
-            },
-            {
-                type: "confirm",
-                name: "eventAggregate",
-                message: `Do you want to generate a event aggregate service within your project?`
-            },
-            {
-                type: "confirm",
-                name: "message",
-                message: `Do you want to generate a message service with socketIO connection within your project?`
-            }
-        ])
+        if (this.options.name == 'project') {
+            this.confirm = await this.prompt([
+                {
+                    type: "confirm",
+                    name: "schedule",
+                    message: `Do you want to generate a schedule service within your project?`
+                },
+                {
+                    type: "confirm",
+                    name: "eventAggregate",
+                    message: `Do you want to generate a event aggregate service within your project?`
+                },
+                {
+                    type: "confirm",
+                    name: "message",
+                    message: `Do you want to generate a message service with socketIO connection within your project?`
+                }
+            ])
+        }
     }
     async prompting() {
-        if (this.options.name = 'project') {
+        if (this.options.name == 'project') {
             await this._createProjectProtos()
         } else if (SpecialParams.includes(this.options.name)) {
             this.composeWith(`${genName}${this.options.name}`, { projectName: this.appname, name: `${this.appname}_${this.options.name}`, folder: `${this.appname}/${this.appname}_${this.options.name}` });
