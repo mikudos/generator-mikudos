@@ -173,7 +173,7 @@ module.exports = class extends Generator {
             this.composeWith(`${genName}${this.options.name}`, { projectName: this.appname, name: `${this.appname}_${this.options.name}`, folder: `${this.appname}/${this.appname}_${this.options.name}` });
         } else if (ParamEnum.includes(this.options.name)) {
             let genNameNew = await this._genNormal(genName)
-            this.composeWith(`${genNameNew}_${this.options.name}`, { projectName: this.appname, name: `${this.appname}_${this.options.name}`, folder: `${this.appname}/${this.appname}_${this.options.name}` });
+            this.composeWith(`${genNameNew}_${this.options.name}`, {});
         }
     }
     async configuring() {
