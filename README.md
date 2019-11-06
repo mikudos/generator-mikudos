@@ -43,6 +43,16 @@ Generate your deployment project for helm deployment with centralised deployment
 yo mikudos:deployment
 ```
 
+Generate your micro service based on one proto file.
+
+```bash
+yo mikudos:app
+```
+or
+```bash
+yo mikudos app
+```
+
 Generate your Golang micro service based on one proto file.
 
 ```bash
