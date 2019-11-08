@@ -1,4 +1,4 @@
-export default class SayHello {
+export default class {
     options: any;
     constructor(options?: any) {
         this.options = options || {};
