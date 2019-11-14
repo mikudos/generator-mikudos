@@ -1,6 +1,8 @@
-import ServiceClass from './_method.class';
+import ServiceClass from './<%=serviceNameSnake%>.class';
 const service = new ServiceClass();
 
-export async function SayHello(ctx: any) {
-    await service['SayHello'](ctx);
+<% methods.forEach(function(item){ %>
+export async function <%=item%>(ctx: any) {
+    await service['<%=item%>'](ctx);
 }
+<% }); %>

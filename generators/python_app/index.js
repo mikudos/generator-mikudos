@@ -4,6 +4,7 @@ const fs = require('fs');
 const cp = require('child_process');
 const path = require('path');
 const mkdir = require('mkdirp');
+const _ = require('lodash');
 
 module.exports = class extends Generator {
     // The name `constructor` is important here
@@ -53,8 +54,8 @@ module.exports = class extends Generator {
                 default: "0.0.1"
             }
         ]);
-        this.answers.projectName = this.answers["projectName"].replace(/[A-Z]/, word => `_${word.toLowerCase()}`).replace(/\s+/g, '_').toLowerCase();
-        this.answers.serviceName = this.answers["serviceName"].replace(/[A-Z]/, word => `_${word.toLowerCase()}`).replace(/\s+/g, '_').toLowerCase();
+        this.answers.projectName = _.snakeCase(this.answers["projectName"]);
+        this.answers.serviceName = _.snakeCase(this.answers["serviceName"]);
         let repoUrl = await this.prompt([
             {
                 type: 'input',

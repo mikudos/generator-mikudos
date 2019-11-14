@@ -13,9 +13,16 @@ class ProtoInfo {
         let packageDefinition = await protoLoader.load(this.protoFileName, options);
         this.packageObject = grpcLibrary.loadPackageDefinition(packageDefinition);
         this.packageName = Object.keys(packageDefinition)[0].split('.')[0];
-        this.serviceName = Object.keys(packageDefinition)[0].split('.')[1];
-        this.methodsList = Object.keys(packageDefinition[Object.keys(packageDefinition)[0]]);
-        this.methods = packageDefinition[Object.keys(packageDefinition)[0]];
+        this.serviceList = [];
+        this.methodsList = [];
+        for (const i in this.packageObject[this.packageName]) {
+            const item = this.packageObject[this.packageName][i];
+            if (item.service) {
+                this.serviceList.push(i);
+                // console.log('item', item.service);
+                this.methodsList.push(Object.keys(item.service));
+            }
+        }
         return this;
     }
 }

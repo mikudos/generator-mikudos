@@ -1,14 +1,14 @@
 import { Application } from 'mikudos-node-app';
 
-import * as Funcs from './_method.funcs';
-import hooks from './_method.hooks';
+import * as Funcs from './<%=serviceNameSnake%>.funcs';
+import hooks from './<%=serviceNameSnake%>.hooks';
 
-export default function(app: Application) {
-    app.use(
-        'service',
-        'Method',
-        ...hooks.before,
-        Funcs['Method'],
-        ...hooks.after
-    );
+export default function(app: Application) {<% methods.forEach(function(item){ %>
+        app.use(
+            '<%=serviceName%>',
+            '<%=item%>',
+            ...hooks.before,
+            Funcs['<%=item%>'],
+            ...hooks.after
+        );<% }); %>
 }

@@ -3,8 +3,10 @@ export default class {
     constructor(options?: any) {
         this.options = options || {};
     }
-    async SayHello(ctx: any) {
+<% methods.forEach(function(item){ %>
+    async <%=item%>(ctx: any) {
         let app = ctx.app;
         ctx.response.res = { message: 'Hello '.concat(ctx.req.name) };
     }
+<% }); %>
 }

@@ -113,7 +113,7 @@ module.exports = class extends Generator {
                 default: this.appname // Default to current folder name
             }
         ]);
-        this.answers.projectName = this.answers["projectName"].replace(/[A-Z]/, word => `_${word.toLowerCase()}`).replace(/\s+/g, '_').toLowerCase();
+        this.answers.projectName = _.snakeCase(this.answers["projectName"]);
         mkdir.sync(this.destinationPath(this.answers.projectName + "_protos"));
         let genName = "mikudos:";
         await this.composeWith(`${genName}protos`, { name: this.answers.projectName + "_protos", folder: this.answers.projectName + "/" + this.answers.projectName + "_protos", withSchedule: this.confirm["schedule"], withEvAgg: this.confirm["eventAggregate"], withMessage: this.confirm["message"] });
@@ -182,7 +182,6 @@ module.exports = class extends Generator {
     async default() { }
     async writing() {
         if (SpecialParams.includes(this.options.name)) return
-        this.log("language type", this.answers.lang);
     }
     async conflicts() { }
     async install() {
