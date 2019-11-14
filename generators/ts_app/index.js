@@ -1,5 +1,6 @@
 var Generator = require('../../copy_generator');
 var inquirer = require('inquirer');
+const { ProtoInfo } = require('../../transform/proto');
 const fs = require('fs');
 const cp = require('child_process');
 const path = require('path');
@@ -60,6 +61,7 @@ module.exports = class extends Generator {
             }
         ])
         this.answers.repoUrl = repoUrl["repoUrl"].replace(/^https:\/\//, '').toLowerCase();
+        this.protoInfo = await new ProtoInfo(`./proto/${this.answers.proto}/${this.answers.proto}.proto`).init();
     }
     async configuring() { }
     async default() { }
