@@ -1,6 +1,5 @@
 var Generator = require('../../copy_generator');
 var inquirer = require('inquirer');
-const { ProtoInfo } = require('../../transform/proto');
 const fs = require('fs');
 const cp = require('child_process');
 const path = require('path');
@@ -61,7 +60,6 @@ module.exports = class extends Generator {
             }
         ])
         this.answers.repoUrl = repoUrl["repoUrl"].replace(/^https:\/\//, '').toLowerCase();
-        this.protoInfo = await new ProtoInfo(`./proto/${this.answers.proto}/${this.answers.proto}.proto`).init();
     }
     async configuring() { }
     async default() { }
@@ -90,6 +88,8 @@ module.exports = class extends Generator {
     async install() { }
     async end() {
         // add exicute right to the bash file
-        cp.exec(`chmod 755 ${path.join("./", this.options["name"] ? this.answers.serviceName + "/" + 'update_proto.sh' : 'update_proto.sh')}`)
+        cp.exec(`chmod 755 ${path.join("./", this.options["name"] ? this.answers.serviceName + "/" + 'update_proto.sh' : 'update_proto.sh')}`);
+        // generate methods files
+        this.composeWith(`mikudos:ts_service`, { proto: this.answers.proto });
     }
 };
