@@ -28,9 +28,6 @@ module.exports = class extends Generator {
             this.log(`params Error, only surport value in ${all} as params`)
         }
     }
-    method1() {
-        this.log('method 1 just ran');
-    }
 
     async _genNormal(genName) {
         this.answers = await this.prompt([
@@ -170,7 +167,7 @@ module.exports = class extends Generator {
         if (this.options.name == 'project') {
             await this._createProjectProtos()
         } else if (SpecialParams.includes(this.options.name)) {
-            this.composeWith(`${genName}${this.options.name}`, { projectName: this.appname, name: `${this.appname}_${this.options.name}`, folder: `${this.appname}/${this.appname}_${this.options.name}` });
+            this.composeWith(`${genName}${this.options.name}`, {});
         } else if (ParamEnum.includes(this.options.name)) {
             let genNameNew = await this._genNormal(genName)
             this.composeWith(`${genNameNew}_${this.options.name}`, {});
