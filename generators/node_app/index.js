@@ -57,7 +57,7 @@ module.exports = class extends Generator {
                 type: 'input',
                 name: 'repoUrl',
                 message: 'What is your repository URL?',
-                default: `github.com/${this.answers["projectName"]}/${this.answers["serviceName"]}`
+                default: `github.com/${this.answers["projectName"]}/${this.answers["serviceName"]}.git`
             }
         ])
         this.answers.repoUrl = repoUrl["repoUrl"].replace(/^https:\/\//, '').toLowerCase();
