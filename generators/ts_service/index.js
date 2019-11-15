@@ -21,7 +21,7 @@ module.exports = class extends Generator {
             // gather all the protos
             this.protos = fs.readdirSync(this.destinationPath("./proto"))
             this.protos.splice(this.protos.indexOf(this.proto), 1)
-            console.log("protos:", this.protos);
+            console.log("client folder:", this.options['clientFolder']);
         }
     }
 
@@ -49,16 +49,26 @@ module.exports = class extends Generator {
                 {
                     type: "checkbox",
                     name: "clientList",
-                    message: "Select the service Name that you want to generate for:",
-                    choices: this.protos.map((name) => { return { name, value: index } })
+                    message: "Select the proto folder for the Clients that you want to generate for:",
+                    choices: this.protos.map((name, index) => { return { name, value: index } })
                 }
             ])
             this.answers['clientList'] = clientList['clientList'];
+        }
+        if (!this.options['clientFolder']) {
+            let folder = await this.prompt({
+                type: "input",
+                name: "folder",
+                message: "Please write the folder name which located in src folder, and under that you want to generate your client implementation files.",
+                default: "grpc_clients"
+            })
+            this.options['clientFolder'] = folder.folder;
         }
     }
     async configuring() { }
     async default() { }
     async writing() {
+        // generate files for implementation all methods for each service
         for (const key in this.answers['serviceList']) {
             const element = this.answers['serviceList'][key];
             let serviceName = this.protoInfo.serviceList[element];
@@ -81,7 +91,7 @@ module.exports = class extends Generator {
                 }
             }
         }
-
+        // handle the service configure
         this.fs.copyTpl(
             this.templatePath(`index.ts`),
             this.destinationPath(`./src/services/index.ts`),
@@ -92,6 +102,32 @@ module.exports = class extends Generator {
                         snakeCase: _.snakeCase(this.protoInfo.serviceList[element])
                     }
                 })
+            }
+        )
+        // generate all client implementation
+        for (const key in this.answers['clientList']) {
+            let tempProto = this.protos[this.answers['clientList'][key]];
+            let tempProtoInfo = await new ProtoInfo(`./proto/${tempProto}/${tempProto}.proto`).init();
+            console.log("tempProto", tempProtoInfo);
+            this.fs.copyTpl(
+                this.templatePath(`grpc_clients/_impl.client.ts`),
+                this.destinationPath(`./src/${this.options['clientFolder']}/${_.snakeCase(tempProtoInfo.packageName)}.client.ts`),
+                {
+                    proto: tempProto,
+                    protoCamel: _.camelCase(tempProto),
+                    serviceNames: tempProtoInfo.serviceList,
+                    serviceNamesSnake: tempProtoInfo.serviceList.map(name => _.snakeCase(name)),
+                    methods: tempProtoInfo.methodsList
+                }
+            )
+        }
+        // handle the clients configure
+        this.fs.copyTpl(
+            this.templatePath(`grpc_clients/index.ts`),
+            this.destinationPath(`./src/${this.options['clientFolder']}/index.ts`),
+            {
+                protos: this.answers['clientList'].map(index => this.protos[index]),
+                protosCamel: this.answers['clientList'].map(index => _.camelCase(this.protos[index]))
             }
         )
     }
