@@ -15,20 +15,46 @@ module.exports = class extends Generator {
     }
 
     async initializing() {
-        // gather all the protos, and select one for generate service
         this.proto = this.options['name'] || this.options['proto'];
         this.protoInfo = await new ProtoInfo(`./proto/${this.proto}/${this.proto}.proto`).init();
+        if (this.options['client']) {
+            // gather all the protos
+            this.protos = fs.readdirSync(this.destinationPath("./proto"))
+            this.protos.splice(this.protos.indexOf(this.proto), 1)
+            console.log("protos:", this.protos);
+        }
     }
 
     async prompting() {
-        this.answers = await this.prompt([
-            {
-                type: "checkbox",
-                name: "serviceList",
-                message: "Select the service Name that you want to generate for:",
-                choices: this.protoInfo.serviceList.map((name, index) => { return { name, value: index } })
-            }
-        ])
+        let confirm = await this.prompt({
+            type: "confirm",
+            name: "confirm",
+            message: "Do you want to generate implementation for all Services?"
+        })
+        this.answers = {}
+        if (confirm.confirm) {
+            this.answers['serviceList'] = this.protoInfo.serviceList.map((name, index) => index)
+        } else {
+            this.answers = await this.prompt([
+                {
+                    type: "checkbox",
+                    name: "serviceList",
+                    message: "Select the service Name that you want to generate for:",
+                    choices: this.protoInfo.serviceList.map((name, index) => { return { name, value: index } })
+                }
+            ])
+        }
+        if (this.options['client']) {
+            let clientList = await this.prompt([
+                {
+                    type: "checkbox",
+                    name: "clientList",
+                    message: "Select the service Name that you want to generate for:",
+                    choices: this.protos.map((name) => { return { name, value: index } })
+                }
+            ])
+            this.answers['clientList'] = clientList['clientList'];
+        }
     }
     async configuring() { }
     async default() { }

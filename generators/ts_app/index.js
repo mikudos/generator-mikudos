@@ -88,6 +88,6 @@ module.exports = class extends Generator {
         // add exicute right to the bash file
         cp.exec(`chmod 755 ${path.join("./", this.options["name"] ? this.answers.serviceName + "/" + 'update_proto.sh' : 'update_proto.sh')}`);
         // generate methods files
-        this.composeWith(`mikudos:ts_service`, { proto: this.answers.proto });
+        this.composeWith(`mikudos:ts_service`, { client: true, proto: this.answers.proto });
     }
 };
