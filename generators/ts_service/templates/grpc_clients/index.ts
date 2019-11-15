@@ -5,5 +5,5 @@ import { <%=protosCamel[index]%>Client, Type as <%=protosCamel[index]%>Type } fr
 export = function(app: Application): void {
     app.context.grpcClients = {};
 <% protosCamel.forEach(function(proto, index){ %>
-    <%=protoCamel%>Client(app);<% }); %>
+    <%=proto%>Client(app);<% }); %>
 };

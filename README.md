@@ -48,7 +48,9 @@ Generate your micro service based on one proto file.
 ```bash
 yo mikudos:app
 ```
+
 or
+
 ```bash
 yo mikudos app
 ```
@@ -63,6 +65,30 @@ Generate your Golang method in micro service based on your proto file.
 
 ```bash
 yo mikudos:golang_service
+```
+
+Generate your Nodejs micro service with Typescript based on one proto file.
+
+```bash
+yo mikudos:ts_app
+```
+
+Generate your Typescript methods in micro service based on your proto file.
+
+```bash(with users/users.proto)
+yo mikudos:ts_service  --proto=users
+```
+
+Generate your Typescript clients in micro service based on your proto file.
+
+```bash(with users/users.proto)
+yo mikudos:ts_service --client
+```
+
+Or generate in same time.
+
+```bash(with users/users.proto)
+yo mikudos:ts_service  --proto=users --client
 ```
 
 Generate your Nodejs micro service based on one proto file.

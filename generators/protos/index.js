@@ -16,7 +16,7 @@ module.exports = class extends Generator {
         this.option("withEvAgg", { type: Boolean })
         this.option("withMessage", { type: Boolean })
     }
-    method1() {
+    _method1() {
         this.log(this.options, this.destinationPath(this.options["name"] + "/proto/" + "users"));
     }
 

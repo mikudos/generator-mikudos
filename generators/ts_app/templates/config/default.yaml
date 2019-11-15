@@ -4,3 +4,8 @@ brokers:
   - "127.0.0.1:9092"
 mongodb: "mongodb+srv://qiushanyu666:qiushanyu666@cluster0-exxbz.mongodb.net/yue?retryWrites=true"
 port: 50051
+interServiceClients:
+<% serviceProtos.forEach(function(item, index){ %>
+  <%=item%>:
+    name: "127.0.0.1"
+    port: "<%=50051+index%>"<% }); %>

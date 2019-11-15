@@ -77,6 +77,7 @@ module.exports = class extends Generator {
             serviceName: this.answers.serviceName,
             repoUrl: this.answers.repoUrl,
             version: this.answers.version,
+            serviceProtos: this.protos,
             proto: this.answers.proto
         }
         await this._copyEveryFile("./", dirs, configObj)

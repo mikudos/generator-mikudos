@@ -1,37 +1,37 @@
 {
-    "name": "generator-mikudos",
-    "version": "1.0.1",
-    "description": "yo generator for mikudos service frame-work",
-    "main": "index.js",
-    "scripts": {
-        "test": "mikudos test"
-    },
-    "files": [
-        "generators"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/mikudos/generator-mikudos.git"
-    },
-    "keywords": [
-        "yeoman-generator",
-        "generator-mikudos",
-        "mikudos"
-    ],
-    "dependencies": {
-        "@grpc/grpc-js": "^0.6.7",
-        "@grpc/proto-loader": "^0.5.2",
-        "jscodeshift": "^0.6.4",
-        "lodash": "^4.17.15",
-        "mkdirp": "^0.5.1",
-        "semver": "^6.3.0",
-        "yeoman-generator": "^4.1.0",
-        "yosay": "^2.0.2"
-    },
-    "author": "yue guanyu",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/mikudos/generator-mikudos/issues"
-    },
-    "homepage": "https://github.com/mikudos/generator-mikudos#readme"
+  "name": "generator-mikudos",
+  "version": "1.0.2",
+  "description": "yo generator for mikudos service frame-work",
+  "main": "index.js",
+  "scripts": {
+    "test": "mikudos test"
+  },
+  "files": [
+    "generators"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikudos/generator-mikudos.git"
+  },
+  "keywords": [
+    "yeoman-generator",
+    "generator-mikudos",
+    "mikudos"
+  ],
+  "dependencies": {
+    "@grpc/grpc-js": "^0.6.7",
+    "@grpc/proto-loader": "^0.5.2",
+    "jscodeshift": "^0.6.4",
+    "lodash": "^4.17.15",
+    "mkdirp": "^0.5.1",
+    "semver": "^6.3.0",
+    "yeoman-generator": "^4.1.0",
+    "yosay": "^2.0.2"
+  },
+  "author": "yue guanyu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mikudos/generator-mikudos/issues"
+  },
+  "homepage": "https://github.com/mikudos/generator-mikudos#readme"
 }
