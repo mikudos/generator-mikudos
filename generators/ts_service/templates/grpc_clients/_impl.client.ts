@@ -1,7 +1,6 @@
 import grpc_caller from 'grpc-caller';
 import path from 'path';
 import { Application } from 'mikudos-node-app';
-import { Client } from '@grpc/grpc-js';
 
 <% serviceNames.forEach(function(item, index){ %>
 interface <%=item%> {
