@@ -27,7 +27,7 @@ export default class {
               })
               .toCallback((err, result) => {
                 if (err) return reject(err)
-                resolve({ succeeded, failed })
+                resolve({ succeed: true })
               })
         })
 <% } else if (item.type=="duplex") { %>
