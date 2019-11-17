@@ -77,8 +77,8 @@ module.exports = class extends Generator {
         if (this.proto) {
             // generate files for implementation all methods for each service
             for (const key in this.answers['serviceList']) {
-                const element = this.answers['serviceList'][key];
-                let serviceName = this.protoInfo.serviceList[element];
+                const serviceIndex = this.answers['serviceList'][key];
+                let serviceName = this.protoInfo.serviceList[serviceIndex];
                 mkdir.sync(this.destinationPath(`./src/services/${_.snakeCase(serviceName)}`));
                 let files = fs.readdirSync(this.templatePath('_method'));
                 for (let index = 0; index < files.length; index++) {
@@ -92,7 +92,8 @@ module.exports = class extends Generator {
                             {
                                 serviceName,
                                 serviceNameSnake: _.snakeCase(serviceName),
-                                methods: this.protoInfo.methodsList[element]
+                                methods: this.protoInfo.methodsList[serviceIndex],
+                                serviceObj: this.protoInfo.packageObject[this.protoInfo.packageName][serviceName]
                             }
                         )
                     }
@@ -103,10 +104,10 @@ module.exports = class extends Generator {
                 this.templatePath(`index.ts`),
                 this.destinationPath(`./src/services/index.ts`),
                 {
-                    serviceNames: this.answers['serviceList'].map(element => {
+                    serviceNames: this.answers['serviceList'].map(serviceIndex => {
                         return {
-                            camelCase: this.protoInfo.serviceList[element],
-                            snakeCase: _.snakeCase(this.protoInfo.serviceList[element])
+                            camelCase: this.protoInfo.serviceList[serviceIndex],
+                            snakeCase: _.snakeCase(this.protoInfo.serviceList[serviceIndex])
                         }
                     })
                 }

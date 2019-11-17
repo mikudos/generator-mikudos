@@ -1,7 +1,8 @@
 const protoLoader = require('@grpc/proto-loader');
 const grpcLibrary = require('@grpc/grpc-js');
+const _ = require('lodash');
 
-let protoFileName = "./proto/ai/ai.proto"
+let protoFileName = "./proto/rbac/rbac.proto"
 let options = { keepCase: true }
 
 class ProtoInfo {
@@ -20,12 +21,19 @@ class ProtoInfo {
             if (item.service) {
                 this.serviceList.push(i);
                 // console.log('item', item.service);
-                this.methodsList.push(Object.keys(item.service));
+                this.methodsList.push(Object.keys(item.service).map(name => {
+                    let type = _.at(item.service[name], ['requestStream', 'responseStream'])
+                    return { name, type: type[0] && type[1] ? 'duplex' : (type[0] ? 'requestStream' : (type[1] ? 'responseStream' : 'unary')) }
+                }));
             }
         }
         return this;
     }
 }
+
+// new ProtoInfo(protoFileName).init().then(proto => {
+//     console.log("proto:", proto.methodsList);
+// })
 
 module.exports = {
     ProtoInfo

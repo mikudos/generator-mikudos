@@ -6,9 +6,9 @@ import hooks from './<%=serviceNameSnake%>.hooks';
 export default function(app: Application) {<% methods.forEach(function(item){ %>
         app.use(
             '<%=serviceName%>',
-            '<%=item%>',
+            '<%=item.name%>',
             ...hooks.before,
-            Funcs['<%=item%>'],
+            Funcs['<%=item.name%>'],
             ...hooks.after
         );<% }); %>
 }

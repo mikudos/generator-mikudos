@@ -33,6 +33,7 @@
     "dependencies": {
         "grpc": "^1.23.3",
         "grpc-caller": "^0.13.0",
+        "highland": "^2.13.5",
         "kafkajs": "^1.10.0",
         "mali": "^0.18.0",
         "mikudos-node-app": "^1.0.7",

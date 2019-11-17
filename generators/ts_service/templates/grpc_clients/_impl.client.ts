@@ -6,7 +6,7 @@ import { Client } from '@grpc/grpc-js';
 <% serviceNames.forEach(function(item, index){ %>
 interface <%=item%> {
     <% methods[index].forEach(function(mt, mi){ %>
-    <%=mt%>: Function;<% }); %>
+    <%=mt.name%>: Function;<% }); %>
 }
 <% }); %>
 
