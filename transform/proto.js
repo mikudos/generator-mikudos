@@ -2,7 +2,7 @@ const protoLoader = require('@grpc/proto-loader');
 const grpcLibrary = require('@grpc/grpc-js');
 const _ = require('lodash');
 
-let protoFileName = "./proto/rbac/rbac.proto"
+// let protoFileName = "./proto/rbac/rbac.proto"
 let options = { keepCase: true }
 
 class ProtoInfo {
@@ -30,10 +30,6 @@ class ProtoInfo {
         return this;
     }
 }
-
-// new ProtoInfo(protoFileName).init().then(proto => {
-//     console.log("proto:", proto.methodsList);
-// })
 
 module.exports = {
     ProtoInfo
