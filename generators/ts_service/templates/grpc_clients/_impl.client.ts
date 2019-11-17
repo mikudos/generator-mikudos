@@ -1,6 +1,7 @@
 import grpc_caller from 'grpc-caller';
 import path from 'path';
 import { Application } from 'mikudos-node-app';
+import { Client } from '@grpc/grpc-js';
 
 <% serviceNames.forEach(function(item, index){ %>
 interface <%=item%> {
@@ -9,10 +10,10 @@ interface <%=item%> {
 }
 <% }); %>
 
-class Client {
+export class Client {
 <% serviceNames.forEach(function(sn){ %>
     <%=sn%>: <%=sn%>;<% }); %>
-    constructor(file, load, serviceClients) {
+    constructor(file: string, load: object, serviceClients: any) {
 <% serviceNames.forEach(function(sn){ %>
         this.<%=sn%> = grpc_caller(
             `${serviceClients.name}:${serviceClients.port}`,
@@ -23,7 +24,7 @@ class Client {
     }
 }
 
-export = function(app: Application): void {
+export default function (app: Application): void {
     let serviceClients = app.get('interServiceClients').<%=proto%>;
     const file = path.resolve(
         __dirname,
