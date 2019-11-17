@@ -22,8 +22,7 @@ export default class {
                 if (message.right) {
                     return message;
                 } else {
-                    reject(new Error);
-                    st.destroy()
+                    return reject(new Error);
                 }
               })
               .toCallback((err, result) => {
