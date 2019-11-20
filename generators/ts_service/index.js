@@ -21,6 +21,7 @@ module.exports = class extends Generator {
         if (this.options['client']) {
             // gather all the protos
             this.protos = fs.readdirSync(this.destinationPath("./proto"))
+            this.protos = this.protos.filter(p => !fs.statSync(this.destinationPath(`./proto/${p}`)).isFile())
             if (this.protos.includes(this.proto)) {
                 this.protos.splice(this.protos.indexOf(this.proto), 1)
                 console.log("client folder:", this.options['clientFolder']);

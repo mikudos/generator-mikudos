@@ -21,7 +21,7 @@ module.exports = class extends Generator {
     async initializing() {
         // gather all the protos, and select one for generate service
         this.protos = fs.readdirSync(this.destinationPath("./proto"))
-        console.log("protos:", this.protos);
+        this.protos = this.protos.filter(p => !fs.statSync(this.destinationPath(`./proto/${p}`)).isFile())
     }
     async prompting() {
         this.answers = await this.prompt([
