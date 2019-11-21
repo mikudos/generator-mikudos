@@ -33,14 +33,15 @@ module.exports = class extends Generator {
     async configuring() {
         // scanning all protos
         for (const proto of this.protos) {
+            this.protoInfos[proto] = [];
             let tempProtoInfo = await new ProtoInfo(`./proto/${proto}/${proto}.proto`).init();
             for (const key in tempProtoInfo.methodsList) {
                 let list = tempProtoInfo.methodsList[key];
-                tempProtoInfo.methodsList[key] = list.map(method => {
+                list = list.map(method => {
                     return { file: proto, package: tempProtoInfo.packageName, service: tempProtoInfo.serviceList[key], path: `${tempProtoInfo.packageName}.${tempProtoInfo.serviceList[key]}.${method.name}`, ...method }
                 })
+                this.protoInfos[proto] = _.concat(this.protoInfos[proto], list);
             }
-            this.protoInfos[proto] = tempProtoInfo.methodsList;
         }
     }
     async default() { }
