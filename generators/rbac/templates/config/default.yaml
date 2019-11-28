@@ -1,5 +1,6 @@
 app: "mikudos-service-ts"
 consumer_group: "mikudos-service-ts"
+default_method_regex: ".*"
 brokers:
   - "127.0.0.1:9092"
 mysql: "mysql://root:EventMysqlServerPassword@localhost:3306/rbac"
