@@ -1,0 +1,64 @@
+{
+    "name": "mikudos_message-service",
+    "version": "0.0.1",
+    "description": "mikudos_message-socketIO-service",
+    "homepage": "",
+    "main": "src",
+    "keywords": [
+        "mikudos"
+    ],
+    "author": {
+        "name": "guanyu",
+        "email": "yue.guanyu@hotmail.com"
+    },
+    "contributors": [],
+    "bugs": {},
+    "directories": {
+        "lib": "src",
+        "test": "test/",
+        "config": "config/"
+    },
+    "engines": {
+        "node": "^12.0.0",
+        "yarn": ">= 0.18.0"
+    },
+    "scripts": {
+        "test": "yarn run compile && yarn run mocha",
+        "dev": "ts-node-dev --no-notify src/",
+        "start": "yarn run compile && node lib/",
+        "prod": "node lib/",
+        "mocha": "ts-mocha \"test/**/*.ts\" --recursive --exit",
+        "compile": "shx rm -rf lib/ && tsc"
+    },
+    "dependencies": {
+        "grpc": "^1.24.2",
+        "grpc-caller": "^0.13.0",
+        "highland": "^2.13.5",
+        "json-rpc-error": "^2.0.0",
+        "kafkajs": "^1.10.0",
+        "lodash": "^4.17.15",
+        "mikudos-socketio-app": "0.0.11",
+        "request": "^2.88.0",
+        "request-promise-native": "^1.0.8",
+        "socket.io": "^2.3.0"
+    },
+    "devDependencies": {
+        "@types/config": "0.0.35",
+        "@types/helmet": "^0.0.45",
+        "@types/js-yaml": "^3.12.1",
+        "@types/lodash": "^4.14.149",
+        "@types/mocha": "^5.2.7",
+        "@types/socket.io": "^2.1.4",
+        "@types/socket.io-client": "^1.4.32",
+        "axios": "^0.19.0",
+        "mikudos-socketio-client": "0.0.5",
+        "mocha": "^6.2.0",
+        "nodemon": "^1.19.1",
+        "shx": "^0.3.2",
+        "socket.io-client": "^2.3.0",
+        "ts-mocha": "^6.0.0",
+        "ts-node-dev": "^1.0.0-pre.42",
+        "tslint": "^5.18.0",
+        "typescript": "^3.5.3"
+    }
+}

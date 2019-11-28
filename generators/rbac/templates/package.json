@@ -1,0 +1,61 @@
+{
+    "name": "mikudos_rbac-service",
+    "version": "0.0.1",
+    "description": "mikudos_rbac-grpc-service",
+    "homepage": "",
+    "main": "src",
+    "keywords": [
+        "mikudos"
+    ],
+    "author": {
+        "name": "guanyu",
+        "email": "yue.guanyu@hotmail.com"
+    },
+    "contributors": [],
+    "bugs": {},
+    "directories": {
+        "lib": "src",
+        "test": "test/",
+        "config": "config/"
+    },
+    "engines": {
+        "node": "^12.0.0",
+        "yarn": ">= 0.18.0"
+    },
+    "scripts": {
+        "test": "yarn run compile && yarn run mocha",
+        "dev": "ts-node-dev --no-notify src/",
+        "start": "yarn run compile && node lib/",
+        "prod": "node lib/",
+        "mocha": "ts-mocha \"test/**/*.ts\" --recursive --exit",
+        "compile": "shx rm -rf lib/ && tsc"
+    },
+    "dependencies": {
+        "grpc": "^1.23.3",
+        "grpc-caller": "^0.13.0",
+        "highland": "^2.13.5",
+        "kafkajs": "^1.10.0",
+        "lodash": "^4.17.15",
+        "mali": "^0.18.0",
+        "mikudos-node-app": "^1.0.7",
+        "mysql2": "^2.0.0",
+        "sequelize": "^5.21.2"
+    },
+    "devDependencies": {
+        "@types/bluebird": "^3.5.29",
+        "@types/compression": "^1.0.1",
+        "@types/config": "0.0.35",
+        "@types/helmet": "^0.0.45",
+        "@types/js-yaml": "^3.12.1",
+        "@types/lodash": "^4.14.149",
+        "@types/mocha": "^5.2.7",
+        "axios": "^0.19.0",
+        "mocha": "^6.2.0",
+        "nodemon": "^1.19.1",
+        "shx": "^0.3.2",
+        "ts-mocha": "^6.0.0",
+        "ts-node-dev": "^1.0.0-pre.42",
+        "tslint": "^5.18.0",
+        "typescript": "^3.5.3"
+    }
+}

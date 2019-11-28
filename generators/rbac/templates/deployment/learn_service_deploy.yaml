@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: language_master_learn
+spec:
+  selector:
+    app: language_master_learn_service
+  type: ClusterIP
+  ports:
+    - name: grpc
+      port: 50051
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: language_master_learn_service
+  labels:
+    app: language_master_learn_service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: language_master_learn_service
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: language_master_learn_service
+        version: v1
+    spec:
+      containers:
+        - image: asia.gcr.io/kubenetes-test-project-249803/language_master_learn_srv:0.0.1
+          name: language_master_learn_service
+          resources:
+            requests:
+              cpu: "20m"
+              memory: "55M"
+          env:
+            - name: ENVVARNAME
+              value: ENVVARVALUE
+          ports:
+            - containerPort: 5000
+              name: my-name
+          volumeMounts:
+            - mountPath: /data
+              name: data
+      volumes:
+        - name: data
+          emptyDir: {}
+      restartPolicy: Always
+      imagePullPolicy: Always

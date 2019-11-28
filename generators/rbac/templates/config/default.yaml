@@ -1,0 +1,16 @@
+app: "mikudos-service-ts"
+consumer_group: "mikudos-service-ts"
+brokers:
+  - "127.0.0.1:9092"
+mysql: "mysql://root:EventMysqlServerPassword@localhost:3306/rbac"
+port: 50057
+interServiceClients:
+  ali_oss:
+    name: "127.0.0.1"
+    port: "50051"
+  rbac:
+    name: "127.0.0.1"
+    port: "50052"
+  users:
+    name: "127.0.0.1"
+    port: "50053"

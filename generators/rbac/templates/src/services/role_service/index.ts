@@ -1,0 +1,70 @@
+import { Application } from 'mikudos-node-app';
+
+import * as Funcs from './role_service.funcs';
+import hooks from './role_service.hooks';
+
+export default function(app: Application) {
+    app.use(
+        'RoleService',
+        'FindRole',
+        ...hooks.before,
+        Funcs['FindRole'],
+        ...hooks.after
+    );
+    app.use(
+        'RoleService',
+        'GetOneRole',
+        ...hooks.before,
+        Funcs['GetOneRole'],
+        ...hooks.after
+    );
+    app.use(
+        'RoleService',
+        'CreateRole',
+        ...hooks.before,
+        Funcs['CreateRole'],
+        ...hooks.after
+    );
+    app.use(
+        'RoleService',
+        'UpdateRoleById',
+        ...hooks.before,
+        Funcs['UpdateRoleById'],
+        ...hooks.after
+    );
+    app.use(
+        'RoleService',
+        'DeleteRole',
+        ...hooks.before,
+        Funcs['DeleteRole'],
+        ...hooks.after
+    );
+    app.use(
+        'RoleService',
+        'DeleteRoleById',
+        ...hooks.before,
+        Funcs['DeleteRoleById'],
+        ...hooks.after
+    );
+    app.use(
+        'RoleService',
+        'GetRoleAccessesById',
+        ...hooks.before,
+        Funcs['GetRoleAccessesById'],
+        ...hooks.after
+    );
+    app.use(
+        'RoleService',
+        'AddAccessToRoleByRid',
+        ...hooks.before,
+        Funcs['AddAccessToRoleByRid'],
+        ...hooks.after
+    );
+    app.use(
+        'RoleService',
+        'DelAccessToRoleByRid',
+        ...hooks.before,
+        Funcs['DelAccessToRoleByRid'],
+        ...hooks.after
+    );
+}

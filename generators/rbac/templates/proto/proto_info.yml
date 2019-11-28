@@ -1,0 +1,363 @@
+ali_oss:
+  - file: ali_oss
+    package: ali_oss
+    service: AliOssService
+    path: ali_oss.AliOssService.FindOssList
+    name: FindOssList
+    type: responseStream
+  - file: ali_oss
+    package: ali_oss
+    service: AliOssService
+    path: ali_oss.AliOssService.GetOssById
+    name: GetOssById
+    type: unary
+  - file: ali_oss
+    package: ali_oss
+    service: AliOssService
+    path: ali_oss.AliOssService.CreateOss
+    name: CreateOss
+    type: unary
+  - file: ali_oss
+    package: ali_oss
+    service: AliOssService
+    path: ali_oss.AliOssService.UpdateOss
+    name: UpdateOss
+    type: unary
+  - file: ali_oss
+    package: ali_oss
+    service: AliOssService
+    path: ali_oss.AliOssService.UpdateOssById
+    name: UpdateOssById
+    type: unary
+  - file: ali_oss
+    package: ali_oss
+    service: AliOssService
+    path: ali_oss.AliOssService.DeleteOss
+    name: DeleteOss
+    type: unary
+  - file: ali_oss
+    package: ali_oss
+    service: AliOssService
+    path: ali_oss.AliOssService.DeleteOssById
+    name: DeleteOssById
+    type: unary
+rbac:
+  - file: rbac
+    package: rbac
+    service: GrpcService
+    path: rbac.GrpcService.ListGrpcServer
+    name: ListGrpcServer
+    type: responseStream
+  - file: rbac
+    package: rbac
+    service: GrpcService
+    path: rbac.GrpcService.ListServicesWithFullPath
+    name: ListServicesWithFullPath
+    type: responseStream
+  - file: rbac
+    package: rbac
+    service: GrpcService
+    path: rbac.GrpcService.ListMethodsWithFullPath
+    name: ListMethodsWithFullPath
+    type: responseStream
+  - file: rbac
+    package: rbac
+    service: GrpcService
+    path: rbac.GrpcService.GetServiceListOnServer
+    name: GetServiceListOnServer
+    type: responseStream
+  - file: rbac
+    package: rbac
+    service: GrpcService
+    path: rbac.GrpcService.getMethodsListInService
+    name: getMethodsListInService
+    type: responseStream
+  - file: rbac
+    package: rbac
+    service: RoleService
+    path: rbac.RoleService.ListRole
+    name: ListRole
+    type: responseStream
+  - file: rbac
+    package: rbac
+    service: RoleService
+    path: rbac.RoleService.GetOneRole
+    name: GetOneRole
+    type: unary
+  - file: rbac
+    package: rbac
+    service: RoleService
+    path: rbac.RoleService.CreateRole
+    name: CreateRole
+    type: unary
+  - file: rbac
+    package: rbac
+    service: RoleService
+    path: rbac.RoleService.UpdateRoleById
+    name: UpdateRoleById
+    type: unary
+  - file: rbac
+    package: rbac
+    service: RoleService
+    path: rbac.RoleService.DeleteRole
+    name: DeleteRole
+    type: unary
+  - file: rbac
+    package: rbac
+    service: RoleService
+    path: rbac.RoleService.DeleteRoleById
+    name: DeleteRoleById
+    type: unary
+  - file: rbac
+    package: rbac
+    service: RoleService
+    path: rbac.RoleService.GetRoleAccessesById
+    name: GetRoleAccessesById
+    type: unary
+  - file: rbac
+    package: rbac
+    service: RoleService
+    path: rbac.RoleService.AddAccessToRoleByRid
+    name: AddAccessToRoleByRid
+    type: unary
+  - file: rbac
+    package: rbac
+    service: RoleService
+    path: rbac.RoleService.DelAccessToRoleByRid
+    name: DelAccessToRoleByRid
+    type: unary
+  - file: rbac
+    package: rbac
+    service: GroupService
+    path: rbac.GroupService.ListGroup
+    name: ListGroup
+    type: responseStream
+  - file: rbac
+    package: rbac
+    service: GroupService
+    path: rbac.GroupService.GetOneGroup
+    name: GetOneGroup
+    type: unary
+  - file: rbac
+    package: rbac
+    service: GroupService
+    path: rbac.GroupService.CreateGroup
+    name: CreateGroup
+    type: unary
+  - file: rbac
+    package: rbac
+    service: GroupService
+    path: rbac.GroupService.UpdateGroupById
+    name: UpdateGroupById
+    type: unary
+  - file: rbac
+    package: rbac
+    service: GroupService
+    path: rbac.GroupService.DeleteGroup
+    name: DeleteGroup
+    type: unary
+  - file: rbac
+    package: rbac
+    service: GroupService
+    path: rbac.GroupService.DeleteGroupById
+    name: DeleteGroupById
+    type: unary
+  - file: rbac
+    package: rbac
+    service: GroupService
+    path: rbac.GroupService.GetGroupAccessesById
+    name: GetGroupAccessesById
+    type: unary
+  - file: rbac
+    package: rbac
+    service: GroupService
+    path: rbac.GroupService.AddRoleIdsToGroupByGid
+    name: AddRoleIdsToGroupByGid
+    type: unary
+  - file: rbac
+    package: rbac
+    service: GroupService
+    path: rbac.GroupService.DelRoleIdsToGroupByGid
+    name: DelRoleIdsToGroupByGid
+    type: unary
+  - file: rbac
+    package: rbac
+    service: RbacService
+    path: rbac.RbacService.VerifyAccessRightWithRids
+    name: VerifyAccessRightWithRids
+    type: unary
+  - file: rbac
+    package: rbac
+    service: RbacService
+    path: rbac.RbacService.VerifyAccessRightWithGids
+    name: VerifyAccessRightWithGids
+    type: unary
+users:
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.FindUsersList
+    name: FindUsersList
+    type: responseStream
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.GetUsersById
+    name: GetUsersById
+    type: unary
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.CreateUsers
+    name: CreateUsers
+    type: unary
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.UpdateUsers
+    name: UpdateUsers
+    type: unary
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.UpdateUsersById
+    name: UpdateUsersById
+    type: unary
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.DeleteUsers
+    name: DeleteUsers
+    type: unary
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.DeleteUsersById
+    name: DeleteUsersById
+    type: unary
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.FindUserChatGroupsList
+    name: FindUserChatGroupsList
+    type: responseStream
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.GetUserChatGroupsById
+    name: GetUserChatGroupsById
+    type: unary
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.CreateUserChatGroups
+    name: CreateUserChatGroups
+    type: unary
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.UpdateUserChatGroups
+    name: UpdateUserChatGroups
+    type: unary
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.UpdateUserChatGroupsById
+    name: UpdateUserChatGroupsById
+    type: unary
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.DeleteUserChatGroups
+    name: DeleteUserChatGroups
+    type: unary
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.DeleteUserChatGroupsById
+    name: DeleteUserChatGroupsById
+    type: unary
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.FindUserDevicesList
+    name: FindUserDevicesList
+    type: responseStream
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.GetUserDevicesById
+    name: GetUserDevicesById
+    type: unary
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.CreateUserDevices
+    name: CreateUserDevices
+    type: unary
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.UpdateUserDevices
+    name: UpdateUserDevices
+    type: unary
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.UpdateUserDevicesById
+    name: UpdateUserDevicesById
+    type: unary
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.DeleteUserDevices
+    name: DeleteUserDevices
+    type: unary
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.DeleteUserDevicesById
+    name: DeleteUserDevicesById
+    type: unary
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.FindUserFriendsList
+    name: FindUserFriendsList
+    type: responseStream
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.GetUserFriendsById
+    name: GetUserFriendsById
+    type: unary
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.CreateUserFriends
+    name: CreateUserFriends
+    type: unary
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.UpdateUserFriends
+    name: UpdateUserFriends
+    type: unary
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.UpdateUserFriendsById
+    name: UpdateUserFriendsById
+    type: unary
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.DeleteUserFriends
+    name: DeleteUserFriends
+    type: unary
+  - file: users
+    package: users
+    service: UsersService
+    path: users.UsersService.DeleteUserFriendsById
+    name: DeleteUserFriendsById
+    type: unary

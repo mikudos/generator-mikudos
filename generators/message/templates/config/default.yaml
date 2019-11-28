@@ -1,0 +1,16 @@
+port: 3000
+authentication:
+  request:
+    protocol: "http"
+    host: "127.0.0.1"
+    port: 3030
+    path: "/authentication"
+    method: "POST"
+  tokenPath: "accessToken"
+  eventPath: "authentication"
+chat:
+  eventPath: "message"
+  roomPath: "room"
+eventPath:
+  json_rpc_services: "rpc-call"
+  duplex_services: "stream-call"
