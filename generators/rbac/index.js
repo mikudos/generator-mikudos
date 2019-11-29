@@ -1,4 +1,8 @@
 var Generator = require('../../copy_generator');
+const fs = require('fs');
+const cp = require('child_process');
+const path = require('path');
+const _ = require('lodash');
 
 module.exports = class extends Generator {
     // The name `constructor` is important here
@@ -11,30 +15,67 @@ module.exports = class extends Generator {
     }
 
     async initializing() {
-        return this.log("Generate Message Service is currently not suported!")
+        await this.gatherProtofiles();
     }
     async prompting() {
-        // this.answers = await this.prompt([
-        //     {
-        //         type: "input",
-        //         name: "name",
-        //         message: "Your Node project name",
-        //         default: this.appname // Default to current folder name
-        //     },
-        //     {
-        //         type: "confirm",
-        //         name: "cool",
-        //         message: "Would you like to enable the Cool feature?"
-        //     }
-        // ]);
+        this.answers = await this.prompt([
+            {
+                type: "input",
+                name: "projectName",
+                message: `(${this.options["name"] || this.appname})Your Nodejs project name`,
+                default: this.options["projectName"] || path.basename(path.resolve("../")) // Default to current folder name
+            },
+            {
+                type: "input",
+                name: "serviceName",
+                message: `(${this.options["name"] || this.appname})Your Nodejs micro service name`,
+                default: (this.options["name"] ? (this.options["name"] + "_service") : null) || this.appname // Default to current folder name
+            },
+            {
+                type: "input",
+                name: "version",
+                message: `(${this.options["name"] || this.appname})Your service version`,
+                default: "0.0.1"
+            }
+        ]);
+        this.answers.projectName = _.snakeCase(this.answers["projectName"]);
+        this.answers.serviceName = _.snakeCase(this.answers["serviceName"]);
+        let repoUrl = await this.prompt([
+            {
+                type: 'input',
+                name: 'repoUrl',
+                message: 'What is your repository URL?',
+                default: `github.com/${this.answers["projectName"]}/${this.answers["serviceName"]}.git`
+            }
+        ])
+        this.answers.repoUrl = repoUrl["repoUrl"].replace(/^https:\/\//, '').toLowerCase();
     }
     async configuring() { }
     async default() { }
     async writing() {
-        // this.log("app name", this.answers.name);
-        // this.log("cool feature", this.answers.cool);
+        this.log("app serviceName", this.answers.serviceName);
+        this.log("app repoUrl", this.answers.repoUrl);
+        let dirs = {}
+        dirs.configsDir = 'config';
+        dirs.deploymentDir = 'deployment';
+        dirs.srcDir = 'src';
+        dirs.testDir = 'test';
+        var rootFiles = ['.gitignore', '.dockerignore', 'Dockerfile', 'LICENSE']
+        var rootTemplate = ['Makefile', 'README.md', 'package.json', 'tsconfig.json']
+        if (this.protos) rootTemplate.push('update_proto.sh');
+        var configObj = {
+            appName: this.answers.projectName,
+            serviceName: this.answers.serviceName,
+            repoUrl: this.answers.repoUrl,
+            version: this.answers.version,
+            serviceProtos: this.protos
+        }
+        await this._copyEveryFile("./", dirs, configObj)
+        await this._copyRootFile(rootFiles, rootTemplate, configObj)
     }
     async conflicts() { }
     async install() { }
-    async end() { }
+    async end() {
+        this.protos && await this.addExecuteRight('update_proto');
+    }
 };
