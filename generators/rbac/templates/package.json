@@ -1,7 +1,7 @@
 {
-    "name": "mikudos_rbac-service",
-    "version": "0.0.1",
-    "description": "mikudos_rbac-grpc-service",
+    "name": "<%=serviceName%>-service",
+    "version": "<%=version%>",
+    "description": "<%=serviceName%>-grpc-service",
     "homepage": "",
     "main": "src",
     "keywords": [

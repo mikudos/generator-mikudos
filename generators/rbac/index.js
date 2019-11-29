@@ -76,6 +76,8 @@ module.exports = class extends Generator {
     async conflicts() { }
     async install() { }
     async end() {
+        // gather all protos, and generate proto_info. file
+        this.composeWith(`mikudos:gather_protos`);
         this.protos && await this.addExecuteRight('update_proto');
     }
 };

@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: language_master_learn
+  name: <%=serviceName%>
 spec:
   selector:
-    app: language_master_learn_service
+    app: <%=serviceName%>_service
   type: ClusterIP
   ports:
     - name: grpc
@@ -13,14 +13,14 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: language_master_learn_service
+  name: <%=serviceName%>_service
   labels:
-    app: language_master_learn_service
+    app: <%=serviceName%>_service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: language_master_learn_service
+      app: <%=serviceName%>_service
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -29,12 +29,12 @@ spec:
   template:
     metadata:
       labels:
-        app: language_master_learn_service
+        app: <%=serviceName%>_service
         version: v1
     spec:
       containers:
-        - image: asia.gcr.io/kubenetes-test-project-249803/language_master_learn_srv:0.0.1
-          name: language_master_learn_service
+        - image: asia.gcr.io/kubenetes-test-project-249803/<%=serviceName%>_srv:0.0.1
+          name: <%=serviceName%>_service
           resources:
             requests:
               cpu: "20m"

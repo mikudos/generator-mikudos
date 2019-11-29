@@ -1,6 +1,6 @@
 #!/bin/bash
 PROTOPATH=$PWD/proto
-pushd ../mikudos_protos
+pushd ../<%=appName%>_protos
 echo "update proto files in: $(pwd)"
 git pull
 sleep 1
