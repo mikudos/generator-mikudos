@@ -17,8 +17,7 @@ module.exports = class extends Generator {
 
     async initializing() {
         // gather all the protos, and select one for generate service
-        this.protos = fs.readdirSync(this.destinationPath("./proto"))
-        this.protos = this.protos.filter(p => !fs.statSync(this.destinationPath(`./proto/${p}`)).isFile())
+        await this.gatherProtofiles();
     }
     async prompting() {
         this.answers = await this.prompt([
@@ -64,7 +63,6 @@ module.exports = class extends Generator {
     async writing() {
         this.log("app serviceName", this.answers.serviceName);
         this.log("app repoUrl", this.answers.repoUrl);
-        this.log("cool feature", this.answers.cool);
         let dirs = {}
         dirs.configsDir = 'config';
         dirs.deploymentDir = 'deployment';
@@ -86,8 +84,7 @@ module.exports = class extends Generator {
     async conflicts() { }
     async install() { }
     async end() {
-        // add exicute right to the bash file
-        cp.exec(`chmod 755 ${path.join("./", this.options["name"] ? this.answers.serviceName + "/" + 'update_proto.sh' : 'update_proto.sh')}`);
+        await this.addExecuteRight('update_proto');
         // generate methods files
         this.composeWith(`mikudos:ts_service`, { client: true, clientFolder: 'grpc_clients', proto: this.answers.proto });
     }

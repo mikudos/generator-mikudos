@@ -1,3 +1,8 @@
+IP:=$(shell /sbin/ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:")
+NAME := <%=serviceName%>_srv
+SERVICE_VERSION := 0.0.1
+PORT := 50051
+
 .PHONY:server
 server:
 	yarn install
@@ -6,16 +11,16 @@ server:
 docker:
 	yarn install
 	yarn run compile
-	docker build . -t asia.gcr.io/kubenetes-test-project-249803/mikudos_message-service:0.0.1
+	docker build . -t asia.gcr.io/kubenetes-test-project-249803/$(NAME):$(SERVICE_VERSION)
 
 .PHONY:run-docker
 run-docker:
-	docker run -p 3000:3000 asia.gcr.io/kubenetes-test-project-249803/mikudos_message-service:0.0.1
+	docker run -p 3000:3000 asia.gcr.io/kubenetes-test-project-249803/$(NAME):$(SERVICE_VERSION)
 
 .PHONY:push
 push:
-	# docker tag asia.gcr.io/kubenetes-test-project-249803/mikudos_message-service:0.0.1 asia.gcr.io/kubenetes-test-project-249803/mikudos_message-service:0.0.1
-	docker push asia.gcr.io/kubenetes-test-project-249803/mikudos_message-service:0.0.1
+	# docker tag asia.gcr.io/kubenetes-test-project-249803/$(NAME):$(SERVICE_VERSION) asia.gcr.io/kubenetes-test-project-249803/$(NAME):$(SERVICE_VERSION)
+	docker push asia.gcr.io/kubenetes-test-project-249803/$(NAME):$(SERVICE_VERSION)
 
 .PHONY:istio
 istio:
@@ -31,5 +36,5 @@ istio-deploy:
 
 .PHONY: run-client
 run-client:
-	grpcc --proto ./proto/rbac/rbac.proto --address 127.0.0.1:$(PORT) -i
+	grpcc --proto ./proto/rbac/rbac.proto --address $(IP):$(PORT) -i
 	# let ee = client.sayHello({name:"yue"}, printReply)

@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+spec:
+  ports:
+    # Use port name in "<protocol>[-<suffix>]" format, otherwise traffic
+    # coming from istio nodes will silently ignore istio RouteRules.
+    - name: tcp
+      port: 3030
+  selector:
+    app: frontend
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: frontend-v2
+  labels:
+    app: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      name: frontend-v2
+      labels:
+        app: frontend
+        version: v2
+    spec:
+      containers:
+        - image: asia.gcr.io/kubenetes-test-project-249803/frontend_server:0.0.2
+          name: frontend-v2
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "60M"
+          env:
+            - name: ENVVARNAME
+              value: ENVVARVALUE
+          ports:
+            - containerPort: 3030
+---
+

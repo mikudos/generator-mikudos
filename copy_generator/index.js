@@ -4,6 +4,12 @@ const path = require('path');
 const mkdir = require('mkdirp');
 
 module.exports = class extends Generator {
+    async gatherProtofiles() {
+        // gather all the protos, and select one for generate service
+        if (!fs.existsSync(this.destinationPath("./proto")) || !fs.statSync(this.destinationPath("./proto")).isDirectory()) return;
+        this.protos = fs.readdirSync(this.destinationPath("./proto"))
+        this.protos = this.protos.filter(p => !fs.statSync(this.destinationPath(`./proto/${p}`)).isFile())
+    }
     async _copyEveryFile(parentPath, dirs, configObj) {
         for (const key in dirs) {
             if (dirs.hasOwnProperty(key)) {
@@ -51,6 +57,18 @@ module.exports = class extends Generator {
                 path.join("./", fName),
                 configObj
             )
+        }
+    }
+
+    async addExecuteRight(type) {
+        switch (type) {
+            case 'update_proto':
+                // add exicute right to the bash file
+                cp.exec(`chmod 755 ${path.join("./", this.options["name"] ? this.answers.serviceName + "/" + 'update_proto.sh' : 'update_proto.sh')}`);
+                break;
+
+            default:
+                break;
         }
     }
 }

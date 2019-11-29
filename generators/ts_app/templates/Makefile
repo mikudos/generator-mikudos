@@ -1,3 +1,8 @@
+IP:=$(shell /sbin/ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:")
+NAME := <%=serviceName%>_srv
+SERVICE_VERSION := 0.0.1
+PORT := 50051
+
 .PHONY: proto-js
 proto-js:
 	protoc --js_out=./proto/users proto/users/users.proto
@@ -14,16 +19,16 @@ server:
 docker:
 	yarn install
 	yarn run compile
-	docker build . -t asia.gcr.io/kubenetes-test-project-249803/frontend_server:0.0.2
+	docker build . -t asia.gcr.io/kubenetes-test-project-249803/$(NAME):$(SERVICE_VERSION)
 
 .PHONY:run-docker
 run-docker:
-	docker run -p 3030:3030 asia.gcr.io/kubenetes-test-project-249803/frontend_server:0.0.2
+	docker run -p 3030:3030 asia.gcr.io/kubenetes-test-project-249803/$(NAME):$(SERVICE_VERSION)
 
 .PHONY:push
 push:
-	# docker tag asia.gcr.io/kubenetes-test-project-249803/frontend_server:0.0.2 asia.gcr.io/kubenetes-test-project-249803/frontend_server:0.0.2
-	docker push asia.gcr.io/kubenetes-test-project-249803/frontend_server:0.0.2
+	# docker tag asia.gcr.io/kubenetes-test-project-249803/$(NAME):$(SERVICE_VERSION) asia.gcr.io/kubenetes-test-project-249803/$(NAME):$(SERVICE_VERSION)
+	docker push asia.gcr.io/kubenetes-test-project-249803/$(NAME):$(SERVICE_VERSION)
 
 .PHONY:istio
 istio:
@@ -36,3 +41,8 @@ deploy:
 .PHONY:istio-deploy
 istio-deploy:
 	kubectl apply -f <(istioctl kube-inject -f deployment/frontend_deployment.yaml)
+
+.PHONY: run-client
+run-client:
+	grpcc --proto ./proto/rbac/rbac.proto --address $(IP):$(PORT) -i
+	# let ee = client.sayHello({name:"yue"}, printReply)

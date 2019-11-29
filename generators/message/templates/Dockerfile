@@ -5,5 +5,5 @@ COPY . .
 
 # RUN apk add --no-cache make gcc g++ python
 RUN yarn install --prod
-EXPOSE 3030
+EXPOSE 3000
 CMD ["yarn", "run", "prod"]
