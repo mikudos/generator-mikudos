@@ -1,14 +1,10 @@
-import { Application } from 'mikudos-node-app';
-
-import * as Funcs from './<%=serviceNameSnake%>.funcs';
+import { Application, Service } from 'mikudos-node-app';
+import HandlerClass from './<%=serviceNameSnake%>.class';
+import methodMap from './<%=serviceNameSnake%>.map';
 import hooks from './<%=serviceNameSnake%>.hooks';
 
-export default function(app: Application) {<% methods.forEach(function(item){ %>
-        app.use(
-            '<%=serviceName%>',
-            '<%=item.name%>',
-            ...hooks.before,
-            Funcs['<%=item.name%>'],
-            ...hooks.after
-        );<% }); %>
+export default function(app: Application) {
+    let handler = new HandlerClass({}, app);
+    const service = new Service(handler, methodMap, '<%=serviceName%>');
+    app.register(service.name, service, hooks);
 }
