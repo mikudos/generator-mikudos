@@ -1,7 +1,5 @@
 var Generator = require('../../copy_generator');
-var inquirer = require('inquirer');
 const fs = require('fs');
-const cp = require('child_process');
 const path = require('path');
 const _ = require('lodash');
 
@@ -14,14 +12,10 @@ module.exports = class extends Generator {
         // Next, add your custom code
         this.option('babel'); // This method adds support for a `--babel` flag
     }
-    method1() {
-        this.log('method 1 just ran');
-    }
 
     async initializing() {
         // gather all the protos, and select one for generate service
-        this.protos = fs.readdirSync(this.destinationPath("./proto"))
-        this.protos = this.protos.filter(p => !fs.statSync(this.destinationPath(`./proto/${p}`)).isFile())
+        await this.gatherProtofiles();
     }
     async prompting() {
         this.answers = await this.prompt([
@@ -65,23 +59,19 @@ module.exports = class extends Generator {
     async configuring() { }
     async default() { }
     async writing() {
-        this.log("app serviceName", this.answers.serviceName);
-        this.log("app repoUrl", this.answers.repoUrl);
-        this.log("cool feature", this.answers.cool);
         let dirs = {}
         dirs.configsDir = 'config';
-        // dirs.clientsDir = 'clients';
         dirs.deploymentDir = 'deployment';
-        dirs.servicesDir = 'services';
-        dirs.modelsDir = 'models';
-        dirs.grpc_clients = 'grpc_clients';
-        dirs.middlewareDir = 'middleware';
+        dirs.srcDir = 'src';
+        dirs.testDir = 'test';
         var rootFiles = ['.gitignore', '.dockerignore', 'Dockerfile', 'LICENSE']
-        var rootTemplate = ['Makefile', 'README.md', '_index.js', '_broker.js', '_mongoose.js', 'package.json', 'update_proto.sh']
+        var rootTemplate = ['Makefile', 'README.md', 'package.json', 'tsconfig.json', 'update_proto.sh']
         var configObj = {
             appName: this.answers.projectName,
             serviceName: this.answers.serviceName,
             repoUrl: this.answers.repoUrl,
+            version: this.answers.version,
+            serviceProtos: this.protos,
             proto: this.answers.proto
         }
         await this._copyEveryFile("./", dirs, configObj)
@@ -90,7 +80,8 @@ module.exports = class extends Generator {
     async conflicts() { }
     async install() { }
     async end() {
-        // add exicute right to the bash file
-        cp.exec(`chmod 755 ${path.join("./", this.options["name"] ? this.answers.serviceName + "/" + 'update_proto.sh' : 'update_proto.sh')}`)
+        await this.addExecuteRight('update_proto');
+        // generate methods files
+        this.composeWith(`mikudos:node_service`, { client: true, clientFolder: 'grpc_clients', proto: this.answers.proto });
     }
 };

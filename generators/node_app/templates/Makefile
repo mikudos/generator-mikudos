@@ -1,6 +1,6 @@
 IP:=$(shell /sbin/ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:")
 NAME := <%=serviceName%>_srv
-SERVICE_VERSION := 0.0.1
+SERVICE_VERSION := <%=version%>
 PORT := 50051
 
 .PHONY: update-proto

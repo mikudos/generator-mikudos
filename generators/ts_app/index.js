@@ -1,7 +1,4 @@
 var Generator = require('../../copy_generator');
-var inquirer = require('inquirer');
-const fs = require('fs');
-const cp = require('child_process');
 const path = require('path');
 const _ = require('lodash');
 
@@ -61,8 +58,6 @@ module.exports = class extends Generator {
     async configuring() { }
     async default() { }
     async writing() {
-        this.log("app serviceName", this.answers.serviceName);
-        this.log("app repoUrl", this.answers.repoUrl);
         let dirs = {}
         dirs.configsDir = 'config';
         dirs.deploymentDir = 'deployment';

@@ -1,6 +1,4 @@
 var Generator = require('../../copy_generator');
-const fs = require('fs');
-const cp = require('child_process');
 const path = require('path');
 const _ = require('lodash');
 

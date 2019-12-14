@@ -1,8 +1,6 @@
 var Generator = require('../../copy_generator');
-var inquirer = require('inquirer');
 const { ProtoInfo } = require('../../transform/proto');
 const fs = require('fs');
-const path = require('path');
 const mkdir = require('mkdirp');
 const _ = require('lodash');
 
