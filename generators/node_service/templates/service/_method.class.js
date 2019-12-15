@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 exports.<%=className%> = class <%=className%> {
-    constructor(options) {
-        this.options = options || {};
+    constructor(options = {}, app) {
+        this.options = options;
+        this.app = app;
     }
 
     async enter(ctx) {

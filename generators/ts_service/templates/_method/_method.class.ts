@@ -1,8 +1,8 @@
+import { Application } from 'mikudos-node-app';
 <% if (methods.some(md=>md.type!=='unary')) { %>import highland from "highland";<%}%>
 
 export default class {
-    options: any;
-    constructor(options?: any) {
+    constructor(private options = {}, public app: Application) {
         this.options = options || {};
     }
 <% methods.forEach(function(item){ %>
