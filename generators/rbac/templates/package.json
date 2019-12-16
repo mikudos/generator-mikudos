@@ -37,7 +37,7 @@
         "kafkajs": "^1.10.0",
         "lodash": "^4.17.15",
         "mali": "^0.18.0",
-        "mikudos-node-app": "^1.0.7",
+        "mikudos-node-app": "^1.0.16",
         "mysql2": "^2.0.0",
         "sequelize": "^5.21.2"
     },

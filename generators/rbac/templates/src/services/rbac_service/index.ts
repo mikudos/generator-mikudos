@@ -1,21 +1,10 @@
-import { Application } from 'mikudos-node-app';
-
-import * as Funcs from './rbac_service.funcs';
+import { Application, Service } from 'mikudos-node-app';
+import HandlerClass from './rbac_service.class';
+import methodMap from './rbac_service.map';
 import hooks from './rbac_service.hooks';
 
 export default function(app: Application) {
-        app.use(
-            'RbacService',
-            'VerifyAccessRightWithRids',
-            ...hooks.before,
-            Funcs['VerifyAccessRightWithRids'],
-            ...hooks.after
-        );
-        app.use(
-            'RbacService',
-            'VerifyAccessRightWithGids',
-            ...hooks.before,
-            Funcs['VerifyAccessRightWithGids'],
-            ...hooks.after
-        );
+    let handler = new HandlerClass({}, app);
+    const service = new Service(handler, methodMap, 'RbacService');
+    app.register(service.name, service, hooks);
 }

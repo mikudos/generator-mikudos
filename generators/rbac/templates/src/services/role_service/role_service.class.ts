@@ -1,12 +1,12 @@
 import highland from 'highland';
+import { Application } from 'mikudos-node-app';
 const { Op } = require('sequelize');
 
 export default class {
-    options: any;
     softDeleteQuery = {
         deletedAt: null
     };
-    constructor(options?: any) {
+    constructor(private options = {}, public app: Application) {
         this.options = options || {};
     }
 

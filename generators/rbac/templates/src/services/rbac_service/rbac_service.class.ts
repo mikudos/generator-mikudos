@@ -2,8 +2,7 @@ import _ from 'lodash';
 import { Application } from 'mikudos-node-app';
 
 export default class {
-    options: any;
-    constructor(options?: any) {
+    constructor(private options = {}, public app: Application) {
         this.options = options || {};
     }
 

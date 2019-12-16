@@ -3,11 +3,11 @@ import yaml from 'js-yaml';
 import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
+import { Application } from 'mikudos-node-app';
 const { Op } = require('sequelize');
 
 export default class {
-    options: any;
-    constructor(options?: any) {
+    constructor(private options = {}, public app: Application) {
         this.options = options || {};
     }
 
