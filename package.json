@@ -4,7 +4,7 @@
   "description": "yo generator for mikudos service frame-work",
   "main": "index.js",
   "scripts": {
-    "test": "mikudos test"
+    "test": "mocha \"test/**/*.js\" --recursive --exit"
   },
   "files": [
     "generators"
