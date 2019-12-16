@@ -22,7 +22,6 @@ module.exports = class extends Generator {
             this.protos = this.protos.filter(p => !fs.statSync(this.destinationPath(`./proto/${p}`)).isFile())
             if (this.protos.includes(this.proto)) {
                 this.protos.splice(this.protos.indexOf(this.proto), 1)
-                console.log("client folder:", this.options['clientFolder']);
             }
         }
     }
@@ -65,7 +64,7 @@ module.exports = class extends Generator {
                 type: "input",
                 name: "folder",
                 message: "Please write the folder name which located in src folder, and under that you want to generate your client implementation files.",
-                default: "grpc_clients"
+                default: this.options['clientFolder'] || "grpc_clients"
             })
             this.options['clientFolder'] = folder.folder;
         }

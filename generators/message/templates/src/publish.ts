@@ -1,6 +1,9 @@
 import { Application } from 'mikudos-socketio-app';
 
-async function publishFilter(io: SocketIO.Server): Promise<string[]> {
+async function publishFilter(
+    app: Application,
+    io: SocketIO.Namespace
+): Promise<string[]> {
     // this.io.to('authenticated').emit('rpc-call event', response);
     console.log('sockets', io.sockets.sockets);
     console.log(

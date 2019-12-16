@@ -1,5 +1,6 @@
 port: 3000
 authentication:
+  entityId: "_id"
   request:
     protocol: "http"
     host: "127.0.0.1"
