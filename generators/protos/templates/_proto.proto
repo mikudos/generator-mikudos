@@ -4,7 +4,7 @@ package <%=proto%>;
 
 service <%=protoCamel%>Service {
     // your model Requests
-    rpc Find<%=protoCamel%>List (FindRequest) returns (stream <%=protoCamel%>) {}
+    rpc Find<%=protoCamel%>List (FindRequest) returns (FindResult) {}
     rpc Get<%=protoCamel%>ById (GetRequest) returns (<%=protoCamel%>) {}
     rpc Create<%=protoCamel%> (Create<%=protoCamel%>Request) returns (<%=protoCamel%>) {}
     rpc Update<%=protoCamel%> (Update<%=protoCamel%>Request) returns (<%=protoCamel%>) {}
@@ -47,4 +47,11 @@ message <%=protoCamel%> {
     string createdAt = 13;
     string updatedAt = 14;
     string deletedAt = 15;
+}
+
+message FindResult {
+    repeated <%=protoCamel%> data = 1;
+    int32 limit = 2;
+    int64 skip = 3;
+    int64 total = 4;
 }
