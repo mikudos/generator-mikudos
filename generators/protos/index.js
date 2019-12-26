@@ -68,7 +68,7 @@ module.exports = class extends Generator {
             for (const proto of this.answers.protos) {
                 this.configObj = {
                     appName: this.answers.projectName,
-                    proto: proto,
+                    proto: _.snakeCase(proto),
                     protoCamel: _.camelCase(proto),
                     protoCamelCapitalize: _.camelCase(proto).replace(/^[a-z]/g, (L) => L.toUpperCase()),
                 }
