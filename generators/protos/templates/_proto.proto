@@ -49,7 +49,7 @@ message <%=protoCamelCapitalize%> {
     string deletedAt = 15;
 }
 
-message FindResult {
+message Find<%=protoCamelCapitalize%>Result {
     repeated <%=protoCamelCapitalize%> data = 1;
     int32 limit = 2;
     int64 skip = 3;

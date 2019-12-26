@@ -70,7 +70,7 @@ module.exports = class extends Generator {
                     appName: this.answers.projectName,
                     proto: proto,
                     protoCamel: _.camelCase(proto),
-                    protoCamelCapitalize: _.capitalize(_.camelCase(proto))
+                    protoCamelCapitalize: _.camelCase(proto).replace(/^[a-z]/g, (L) => L.toUpperCase()),
                 }
                 await this._srvProto(proto)
             }
