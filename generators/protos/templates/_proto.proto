@@ -2,13 +2,13 @@ syntax = "proto3";
 // import "proto/include/google/protobuf/any.proto";
 package <%=proto%>;
 
-service <%=protoCamelCapitalizeCapitalize%>Service {
+service <%=protoCamelCapitalize%>Service {
     // your model Requests
-    rpc Find<%=protoCamelCapitalize%>List (FindRequest) returns (Find<%=protoCamelCapitalizeCapitalize%>Result) {}
-    rpc Get<%=protoCamelCapitalize%>ById (GetRequest) returns (<%=protoCamelCapitalizeCapitalize%>) {}
-    rpc Create<%=protoCamelCapitalize%> (Create<%=protoCamelCapitalizeCapitalize%>Request) returns (<%=protoCamelCapitalize%>) {}
-    rpc Update<%=protoCamelCapitalize%> (Update<%=protoCamelCapitalizeCapitalize%>Request) returns (<%=protoCamelCapitalize%>) {}
-    rpc Update<%=protoCamelCapitalize%>ById (Update<%=protoCamelCapitalizeCapitalize%>ByIdRequest) returns (<%=protoCamelCapitalizeCapitalize%>) {}
+    rpc Find<%=protoCamelCapitalize%>List (FindRequest) returns (Find<%=protoCamelCapitalize%>Result) {}
+    rpc Get<%=protoCamelCapitalize%>ById (GetRequest) returns (<%=protoCamelCapitalize%>) {}
+    rpc Create<%=protoCamelCapitalize%> (Create<%=protoCamelCapitalize%>Request) returns (<%=protoCamelCapitalize%>) {}
+    rpc Update<%=protoCamelCapitalize%> (Update<%=protoCamelCapitalize%>Request) returns (<%=protoCamelCapitalize%>) {}
+    rpc Update<%=protoCamelCapitalize%>ById (Update<%=protoCamelCapitalize%>ByIdRequest) returns (<%=protoCamelCapitalize%>) {}
     rpc Delete<%=protoCamelCapitalize%> (FindRequest) returns (DeleteResult) {}
     rpc Delete<%=protoCamelCapitalize%>ById (GetRequest) returns (DeleteResult) {}
 }
