@@ -2,15 +2,15 @@ syntax = "proto3";
 // import "proto/include/google/protobuf/any.proto";
 package <%=proto%>;
 
-service <%=protoCamel%>Service {
+service <%=protoCamelCapitalizeCapitalize%>Service {
     // your model Requests
-    rpc Find<%=protoCamel%>List (FindRequest) returns (FindResult) {}
-    rpc Get<%=protoCamel%>ById (GetRequest) returns (<%=protoCamel%>) {}
-    rpc Create<%=protoCamel%> (Create<%=protoCamel%>Request) returns (<%=protoCamel%>) {}
-    rpc Update<%=protoCamel%> (Update<%=protoCamel%>Request) returns (<%=protoCamel%>) {}
-    rpc Update<%=protoCamel%>ById (Update<%=protoCamel%>ByIdRequest) returns (<%=protoCamel%>) {}
-    rpc Delete<%=protoCamel%> (FindRequest) returns (DeleteResult) {}
-    rpc Delete<%=protoCamel%>ById (GetRequest) returns (DeleteResult) {}
+    rpc Find<%=protoCamelCapitalize%>List (FindRequest) returns (Find<%=protoCamelCapitalizeCapitalize%>Result) {}
+    rpc Get<%=protoCamelCapitalize%>ById (GetRequest) returns (<%=protoCamelCapitalizeCapitalize%>) {}
+    rpc Create<%=protoCamelCapitalize%> (Create<%=protoCamelCapitalizeCapitalize%>Request) returns (<%=protoCamelCapitalize%>) {}
+    rpc Update<%=protoCamelCapitalize%> (Update<%=protoCamelCapitalizeCapitalize%>Request) returns (<%=protoCamelCapitalize%>) {}
+    rpc Update<%=protoCamelCapitalize%>ById (Update<%=protoCamelCapitalizeCapitalize%>ByIdRequest) returns (<%=protoCamelCapitalizeCapitalize%>) {}
+    rpc Delete<%=protoCamelCapitalize%> (FindRequest) returns (DeleteResult) {}
+    rpc Delete<%=protoCamelCapitalize%>ById (GetRequest) returns (DeleteResult) {}
 }
 
 message FindRequest {
@@ -22,18 +22,18 @@ message GetRequest {
     string query = 2;
 }
 
-message Create<%=protoCamel%>Request {
+message Create<%=protoCamelCapitalize%>Request {
     string name = 1;
 }
 
-message Update<%=protoCamel%>Request {
+message Update<%=protoCamelCapitalize%>Request {
     string query = 1;
-    Create<%=protoCamel%>Request obj = 2;
+    Create<%=protoCamelCapitalize%>Request obj = 2;
 }
 
-message Update<%=protoCamel%>ByIdRequest {
+message Update<%=protoCamelCapitalize%>ByIdRequest {
     string id = 1;
-    Create<%=protoCamel%>Request obj = 2;
+    Create<%=protoCamelCapitalize%>Request obj = 2;
 }
 
 message DeleteResult {
@@ -41,7 +41,7 @@ message DeleteResult {
     int32 num = 2;
 }
 
-message <%=protoCamel%> {
+message <%=protoCamelCapitalize%> {
     string id = 1;
     string name = 2;
     string createdAt = 13;
@@ -50,7 +50,7 @@ message <%=protoCamel%> {
 }
 
 message FindResult {
-    repeated <%=protoCamel%> data = 1;
+    repeated <%=protoCamelCapitalize%> data = 1;
     int32 limit = 2;
     int64 skip = 3;
     int64 total = 4;

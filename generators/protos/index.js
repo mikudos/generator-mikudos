@@ -69,7 +69,8 @@ module.exports = class extends Generator {
                 this.configObj = {
                     appName: this.answers.projectName,
                     proto: proto,
-                    protoCamel: _.camelCase(proto)
+                    protoCamel: _.camelCase(proto),
+                    protoCamelCapitalize: _.capitalize(_.camelCase(proto))
                 }
                 await this._srvProto(proto)
             }
