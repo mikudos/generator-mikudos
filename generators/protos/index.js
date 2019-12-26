@@ -69,8 +69,7 @@ module.exports = class extends Generator {
                 this.configObj = {
                     appName: this.answers.projectName,
                     proto: proto,
-                    protoCapitalized: proto.replace(/( |^)[a-z]/g, (L) => L.toUpperCase()),
-                    protoCapitalizedSingle: proto.replace(/( |$)s/, "").replace(/( |^)[a-z]/g, (L) => L.toUpperCase())
+                    protoCamel: _.camelCase(proto)
                 }
                 await this._srvProto(proto)
             }

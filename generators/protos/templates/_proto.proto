@@ -2,15 +2,15 @@ syntax = "proto3";
 // import "proto/include/google/protobuf/any.proto";
 package <%=proto%>;
 
-service <%=protoCapitalized%>Service {
+service <%=protoCamel%>Service {
     // your model Requests
-    rpc Find<%=protoCapitalizedSingle%>List (FindRequest) returns (stream <%=protoCapitalizedSingle%>) {}
-    rpc Get<%=protoCapitalizedSingle%>ById (GetRequest) returns (<%=protoCapitalizedSingle%>) {}
-    rpc Create<%=protoCapitalizedSingle%> (Create<%=protoCapitalizedSingle%>Request) returns (<%=protoCapitalizedSingle%>) {}
-    rpc Update<%=protoCapitalizedSingle%> (Update<%=protoCapitalizedSingle%>Request) returns (<%=protoCapitalizedSingle%>) {}
-    rpc Update<%=protoCapitalizedSingle%>ById (Update<%=protoCapitalizedSingle%>ByIdRequest) returns (<%=protoCapitalizedSingle%>) {}
-    rpc Delete<%=protoCapitalizedSingle%> (FindRequest) returns (DeleteResult) {}
-    rpc Delete<%=protoCapitalizedSingle%>ById (GetRequest) returns (DeleteResult) {}
+    rpc Find<%=protoCamel%>List (FindRequest) returns (stream <%=protoCamel%>) {}
+    rpc Get<%=protoCamel%>ById (GetRequest) returns (<%=protoCamel%>) {}
+    rpc Create<%=protoCamel%> (Create<%=protoCamel%>Request) returns (<%=protoCamel%>) {}
+    rpc Update<%=protoCamel%> (Update<%=protoCamel%>Request) returns (<%=protoCamel%>) {}
+    rpc Update<%=protoCamel%>ById (Update<%=protoCamel%>ByIdRequest) returns (<%=protoCamel%>) {}
+    rpc Delete<%=protoCamel%> (FindRequest) returns (DeleteResult) {}
+    rpc Delete<%=protoCamel%>ById (GetRequest) returns (DeleteResult) {}
 }
 
 message FindRequest {
@@ -22,18 +22,18 @@ message GetRequest {
     string query = 2;
 }
 
-message Create<%=protoCapitalizedSingle%>Request {
+message Create<%=protoCamel%>Request {
     string name = 1;
 }
 
-message Update<%=protoCapitalizedSingle%>Request {
+message Update<%=protoCamel%>Request {
     string query = 1;
-    Create<%=protoCapitalizedSingle%>Request obj = 2;
+    Create<%=protoCamel%>Request obj = 2;
 }
 
-message Update<%=protoCapitalizedSingle%>ByIdRequest {
+message Update<%=protoCamel%>ByIdRequest {
     string id = 1;
-    Create<%=protoCapitalizedSingle%>Request obj = 2;
+    Create<%=protoCamel%>Request obj = 2;
 }
 
 message DeleteResult {
@@ -41,7 +41,7 @@ message DeleteResult {
     int32 num = 2;
 }
 
-message <%=protoCapitalizedSingle%> {
+message <%=protoCamel%> {
     string id = 1;
     string name = 2;
     string createdAt = 13;
