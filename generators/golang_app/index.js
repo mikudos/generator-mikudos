@@ -87,7 +87,9 @@ module.exports = class extends Generator {
             repoUrl: this.answers.repoUrl,
             version: this.answers.version,
             protos: this.protos,
-            proto: this.answers.proto
+            proto: this.answers.proto,
+            protoCamel: _.camelCase(this.answers.proto),
+            protoCamelCapitalize: _.camelCase(this.answers.proto).replace(/^[a-z]/g, (L) => L.toUpperCase())
         }
         await this._copyEveryFile("./", dirs, configObj)
         await this._copyRootFile(rootFiles, rootTemplate, configObj)

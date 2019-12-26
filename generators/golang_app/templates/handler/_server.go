@@ -4,12 +4,12 @@ import (
 	"context"
 	"fmt"
 	"<%=repoUrl%>/db"
-	pb "<%=repoUrl%>/proto/event_aggregate"
+	pb "<%=repoUrl%>/proto/<%=proto%>"
 )
 
 // Server 事件驱动服务间流程控制方法，提供基本的数据库操作方法
 type Server struct {
-	pb.EventAggregateServiceServer
+	pb.<%=protoCamelCapitalize%>Server
 }
 
 // CreateAggregate 新建聚合，返回聚合Id
