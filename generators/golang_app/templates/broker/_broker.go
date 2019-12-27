@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/Shopify/sarama"
-	"<%=repoUrl%>/config"
+	"<%=goModuleName%>/config"
 )
 
 // BrokerInstance faaa

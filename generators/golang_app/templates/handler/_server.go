@@ -3,8 +3,8 @@ package handler
 import (
 	"context"
 	"fmt"
-	"<%=repoUrl%>/db"
-	pb "<%=repoUrl%>/proto/<%=proto%>"
+	"<%=goModuleName%>/db"
+	pb "<%=goModuleName%>/proto/<%=proto%>"
 )
 
 // Server 事件驱动服务间流程控制方法，提供基本的数据库操作方法

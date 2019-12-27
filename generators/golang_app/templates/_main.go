@@ -1,15 +1,5 @@
 package main
 
-import(
-"fmt"
-"<%=repoUrl%>/broker"
-)
-
-func main() {
-	fmt.Println(hello.BuildHello())
-}
-package main
-
 import (
 	"fmt"
 	"log"
@@ -17,10 +7,10 @@ import (
 	"os"
 	"strconv"
 
-	pb "<%=repoUrl%>/proto/schedule"
+	pb "<%=goModuleName%>/proto/schedule"
 
-	"<%=repoUrl%>/config"
-	"<%=repoUrl%>/handler"
+	"<%=goModuleName%>/config"
+	"<%=goModuleName%>/handler"
 
 	"google.golang.org/grpc"
 )

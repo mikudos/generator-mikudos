@@ -85,6 +85,7 @@ module.exports = class extends Generator {
             appName: this.answers.projectName,
             serviceName: this.answers.serviceName,
             repoUrl: this.answers.repoUrl,
+            goModuleName: `github.com/${this.answers.projectName}/${this.answers.serviceName}`,
             version: this.answers.version,
             protos: this.protos,
             proto: this.answers.proto,

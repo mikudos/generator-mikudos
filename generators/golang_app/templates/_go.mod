@@ -1,4 +1,4 @@
-module <%=repoUrl%>
+module <%=goModuleName%>
 
 go 1.12
 

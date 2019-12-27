@@ -8,9 +8,9 @@ import (
 
 	"github.com/robfig/cron/v3"
 
-	"<%=repoUrl%>/config"
-	pb "<%=repoUrl%>/proto/ai"
-	"<%=repoUrl%>/schedule"
+	"<%=goModuleName%>/config"
+	pb "<%=goModuleName%>/proto/ai"
+	"<%=goModuleName%>/schedule"
 	"google.golang.org/grpc"
 )
 
