@@ -1,11 +1,11 @@
-import { Application } from 'mikudos-node-app';
+import { Service, Method } from 'mikudos-node-app';
 <% if (methods.some(md=>md.type!=='unary')) { %>import highland from "highland";<%}%>
 
+@Service({ name: '<%=serviceName%>', serviceName: '<%=serviceName%>' })
 export default class {
-    constructor(private options = {}, public app: Application) {
-        this.options = options || {};
-    }
+    constructor() {}
 <% methods.forEach(function(item){ %>
+    @Method('<%=item.name%>')
     async <%=item.name%>(ctx: any) {
         const app = ctx.app;
 <% if (item.type=="unary") { %>
