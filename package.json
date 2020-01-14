@@ -1,15 +1,11 @@
 {
     "name": "generator-mikudos",
-    "version": "1.0.5",
+    "version": "1.0.8",
     "description": "yo generator for mikudos service frame-work",
     "main": "lib/",
     "scripts": {
         "test": "mocha \"test/**/*.js\" --recursive --exit"
     },
-    "files": [
-        "generators",
-        "lib"
-    ],
     "repository": {
         "type": "git",
         "url": "git+https://github.com/mikudos/generator-mikudos.git"
