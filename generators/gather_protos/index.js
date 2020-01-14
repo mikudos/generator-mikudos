@@ -2,7 +2,7 @@ const Generator = require('../../lib');
 const fs = require('fs');
 const yaml = require('js-yaml');
 const _ = require('lodash');
-const { ProtoInfo } = require('../../transform/proto');
+const { ProtoInfo } = require('../../lib/proto');
 
 module.exports = class extends Generator {
     // The name `constructor` is important here
