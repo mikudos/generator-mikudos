@@ -25,6 +25,12 @@ Create a directory for your new micro service.
 mkdir my-new-service; cd my-new-service/
 ```
 
+Generate your project.
+
+```bash
+yo mikudos project
+```
+
 Generate your service app and follow the prompts.
 
 ```bash
