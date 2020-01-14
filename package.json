@@ -2,7 +2,7 @@
   "name": "generator-mikudos",
   "version": "1.0.4",
   "description": "yo generator for mikudos service frame-work",
-  "main": "index.js",
+  "main": "lib/",
   "scripts": {
     "test": "mocha \"test/**/*.js\" --recursive --exit"
   },
