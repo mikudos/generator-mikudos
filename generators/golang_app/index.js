@@ -1,4 +1,4 @@
-var Generator = require('../../copy_generator');
+const Generator = require('../../lib');
 var inquirer = require('inquirer');
 const fs = require('fs');
 const cp = require('child_process');

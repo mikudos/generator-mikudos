@@ -1,4 +1,4 @@
-var Generator = require('../../copy_generator');
+const Generator = require('../../lib');
 const { ProtoInfo } = require('../../transform/proto');
 const fs = require('fs');
 const mkdir = require('mkdirp');

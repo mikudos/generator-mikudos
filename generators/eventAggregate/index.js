@@ -1,4 +1,4 @@
-var Generator = require('yeoman-generator');
+const Generator = require('../../lib');
 var inquirer = require('inquirer');
 const fs = require('fs');
 const path = require('path');

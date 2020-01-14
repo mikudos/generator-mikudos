@@ -1,4 +1,4 @@
-var Generator = require('yeoman-generator');
+const Generator = require('../../lib');
 const fs = require('fs');
 const yaml = require('js-yaml');
 const _ = require('lodash');

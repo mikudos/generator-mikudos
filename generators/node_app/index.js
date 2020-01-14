@@ -1,4 +1,4 @@
-var Generator = require('../../copy_generator');
+const Generator = require('../../lib');
 const fs = require('fs');
 const path = require('path');
 const _ = require('lodash');
