@@ -1,0 +1,1 @@
+const Generator = require('../../lib');
