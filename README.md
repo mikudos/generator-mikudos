@@ -19,10 +19,10 @@ npm install -g yo generator-mikudos
 
 ## Usage
 
-Create a directory for your new micro service.
+Create a directory for your new mikudos project.
 
 ```bash
-mkdir my-new-service; cd my-new-service/
+mkdir my-new-project; cd my-new-project/
 ```
 
 Generate your project.
