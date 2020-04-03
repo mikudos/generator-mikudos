@@ -1,5 +1,5 @@
 const Generator = require('../../lib');
-const { ProtoInfo } = require('../../transform/proto');
+const { ProtoInfo } = require('../../lib/proto');
 const fs = require('fs');
 const mkdir = require('mkdirp');
 const _ = require('lodash');
