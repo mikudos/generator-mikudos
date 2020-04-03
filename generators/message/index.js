@@ -78,6 +78,6 @@ module.exports = class extends Generator {
     async end() {
         this.protos && await this.addExecuteRight('update_proto');
         // generate methods files
-        this.composeWith(`mikudos:ts_service`, { client: true, clientFolder: 'inter_service_clients', proto: this.answers.proto });
+        this.composeWith(`mikudos:ts_service`, { client: true, clientFolder: 'inter_service_clients', proto: this.answers.proto, projectName: this.appname, name: this.answers.serviceName });
     }
 };

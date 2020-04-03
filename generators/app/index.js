@@ -196,7 +196,7 @@ module.exports = class extends Generator {
                 this.composeWith(`${genName}eventAggregate`, { projectName: this.appname, name: this.appname + "_event_aggregate", folder: `${this.appname}/${this.appname}_event_aggregate` });
             }
             if (this.confirm['message']) {
-                this.composeWith(`${genName}message`, { projectName: this.appname, name: this.appname + "_message", folder: `${this.appname}/${this.appname}_message` });
+                this.composeWith(`${genName}message`, { projectName: this.appname, name: this.appname + "_messages", folder: `${this.appname}/${this.appname}_messages` });
             }
         }
     }

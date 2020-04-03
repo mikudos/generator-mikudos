@@ -12,13 +12,13 @@ module.exports = class extends Generator {
     }
 
     async initializing() {
-        this.proto = this.options['name'] || this.options['proto'];
+        this.proto = this.options['proto'];
         if (this.proto) {
             this.protoInfo = await new ProtoInfo(`./proto/${this.proto}/${this.proto}.proto`).init();
         }
         if (this.options['client']) {
             // gather all the protos
-            this.protos = fs.readdirSync(this.destinationPath("./proto"))
+            this.protos = fs.readdirSync(this.destinationPath(`./${this.options["name"] ? this.options["name"] + "_service/" : ""}proto`))
             this.protos = this.protos.filter(p => !fs.statSync(this.destinationPath(`./proto/${p}`)).isFile())
             if (this.protos.includes(this.proto)) {
                 this.protos.splice(this.protos.indexOf(this.proto), 1)
