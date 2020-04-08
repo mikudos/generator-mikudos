@@ -1,7 +1,10 @@
 app: "mikudos-service-ts"
-consumer_group: "mikudos-service-ts"
-brokers:
-  - "127.0.0.1:9092"
+kafka:
+  clientId: "mikudos-service-ts"
+  topic: "ai"
+  consumer_group: "mikudos-service-ts"
+  brokers:
+    - "127.0.0.1:9092"
 mongodb: "mongodb+srv://qiushanyu666:qiushanyu666@cluster0-exxbz.mongodb.net/yue?retryWrites=true"
 port: 50051
 interServiceClients:

@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 import { Application } from 'mikudos-node-app';
 
-export = function(app: Application) {
-    mongoose.connect(app.config.get('mongodb'), {
+export = function (app: Application) {
+    mongoose.connect(app.get('mongodb'), {
         useUnifiedTopology: true,
-        useNewUrlParser: true
+        useNewUrlParser: true,
     });
     mongoose.Promise = global.Promise;
     app.set('mongooseClient', mongoose);

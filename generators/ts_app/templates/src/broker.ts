@@ -12,23 +12,24 @@ const run = async (consumer: any) => {
             console.log({
                 partition,
                 offset: message.offset,
-                value: message.value.toString()
+                value: message.value.toString(),
             });
-        }
+        },
     });
 };
 
-export = function(app: Application) {
-    if (BROKER_ADDRESSES) app.config.brokers = BROKER_ADDRESSES;
+export = function (app: Application) {
+    if (BROKER_ADDRESSES)
+        app.set('kafka', { ...app.get('kafka'), brokers: BROKER_ADDRESSES });
     const kfConfig: KafkaConfig = {
-        clientId: app.config.get('app'),
-        brokers: app.config.get('brokers')
+        clientId: app.get('kafka').clientId,
+        brokers: app.get('kafka').brokers,
     };
     const kafka = new Kafka(kfConfig);
     const producer = kafka.producer();
     const ProducerConnectPromise = producer.connect();
     const consumer = kafka.consumer({
-        groupId: app.config.get('consumer_group')
+        groupId: app.get('kafka').consumer_group,
     });
     const ConsumerConnectPromise = consumer.connect();
     ProducerConnectPromise.then(() => {
@@ -36,6 +37,6 @@ export = function(app: Application) {
     });
     ConsumerConnectPromise.then(() => {
         app.context.consumer = consumer;
-        run(consumer);
+        run(consumer, app.get('kafka').topic);
     });
 };
