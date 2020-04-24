@@ -7,7 +7,7 @@ const path = require('path');
 const mkdir = require('mkdirp');
 const cp = require('child_process');
 
-const SpecialParams = ["project", "protos", "deployment", "schedule", "message"]
+const SpecialParams = ["project", "protos", "deployment", "schedule", "gate"]
 const ParamEnum = ["app", "service"]
 const genName = "mikudos:"
 
@@ -157,8 +157,8 @@ module.exports = class extends Generator {
                 },
                 {
                     type: "confirm",
-                    name: "message",
-                    message: `Do you want to generate a message service with socketIO connection within your project?`
+                    name: "gate",
+                    message: `Do you want to generate a gate service with socketIO server within your project?`
                 }
             ])
         }
@@ -195,8 +195,8 @@ module.exports = class extends Generator {
             if (this.confirm['eventAggregate']) {
                 this.composeWith(`${genName}eventAggregate`, { projectName: this.appname, name: this.appname + "_event_aggregate", folder: `${this.appname}/${this.appname}_event_aggregate` });
             }
-            if (this.confirm['message']) {
-                this.composeWith(`${genName}message`, { projectName: this.appname, name: this.appname + "_messages", folder: `${this.appname}/${this.appname}_messages` });
+            if (this.confirm['gate']) {
+                this.composeWith(`${genName}gate`, { projectName: this.appname, name: this.appname + "_gate", folder: `${this.appname}/${this.appname}_gate` });
             }
         }
     }
