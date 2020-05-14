@@ -58,8 +58,8 @@ module.exports = class extends Generator {
         dirs.deploymentDir = 'deployment';
         dirs.srcDir = 'src';
         dirs.testDir = 'test';
-        var rootFiles = ['.gitignore', '.dockerignore', 'Dockerfile', 'LICENSE']
-        var rootTemplate = ['Makefile', 'README.md', 'package.json', 'tsconfig.json']
+        var rootFiles = ['.dockerignore', 'Dockerfile', 'LICENSE']
+        var rootTemplate = ['Makefile', 'README.md', '_.gitignore', 'package.json', 'tsconfig.json']
         if (this.protos) rootTemplate.push('update_proto.sh');
         var configObj = {
             appName: this.answers.projectName,

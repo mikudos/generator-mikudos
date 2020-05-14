@@ -81,8 +81,8 @@ module.exports = class extends Generator {
         dirs.servicesDir = 'handler';
         dirs.scheduleDir = 'schedule';
 
-        var rootFiles = ['.gitignore', '.dockerignore', 'Dockerfile', 'crons.yaml', 'LICENSE']
-        var rootTemplate = ['Makefile', 'README.md', '_main.go', '_go.mod', 'update_proto.sh']
+        var rootFiles = ['.dockerignore', 'Dockerfile', 'crons.yaml', 'LICENSE']
+        var rootTemplate = ['Makefile', 'README.md', '_.gitignore', '_main.go', '_go.mod', 'update_proto.sh']
         var configObj = {
             appName: this.answers.projectName,
             serviceName: this.answers.serviceName,

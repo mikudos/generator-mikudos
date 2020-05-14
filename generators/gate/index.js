@@ -38,28 +38,6 @@ module.exports = class extends Generator {
                 default: "0.0.1"
             }
         ]);
-        this.confirm = await this.prompt([
-            {
-                type: "confirm",
-                name: "chat",
-                message: `Do you want to implement chat service within your gate?`
-            },
-            {
-                type: "confirm",
-                name: "jsonRPC",
-                message: `Do you want to implement jsonRPC service within your gate?`
-            },
-            {
-                type: "confirm",
-                name: "pusher",
-                message: `Do you want to implement message_pusher service within your gate?`
-            },
-            {
-                type: "confirm",
-                name: "duplex",
-                message: `Do you want to implement duplex service within your gate?`
-            }
-        ])
         this.answers.projectName = _.snakeCase(this.answers["projectName"]);
         this.answers.serviceName = _.snakeCase(this.answers["serviceName"]);
         let repoUrl = await this.prompt([
@@ -82,8 +60,8 @@ module.exports = class extends Generator {
         dirs.deploymentDir = 'deployment';
         dirs.srcDir = 'src';
         dirs.testDir = 'test';
-        var rootFiles = ['.gitignore', '.dockerignore', 'Dockerfile', 'LICENSE']
-        var rootTemplate = ['Makefile', 'README.md', 'package.json', 'tsconfig.json']
+        var rootFiles = ['.dockerignore', 'Dockerfile', 'LICENSE']
+        var rootTemplate = ['Makefile', 'README.md', '_.gitignore', 'package.json', 'tsconfig.json']
         if (this.protos) rootTemplate.push('update_proto.sh');
         var configObj = {
             appName: this.answers.projectName,
