@@ -18,6 +18,6 @@ module.exports = {
     eventAggregate: 'Create a Mikudos eventAggregate service in the current folder',
     ts_service: 'Generate a new methods implementation',
     schedule: 'Create a Mikudos schedule service within your project',
-    message: 'Create a Mikudos message service within your project',
+    gate: 'Create a Mikudos gate server within your project',
     rbac: 'Create a Mikudos RBAC service in the current folder',
 };
