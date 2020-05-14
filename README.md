@@ -127,20 +127,26 @@ Generate your Python method in micro service based on your proto file.
 yo mikudos:python_service
 ```
 
-Generate your golang Schedule micro service based on one proto file.
+Generate your gate server.
+
+```bash
+yo mikudos:gate
+```
+
+Generate your golang Schedule micro service.
 
 ```bash
 yo mikudos:schedule
 ```
 
-Generate your golang EventAggregate micro service based on one proto file.
+Generate your golang EventAggregate micro service.
 
 ```bash
 yo mikudos:eventAggregate
 ```
 
-Generate your golang Message micro service based on one proto file.
+Generate your golang Message-Pusher micro service.
 
 ```bash
-yo mikudos:message
+yo mikudos:message_pusher
 ```
