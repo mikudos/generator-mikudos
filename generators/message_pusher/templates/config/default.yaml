@@ -1,8 +1,0 @@
-port: 50051
-mode: "group"
-# StorageType: "redis"
-StorageType: "mysql"
-redisSource:
-  "node1:1": "tcp@localhost:6379"
-mySQLSource:
-  "node1:1": "root:MikudosMessagePusherServerPassword@(192.168.12.197:3306)/mikudos_message_pusher?parseTime=true&loc=Local&charset=utf8"

@@ -16,7 +16,7 @@ import (
 
 const (
 	saveChannelMsgSQL       = "INSERT INTO channel_msg(skey,mid,ttl,msg,ctime,mtime) VALUES(?,?,?,?,?,?)"
-	getChannelMsgSQL        = "SELECT mid, ttl, msg FROM channel_msg WHERE skey=? AND mid>? ORDER BY mid"
+	getChannelMsgSQL        = "SELECT mid, ttl, msg FROM channel_msg WHERE skey=? AND mid>=? ORDER BY mid"
 	delResavedChannelMsgSQL = "DELETE FROM channel_msg WHERE skey=? AND mid=?"
 	delExpiredChannelMsgSQL = "DELETE FROM channel_msg WHERE ttl<=?"
 	delChannelMsgSQL        = "DELETE FROM channel_msg WHERE skey=?"
@@ -72,6 +72,7 @@ func NewMySQLStorage() *MySQLStorage {
 
 // SaveChannel implements the Storage SaveChannel method.
 func (s *MySQLStorage) SaveChannel(key string, msg json.RawMessage, mid int64, expire uint) error {
+	// !TODO: check if mid with key exists, if exists then return
 	db := s.getConn(key)
 	if db == nil {
 		return ErrNoMySQLConn
@@ -116,8 +117,9 @@ func (s *MySQLStorage) GetChannel(key string, mid int64) ([]*pb.Message, error) 
 			log.Warn("user_key: \"%s\" mid: %d expired", key, cmid)
 			continue
 		}
-		msgs = append(msgs, &pb.Message{MsgId: cmid, ChannelId: key, Msg: json.RawMessage(msg), Expire: int32(expire), MessageType: pb.MessageType(pb.MessageType_RESPONSE)})
+		msgs = append(msgs, &pb.Message{MsgId: cmid, ChannelId: key, Msg: string(json.RawMessage(msg)), Expire: int32(expire), MessageType: pb.MessageType(pb.MessageType_RESPONSE)})
 	}
+	// fmt.Printf("GetChannel msgs: %v\n", msgs)
 	return msgs, nil
 }
 
