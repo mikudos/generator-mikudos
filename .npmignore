@@ -4,7 +4,7 @@
 
 /.editorconfig
 /.eslintrc.json
-/.gitignore
+# /.gitignore
 /.publishrc
 /.travis.yml
 /gulpfile.js
