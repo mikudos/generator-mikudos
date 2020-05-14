@@ -79,8 +79,8 @@ module.exports = class extends Generator {
         dirs.dbDir = 'db';
         dirs.modelsDir = 'models';
 
-        var rootFiles = ['.gitignore', '.dockerignore', 'Dockerfile', 'LICENSE']
-        var rootTemplate = ['Makefile', 'README.md', '_main.go', '_go.mod', 'update_proto.sh']
+        var rootFiles = ['.dockerignore', 'Dockerfile', 'LICENSE']
+        var rootTemplate = ['Makefile', 'README.md', '_.gitignore', '_main.go', '_go.mod', 'update_proto.sh']
         var configObj = {
             appName: this.answers.projectName,
             serviceName: this.answers.serviceName,
