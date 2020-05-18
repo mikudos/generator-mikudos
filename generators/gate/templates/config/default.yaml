@@ -1,4 +1,30 @@
+app: "mikudos-gate"
+####################
+# kafka concumer group
+# when you activate message broker with kafka, then you need to mind these settings
+# consumer_group will set your services into defference group. When message delivered throw kafka, this will change the delivery policy
+# brokers is the setting for your kafka end points, you can set multiple kafka end points with strings list.
+####################
+# consumer_group: "mikudos-gate"
+# brokers:
+#   - "127.0.0.1:9092"
+mongodb: ""
+host: "localhost"
 port: 3000
+####################
+# redis adapter settings
+# you should set redisAdaptered to true, if you want use redis as your message sync adapter across your gate services. default is false
+# you should set redisConfig to your redis server. Currently support only single node mode.
+####################
+redisAdaptered: false
+redisConfig:
+  host: "localhost"
+  port: 6379
+####################
+# authentication settings
+# gate won't do authentication independently. Because gate is only the server that transport things in streamly way or like curl usage.
+# you should set request method to your authentication server.
+####################
 authentication:
   entityId: "_id"
   request:
@@ -8,10 +34,30 @@ authentication:
     path: "/authentication"
     method: "POST"
   tokenPath: "accessToken"
+  # eventPath can be changed in every sub module, this is the path you emit from client
   eventPath: "authentication"
 chat:
+  # eventPath can be changed in every sub module, this is the path you emit from client
   eventPath: "message"
   roomPath: "room"
-eventPath:
-  json_rpc_services: "rpc-call"
-  duplex_services: "stream-call"
+json_rpc_services:
+  # eventPath can be changed in every sub module, this is the path you emit from client
+  eventPath: "rpc-call"
+duplex_services:
+  # eventPath can be changed in every sub module, this is the path you emit from client
+  eventPath: "stream-call"
+pusher:
+  address: "127.0.0.1"
+  port: 50051
+  service: "MessagePusher"
+event_sync:
+  address: "127.0.0.1"
+  port: 50052
+  service: "EventSyncService"
+####################
+# internal grpc serivce config
+####################
+interServiceClients:
+  message_pusher:
+    name: "192.168.199.194"
+    port: "50058"
