@@ -16,7 +16,7 @@
         "mikudos"
     ],
     "dependencies": {
-        "@grpc/grpc-js": "^0.6.7",
+        "@grpc/grpc-js": "^1.1.8",
         "@grpc/proto-loader": "^0.5.2",
         "js-yaml": "^3.13.1",
         "jscodeshift": "^0.6.4",
