@@ -1,5 +1,5 @@
-ENV_NAME := language-ai
-NAME := <%=serviceName%>_service
+ENV_NAME := <%=serviceName%>
+NAME := <%=serviceName%>
 SERVICE_VERSION := 0.0.1
 ENV_FILE := environment.yml
 
