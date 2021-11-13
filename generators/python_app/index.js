@@ -72,7 +72,7 @@ module.exports = class extends Generator {
     async writing() {
         this.log("app serviceName", this.answers.serviceName);
         this.log("app repoUrl", this.answers.repoUrl);
-        this.log("cool feature", this.answers.cool);
+        this.log("selected proto", this.answers.proto);
         let dirs = {}
         dirs.configsDir = 'configs';
         dirs.brokerDir = 'broker';
@@ -85,7 +85,9 @@ module.exports = class extends Generator {
         var configObj = {
             appName: this.answers.projectName,
             serviceName: this.answers.serviceName,
-            repoUrl: this.answers.repoUrl
+            repoUrl: this.answers.repoUrl,
+            proto: this.answers.proto,
+            protos: this.protos
         }
         await this._copyEveryFile("./", dirs, configObj)
         await this._copyRootFile(rootFiles, rootTemplate, configObj)
