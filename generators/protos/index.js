@@ -1,5 +1,4 @@
 const Generator = require('../../lib');
-const inquirer = require('inquirer');
 const _ = require('lodash');
 const path = require('path');
 const mkdir = require('mkdirp');

@@ -1,5 +1,4 @@
 const Generator = require('../../lib');
-const inquirer = require('inquirer');
 
 module.exports = class extends Generator {
     // The name `constructor` is important here

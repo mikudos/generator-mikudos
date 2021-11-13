@@ -1,5 +1,4 @@
 const Generator = require('../../lib');
-var inquirer = require('inquirer');
 const yosay = require('yosay');
 const _ = require('lodash');
 const fs = require('fs');
