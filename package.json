@@ -1,6 +1,6 @@
 {
     "name": "generator-mikudos",
-    "version": "1.0.17",
+    "version": "1.0.18",
     "description": "yo generator for mikudos service frame-work",
     "main": "lib/",
     "scripts": {
