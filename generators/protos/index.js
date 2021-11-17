@@ -32,6 +32,7 @@ module.exports = class extends Generator {
     async initializing() {
     }
     async prompting() {
+        let protos = [], proto;
         if (!this.options["name"]) {
             let conf = await this.prompt([
                 {
@@ -39,10 +40,16 @@ module.exports = class extends Generator {
                     name: "name",
                     message: "Your protos project name:",
                     default: this.appname // Default to current folder name
+                },
+                {
+                    type: "checkbox",
+                    name: "services",
+                    message: "Please select available service protos",
+                    choices: ['schedule', 'event_aggregate', 'messages']
                 }
             ])
+            protos = _.uniq(_.concat(protos, conf["services"]));
         }
-        let protos = [], proto;
         do {
             proto = await this.prompt([
                 {
