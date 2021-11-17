@@ -70,7 +70,6 @@ module.exports = class extends Generator {
         ])
         if (this.answers.confirm) {
             this.answers.protos = protos
-            this.log("confirm:", JSON.stringify(protos))
             for (const proto of this.answers.protos) {
                 this.configObj = {
                     appName: this.answers.projectName,
@@ -95,8 +94,10 @@ module.exports = class extends Generator {
     async default() { }
     async writing() {
         this.log("confirm:", JSON.stringify(this.answers.protos))
+        await this._copyEveryFile("./", { proto: 'proto' }, this.configObj)
     }
     async conflicts() { }
     async install() { }
-    async end() { }
+    async end() {
+    }
 };
