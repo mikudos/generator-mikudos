@@ -1,8 +1,13 @@
 syntax = "proto3";
+// import healthcheck payment
+import "proto/healthcheck/healthcheck.proto";
 // import "proto/include/google/protobuf/any.proto";
 package messages;
 
 service MessagesService {
+    // automate grpc healthcheck method
+    rpc Check(HealthCheckRequest) returns (HealthCheckResponse);
+    
     rpc SayHello (HelloRequest) returns (HelloReply) {}
     rpc SayHi (HelloRequest) returns (HelloReply) {}
 }
