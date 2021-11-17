@@ -1,5 +1,4 @@
 const Generator = require('../../lib');
-const inquirer = require('inquirer');
 const _ = require('lodash');
 const path = require('path');
 const mkdir = require('mkdirp');
@@ -50,7 +49,7 @@ module.exports = class extends Generator {
                     type: "input",
                     name: "protoName",
                     message: "Add proto for micro_service with name:",
-                    default: "users" // Default to current folder name
+                    default: "" // Default to current folder name
                 }
             ]);
             if (proto["protoName"]) protos = _.uniq(_.concat(protos, proto["protoName"]))
